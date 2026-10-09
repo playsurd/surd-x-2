@@ -1,0 +1,476 @@
+<!doctypehtml><html lang=en-us><head>
+<base href="https://cdn.jsdelivr.net/gh/playsurd/surd-x-2@main/return-to-castle-wolfenstein/">
+<script data-surd="1">(function () {
+  var W = window;
+  var unityTarget = null;
+  function tellUnity(methods, arg) {
+    var inst = W.__surdUnity || W.unityInstance || W.gameInstance;
+    if (!inst || !inst.SendMessage || !unityTarget) return;
+    for (var i = 0; i < methods.length; i++) {
+      try { arg === undefined ? inst.SendMessage(unityTarget, methods[i]) : inst.SendMessage(unityTarget, methods[i], arg); }
+      catch (e) {  }
+    }
+  }
+  if (typeof W.initPokiBridge !== 'function') {
+    W.initPokiBridge = function (name) { unityTarget = name || unityTarget; };
+  }
+  if (typeof W.commercialBreak !== 'function') {
+    W.commercialBreak = function () { setTimeout(function () { tellUnity(['CommercialBreakComplete', 'commercialBreakComplete']); }, 0); };
+  }
+  if (typeof W.rewardedBreak !== 'function') {
+    W.rewardedBreak = function () { setTimeout(function () { tellUnity(['RewardedBreakComplete', 'rewardedBreakComplete'], 'false'); }, 0); };
+  }
+  var resolved = function () { return Promise.resolve(); };
+  if (!W.PokiSDK) {
+    W.PokiSDK = {
+      init: resolved, initPokiBridge: function () {}, setDebug: function () {},
+      gameLoadingStart: function () {}, gameLoadingFinished: function () {},
+      gameLoadingProgress: function () {},
+      gameplayStart: function () {}, gameplayStop: function () {},
+      commercialBreak: resolved, rewardedBreak: function () { return Promise.resolve(false); },
+      happyTime: function () {}, customEvent: function () {}, captureError: function () {},
+      isAdBlocked: function () { return false; }, shareableURL: function () { return Promise.resolve(location.href); },
+      getURLParam: function (k) { try { return new URL(location.href).searchParams.get(k) || ''; } catch (e) { return ''; } },
+    };
+  }
+  if (!W.YaGames) {
+    var yPlayer = {
+      getName: function () { return 'player'; }, getUniqueID: function () { return 'local'; },
+      getData: function () { return Promise.resolve({}); }, setData: resolved,
+      getStats: function () { return Promise.resolve({}); }, setStats: resolved, incrementStats: resolved,
+      getMode: function () { return 'lite'; }, getPhoto: function () { return ''; },
+    };
+    var yLeaderboards = {
+      setLeaderboardScore: resolved,
+      getLeaderboardEntries: function () { return Promise.resolve({ entries: [] }); },
+      getLeaderboardPlayerEntry: function () { return Promise.reject(new Error('no entry')); },
+      getLeaderboardDescription: function () { return Promise.resolve({}); },
+    };
+    var ySdk = {
+      adv: {
+        showFullscreenAdv: function (o) { var c = o && o.callbacks; if (c && c.onClose) setTimeout(function () { c.onClose(false); }, 0); },
+        showRewardedVideo: function (o) { var c = o && o.callbacks; if (c && c.onClose) setTimeout(function () { c.onClose(); }, 0); },
+        getBannerAdvStatus: function () { return Promise.resolve({ stickyAdvIsShowing: false }); },
+      },
+      getPlayer: function () { return Promise.resolve(yPlayer); },
+      getPayments: function () { return Promise.resolve({
+        getCatalog: function () { return Promise.resolve([]); },
+        getPurchases: function () { return Promise.resolve([]); },
+        purchase: function () { return Promise.reject(new Error('payments unavailable')); },
+        consumePurchase: resolved,
+      }); },
+      getFlags: function () { return Promise.resolve({}); },
+      getStorage: function () { return Promise.resolve(window.localStorage); },
+      clipboard: { writeText: resolved },
+      shortcut: { canShowPrompt: function () { return Promise.resolve({ canShow: false }); }, showPrompt: function () { return Promise.resolve({ outcome: 'rejected' }); } },
+      feedback: { canReview: function () { return Promise.resolve({ value: false }); }, requestReview: function () { return Promise.resolve({ feedbackSent: false }); } },
+      getLeaderboards: function () { return Promise.resolve(yLeaderboards); },
+      features: { LoadingAPI: { ready: function () {} } },
+      screen: { fullscreen: { request: resolved, exit: resolved } },
+      isAvailableMethod: function () { return Promise.resolve(false); },
+      environment: { i18n: { lang: 'en' }, app: { id: 'local' } },
+      deviceInfo: { isDesktop: function () { return true; }, isMobile: function () { return false; },
+                    isTablet: function () { return false; }, isTV: function () { return false; },
+                    type: 'desktop' },
+    };
+    W.YaGames = { init: function () { return Promise.resolve(ySdk); } };
+    W.ysdk = ySdk;
+  }
+  if (!W.ytgame) {
+    var ytNoop = function () {};
+    W.ytgame = {
+      IN_PLAYABLES_ENV: false,
+      game: { firstFrameReady: ytNoop, gameReady: ytNoop, loadData: function () { return Promise.resolve(''); },
+              saveData: function () { return Promise.resolve(); }, isPaused: function () { return false; } },
+      system: { getLanguage: function () { return 'en'; }, isAudioEnabled: function () { return true; },
+                onAudioEnabledChange: ytNoop, onPause: ytNoop, onResume: ytNoop },
+      health: { logError: ytNoop, logWarning: ytNoop },
+      engagement: { sendScore: function () { return Promise.resolve(); } },
+      ads: { requestInterstitialAd: function () { return Promise.resolve(); } },
+    };
+  }
+  if (typeof document !== 'undefined' && document.xURL === undefined) {
+    try { document.xURL = 'https://poki.com/'; } catch (e) {  }
+  }
+  if (!W.YYGGames) {
+    var yyAds = function (o) {
+      o = o || {};
+      var step = function (fn) { if (typeof fn === 'function') setTimeout(fn, 0); };
+      step(o.beforeShowAd);
+      setTimeout(function () { step(o.afterShowAd); step(o.rewardDismissed); }, 1);
+    };
+    W.YYGGames = {
+      startup: function (o) { if (o && typeof o.complete === 'function') setTimeout(o.complete, 0); },
+      startupByYad: function () {}, showSplash: function () {},
+      showInterstitial: yyAds, showReward: yyAds,
+      canShowReward: function () { return false; },
+      getAdPlatformType: function () { return 'none'; },
+      getForgames: function () { return Promise.resolve([]); },
+      navigate: function () {},
+      onVisibilitychange: function () {},
+    };
+  }
+  if (!W.GamePix) {
+    W.GamePix = { init: function () {}, ping: function () {}, gameLoadingStart: function () {}, gameLoadingFinished: function () {},
+                  interstitialAd: resolved, rewardAd: function () { return Promise.resolve(false); }, happyMoment: function () {} };
+  }
+  if (!W.CrazyGames) {
+    var noop = function () {};
+    W.CrazyGames = { SDK: {
+      init: resolved, game: { gameplayStart: noop, gameplayStop: noop, loadingStart: noop, loadingStop: noop, happytime: noop },
+      ad: { requestAd: function (t, cb) { if (cb && cb.adFinished) cb.adFinished(); }, hasAdblock: function () { return Promise.resolve(false); } },
+      user: { getUser: function () { return Promise.resolve(null); } },
+      banner: { requestBanner: resolved, clearAllBanners: noop },
+    } };
+  }
+})();
+if (typeof window !== 'undefined') {
+  if (typeof window.environmentData === 'undefined') window.environmentData = 'NO_DATA';
+  if (typeof window.nowFullAdOpen === 'undefined') window.nowFullAdOpen = false;
+}
+try {
+  var parentWin = window.parent;
+  if (parentWin && parentWin !== window) {
+    if (typeof parentWin.maeExportApis_ !== 'function') parentWin.maeExportApis_ = function () {};
+  }
+} catch (e) {  }
+if(typeof window.UnityProgress!=="function")window.UnityProgress=function(){this.SetMessage=function(){};this.SetProgress=function(){};this.Clear=function(){};};
+window.alert=function(){};window.confirm=function(){return false;};window.prompt=function(){return null;};
+(function(){
+    /* DEAD HOSTS, blocked for a different reason than the ad networks below.
+     *
+     * Sixteen files across the catalogue live on hosts that no longer answer. Vendoring could not
+     * save them (nothing to download, and none are in the Wayback Machine), but every one turned
+     * out to be inessential once looked at: an ad SWF (bbplayer), a portal logo (kizi), portal
+     * SDKs (gamemix, gmsdk), a sitelock check (pegasgames' "wheely7sec.swf" — wheely-7 ships its
+     * real game in _vendor), cosmetic images, and duplicates of files the game already has
+     * locally (both spongebob ports ship their own flambe.js). Left alone, each one is a request
+     * that hangs until it times out; blocked, it fails instantly and the game gets on with it. */
+    var DEAD = /(bbplayer\.net|cdn0\.kizi\.com|gmapi\.gamemix\.com|r3tq6l1\/gmsdk|candystand\.com|eags\.us|iep-esy\.ir|pegasgames\.com|ngames365\.github\.io|yurivish\.com|chicken\.royalredeemerlutheranschool\.org|marketjs-us\/en\/patch|cdn\.jsdelivr\.net\/discount\.json)/i;
+    var BAD = /(doubleclick\.net|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adtrafficquality\.google|2mdn\.net|imasdk\.googleapis\.com|adsbygoogle|google-analytics\.com|googletagmanager\.com|gstatic\.com\/firebasejs|gamemonetize\.com|fliplineads\.com|cpmstar\.com|ngads\.com|adinplay\.com|mochibot\.com|mochiads\.com|gamedistribution\.com|msgrt\.gamedistribution\.com|azerioncircle\.com|gamemonkey\.org|gameanalytics\.com|gamedock\.io|enjoy4fun\.com|gamebridge\.games|gamearter\.com|poki\.io|famobi\.com|softgames\.de|analytics\.shapez\.io|scorecardresearch\.com|moatads\.com|amazon-adsystem\.com|criteo|pubmatic|rubiconproject|adnxs\.com|casalemedia|smartadserver|taboola|outbrain|hotjar\.com|mixpanel|clarity\.ms|rudderlabs\.com|analytics\.tiktok\.com|connect\.facebook\.net|yandex\.ru\/metrika|mc\.yandex|cloud\.unity3d\.com|pushalert\.co|quizvana\.com|serviceclic\.com|atpnd\.com|r9x\.in|adsgram\.ai)/i;
+    function bad(u){ try { var t = String(u); return BAD.test(t) || DEAD.test(t); } catch(e){ return false; } }
+    /* HOST-ABSOLUTE PATHS: "/version.json", "/audio/x.flac".
+     *
+     * A leading slash ignores <base> completely and resolves against the ORIGIN, which for us
+     * is the site (or an opaque blob origin) and never holds game assets — so every such
+     * request is a guaranteed 404. 2048-merge-run asked for /version.json, /fileconfig.json
+     * and every one of its scene files this way and showed a black screen with nothing but
+     * "Script error." to go on; a-dark-room does the same with /audio/*.flac.
+     *
+     * Since no host-absolute path can ever be correct here, point them all at the game's own
+     * base. This is a rewrite rather than a refusal: the files exist, just one level up.
+     * Protocol-relative "//host/x" is a different thing (a real remote host) and is left to
+     * the denylist above. */
+    /* Read the base LAZILY. This guard is deliberately installed before the manifest script
+     * (that order is load-bearing — moving SURD_GAME ahead of the prelude once stopped this
+     * very game from rendering at all), so at install time there is no base to capture. */
+    function gbase(){ try { return (window.SURD_GAME && window.SURD_GAME.base) || ''; } catch(e){ return ''; } }
+    /* A file we downloaded from a third-party host and now ship ourselves. Checked before
+     * anything else: this is what stops a game depending on someone else's server staying up,
+     * and it works even when the game builds the URL at runtime. */
+    function vendored(u){
+      try {
+        var M = window.SURD_GAME, map = M && M.ext;
+        if (!map || typeof u !== 'string') return null;
+        var q = u.split('#')[0];
+        if (map[q]) return String(M.base).replace(/\/?$/, '/') + map[q];
+        var noq = q.split('?')[0];
+        if (map[noq]) return String(M.base).replace(/\/?$/, '/') + map[noq];
+        return null;
+      } catch(e){ return null; }
+    }
+    function rebase(u){
+      try {
+        if (typeof u !== 'string' || !u) return u;
+        var v = vendored(u); if (v) return v;
+        var B = gbase(); if (!B) return u;
+        B = B.replace(/\/?$/, '/');
+        if (u.indexOf(B) === 0) return u;                        // already where it belongs
+        /* Never touch OUR OWN plumbing. The runtime and its adapters live at a different path
+         * (and in production a different origin), and rebasing them points the loader at the
+         * game's asset directory, where no adapter exists. */
+        var RT = '';
+        try { RT = (window.SURD_GAME && window.SURD_GAME.runtime) || ''; } catch(e){}
+        if (RT && u.indexOf(RT) === 0) return u;
+        if (u.indexOf('/_rt/') >= 0 || u.indexOf('surd-runtime') >= 0) return u;
+        /* A bare "/" (or "/?x") has NO path to rebase, and rewriting it produced a request for
+         * the base DIRECTORY, which 404s and shows up in the log as
+         * "failed to load .../suika-game/". Leave those alone. */
+        if (u.charAt(0) === '/' && u.charAt(1) !== '/') {
+          var rest = u.slice(1);
+          return rest && rest.charAt(0) !== '?' && rest.charAt(0) !== '#' ? B + rest : u;
+        }
+        /* An engine that builds its own absolute URLs from location, rather than letting the
+         * browser resolve a relative path, lands on the SITE origin — which holds no game
+         * assets either. 2048-merge-run (LayaAir) asks for "<origin>/version.json" outright,
+         * so matching only a leading slash was not enough. Our origin is never a legitimate
+         * place for a game to fetch from, so the same redirect applies. */
+        var o = location.origin;
+        if (o && o !== 'null' && u.indexOf(o + '/') === 0) return B + u.slice(o.length + 1);
+        return u;
+      } catch(e){ return u; }
+    }
+    var of = window.fetch;
+    if (of) window.fetch = function(i, o){
+      var u = (i && i.url) ? i.url : i;
+      /* 204 forbids a body, and passing one throws in Firefox ("Response body is given with a
+       * null body status") — INSIDE the game's own fetch call, which is exactly what this branch
+       * exists to protect (papa-burgeria). Status 200 with an empty body is accepted everywhere
+       * and reads to the caller as "nothing here", which is what we want to say. */
+      if (bad(u)) return Promise.resolve(new Response('', {status:200}));
+      if (typeof i === 'string') { var r = rebase(i); if (r !== i) return of.call(this, r, o); }
+      return of.apply(this, arguments);
+    };
+    var oo = window.XMLHttpRequest && window.XMLHttpRequest.prototype.open;
+    if (oo) window.XMLHttpRequest.prototype.open = function(m, u){
+      if (bad(u)) { arguments[1] = 'data:text/plain,'; }
+      else if (typeof u === 'string') { arguments[1] = rebase(u); }
+      return oo.apply(this, arguments);
+    };
+    if (navigator.sendBeacon) { var ob = navigator.sendBeacon.bind(navigator);
+      navigator.sendBeacon = function(u, d){ return bad(u) ? true : ob(u, d); }; }
+    var OW = window.WebSocket;
+    if (OW) window.WebSocket = function(u, p){
+      if (bad(u)) u = 'ws://127.0.0.1:1';
+      return p === undefined ? new OW(u) : new OW(u, p);
+    };
+    /* setAttribute('src', …) bypasses the property setter patched below, and several ad
+     * tags use exactly that form (moto-x3m still reached googlesyndication until this). */
+    try {
+      var osa = Element.prototype.setAttribute;
+      Element.prototype.setAttribute = function(n, v){
+        if (n && /^(src|href|data)$/i.test(n)) {
+          if (bad(v)) return;
+          /* Same host-absolute problem, reached through an attribute: an <img> or <audio>
+           * given "/audio/x.flac" resolves against the origin and 404s. */
+          if (typeof v === 'string') arguments[1] = rebase(v);
+        }
+        return osa.apply(this, arguments);
+      };
+    } catch(e){}
+    /* Element src= is how most ad tags actually load. */
+    try {
+      ['HTMLImageElement','HTMLScriptElement','HTMLIFrameElement','HTMLAudioElement','HTMLVideoElement','HTMLSourceElement'].forEach(function(k){
+        var P = window[k] && window[k].prototype; if (!P) return;
+        var d = Object.getOwnPropertyDescriptor(P, 'src'); if (!d || !d.set) return;
+        Object.defineProperty(P, 'src', {
+          configurable: true, enumerable: d.enumerable, get: d.get,
+          set: function(v){
+            if (bad(v)) return;
+            var t = typeof v === 'string' ? rebase(v) : v;
+            /* CORS ON OUR OWN ASSETS — not politeness, a hard requirement.
+             *
+             * WebGL refuses to upload a texture from an image fetched cross-origin without
+             * CORS: the canvas would be tainted, so it throws "SecurityError: The operation is
+             * insecure" inside uploadTexture and the game shows a grey screen with everything
+             * apparently loaded (stair-race-3d, PlayCanvas). Our assets live on another origin
+             * by definition — the page is a blob, the files are on the CDN — so every engine
+             * that loads textures through <img> hits this.
+             *
+             * Scoped to OUR hosts and to relative URLs (which resolve against our base through
+             * <base>): jsDelivr and raw both send Access-Control-Allow-Origin: *, so requesting
+             * CORS always succeeds there. Setting it on a third-party host that does NOT send
+             * the header would turn a working image into a failed one, so those are left alone.
+             *
+             * Scripts get the same treatment for a different reason: without crossorigin an
+             * error inside an engine-injected script arrives as the bare, useless
+             * "Script error." with no file or line (2048-merge-run's laya.core.min.js). */
+            try {
+              var ours = typeof t === 'string' && (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(t)
+                || t.indexOf(gbase()) === 0
+                || /^https:\/\/(cdn\.jsdelivr\.net|raw\.githubusercontent\.com)\//.test(t));
+              if (ours && !this.crossOrigin) this.crossOrigin = 'anonymous';
+            } catch(e){}
+            return d.set.call(this, t);
+          }
+        });
+      });
+    } catch(e){}
+  })();</script>
+<script data-surd="1">window.SURD_GAME={"id":"return-to-castle-wolfenstein","engine":"generic","base":"https://cdn.jsdelivr.net/gh/playsurd/surd-x-2@main/return-to-castle-wolfenstein/","runtime":"https://cdn.jsdelivr.net/gh/playsurd/surd-runtime@main/v53aeb7210d/","files":{},"config":{},"split":[{"p":"rtcw-data/mp_pak0.pk3","u":["rtcw-data/mp_pak0.pk3.sp0","rtcw-data/mp_pak0.pk3.sp1","rtcw-data/mp_pak0.pk3.sp2","rtcw-data/mp_pak0.pk3.sp3"],"b":63211149,"m":"application/octet-stream","v":1,"pf":1},{"p":"rtcw-data/pak0.pk3","u":["rtcw-data/pak0.pk3.sp0","rtcw-data/pak0.pk3.sp1","rtcw-data/pak0.pk3.sp2","rtcw-data/pak0.pk3.sp3","rtcw-data/pak0.pk3.sp4","rtcw-data/pak0.pk3.sp5","rtcw-data/pak0.pk3.sp6","rtcw-data/pak0.pk3.sp7","rtcw-data/pak0.pk3.sp8","rtcw-data/pak0.pk3.sp9","rtcw-data/pak0.pk3.sp10","rtcw-data/pak0.pk3.sp11","rtcw-data/pak0.pk3.sp12","rtcw-data/pak0.pk3.sp13","rtcw-data/pak0.pk3.sp14","rtcw-data/pak0.pk3.sp15"],"b":315823656,"m":"application/octet-stream","v":1},{"p":"rtcw-data/ui_extra.pk3","u":["rtcw-data/ui_extra.pk3"],"b":7989711,"m":"application/octet-stream","pf":1},{"p":"iowolfmp.v3.wasm","u":["iowolfmp.v3.wasm"],"b":2969875,"m":"application/wasm","pf":1},{"p":"rtcw-data/omnibot_rtcw.v2.pk3","u":["rtcw-data/omnibot_rtcw.v2.pk3"],"b":2686714,"m":"application/octet-stream","pf":1},{"p":"rtcw-data/bk_forestb1.pk3","u":["rtcw-data/bk_forestb1.pk3"],"b":1537082,"m":"application/octet-stream","pf":1},{"p":"rtcw-data/ob_media.pk3","u":["rtcw-data/ob_media.pk3"],"b":1509346,"m":"application/octet-stream","pf":1}]};</script>
+<script data-surd="1">(function () {
+  var M = window.SURD_GAME;
+  var table = M && M.split;
+  if (!table || !table.length) return;
+  var base = String(M.base || '').replace(/\/?$/, '/');
+  var byPath = {};
+  var i;
+  for (i = 0; i < table.length; i++) byPath[table[i].p] = table[i];
+  var blobs = {};
+  var urlOf = {};
+  var pending = {};
+  function partUrls(e) {
+    var out = [];
+    for (var k = 0; k < e.u.length; k++) out.push(base + e.u[k]);
+    return out;
+  }
+  function match(url) {
+    if (typeof url !== 'string') {
+      if (!url || typeof url.url !== 'string') return null;
+      url = url.url;
+    }
+    var q = url.split('#')[0].split('?')[0];
+    try { q = decodeURIComponent(q); } catch (e) {}
+    q = q.replace(/^\.\//, '');
+    try {
+      var ext = M && M.ext;
+      if (ext && ext[q]) q = ext[q];
+    } catch (e) {}
+    var hit = exact(q);
+    return hit || virtualPart(q);
+  }
+  function exact(q) {
+    for (var p in byPath) {
+      if (q === p || q === base + p) return byPath[p];
+      if (q.length > p.length && q.slice(-(p.length + 1)) === '/' + p) return byPath[p];
+    }
+    return null;
+  }
+  var firstIdx = {};
+  var EMPTY = { p: ' empty', u: [], b: 0, m: 'application/octet-stream' };
+  function virtualPart(q) {
+    var m = q.match(/^(.*)\.part(\d+)$/i);
+    if (!m) return null;
+    var e = exact(m[1]);
+    if (!e || !e.v) return null;
+    var n = +m[2];
+    if (!(e.p in firstIdx)) firstIdx[e.p] = n;
+    return n === firstIdx[e.p] ? e : EMPTY;
+  }
+  function finish(e, parts) {
+    var blob = new Blob(parts, { type: e.m || 'application/octet-stream' });
+    if (e.b && blob.size !== e.b) throw new Error('surd: ' + e.p + ' reassembled to ' + blob.size + ', expected ' + e.b);
+    var u = URL.createObjectURL(blob);
+    blobs[u] = blob; urlOf[e.p] = u;
+    return u;
+  }
+  function mirrorUrl(url) {
+    var m = /^https:\/\/cdn\.jsdelivr\.net\/gh\/([^/]+)\/([^@/]+)@([^/]+)\/(.*)$/.exec(url || '');
+    return m ? 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + m[3] + '/' + m[4] : null;
+  }
+  var TRANSIENT = { 403: 1, 408: 1, 425: 1, 429: 1, 500: 1, 502: 1, 503: 1, 504: 1, 522: 1 };
+  function fetchPart(url, attempt) {
+    attempt = attempt || 1;
+    var alt = mirrorUrl(url);
+    var target = (alt && attempt % 2 === 0) ? alt : url;
+    return nativeFetch(target).then(function (r) {
+      if (r.ok) return r.blob();
+      var e = new Error('surd: ' + r.status + ' on ' + target);
+      e.status = r.status;
+      throw e;
+    })['catch'](function (err) {
+      var retryable = !err.status || TRANSIENT[err.status];
+      if (attempt >= 4 || (!retryable && attempt > 1)) throw err;
+      return new Promise(function (r) { setTimeout(r, Math.min(8000, 400 * attempt * attempt)); })
+        .then(function () { return fetchPart(url, attempt + 1); });
+    });
+  }
+  function assemble(e) {
+    if (urlOf[e.p]) return Promise.resolve(urlOf[e.p]);
+    if (pending[e.p]) return pending[e.p];
+    var urls = partUrls(e);
+    var got = new Array(urls.length);
+    var next = 0;
+    function lane() {
+      if (next >= urls.length) return Promise.resolve();
+      var n = next++;
+      return fetchPart(urls[n]).then(function (b) { got[n] = b; return lane(); });
+    }
+    var lanes = [];
+    for (var k = 0; k < Math.min(6, urls.length); k++) lanes.push(lane());
+    var p = Promise.all(lanes).then(function () { return finish(e, got); });
+    pending[e.p] = p;
+    return p;
+  }
+  function syncBytes(url) {
+    var x = new NativeXHR();
+    nativeOpen.call(x, 'GET', url, false);
+    if (x.overrideMimeType) x.overrideMimeType('text/plain; charset=x-user-defined');
+    nativeSend.call(x, null);
+    if (x.status && x.status !== 200 && x.status !== 0) throw new Error('surd: ' + x.status + ' on ' + url);
+    var s = x.responseText, n = s.length, a = new Uint8Array(n);
+    for (var k = 0; k < n; k++) a[k] = s.charCodeAt(k) & 0xff;
+    return a;
+  }
+  function assembleSync(e) {
+    if (urlOf[e.p]) return urlOf[e.p];
+    var urls = partUrls(e), got = [];
+    for (var k = 0; k < urls.length; k++) got.push(syncBytes(urls[k]));
+    var u = finish(e, got);
+    pending[e.p] = Promise.resolve(u);
+    return u;
+  }
+  var nativeFetch = window.fetch && window.fetch.bind(window);
+  if (nativeFetch) {
+    window.fetch = function (input, init) {
+      var e = match(typeof input === 'string' ? input : input);
+      if (!e) return nativeFetch(input, init);
+      if (init && init.method && String(init.method).toUpperCase() === 'HEAD') {
+        return Promise.resolve(new Response(null, { status: 200, headers: { 'Content-Length': String(e.b || 0) } }));
+      }
+      return assemble(e).then(function (u) { return nativeFetch(u); });
+    };
+  }
+  var NativeXHR = window.XMLHttpRequest;
+  var XP = NativeXHR.prototype;
+  var nativeOpen = XP.open, nativeSend = XP.send;
+  XP.open = function (method, url, async) {
+    var e = match(url);
+    this.__surdSplit = e || null;
+    if (e) {
+      this.__surdArgs = Array.prototype.slice.call(arguments);
+      this.__surdSync = async === false;
+      if (this.__surdSync) {
+        try { return nativeOpen.apply(this, [method, assembleSync(e), false].concat(Array.prototype.slice.call(arguments, 3))); }
+        catch (err) { this.__surdSplit = null; }
+      }
+    }
+    return nativeOpen.apply(this, arguments);
+  };
+  XP.send = function (body) {
+    var e = this.__surdSplit;
+    if (!e || this.__surdSync) return nativeSend.apply(this, arguments);
+    var self = this, args = this.__surdArgs;
+    assemble(e).then(function (u) {
+      args[1] = u;
+      nativeOpen.apply(self, args);
+      nativeSend.call(self, body);
+    })['catch'](function (err) {
+      try { if (self.onerror) self.onerror({ target: self, message: String(err && err.message || err) }); } catch (x) {}
+    });
+  };
+  function script(path) {
+    var e = byPath[path] || match(path);
+    if (!e) { throw new Error('surd: no split entry for script ' + path); }
+    var urls = partUrls(e), chunks = [], total = 0, k;
+    for (k = 0; k < urls.length; k++) { chunks.push(syncBytes(urls[k])); total += chunks[k].length; }
+    var all = new Uint8Array(total), at = 0;
+    for (k = 0; k < chunks.length; k++) { all.set(chunks[k], at); at += chunks[k].length; }
+    if (e.b && total !== e.b) throw new Error('surd: ' + e.p + ' reassembled to ' + total + ', expected ' + e.b);
+    var code = new TextDecoder('utf-8').decode(all);
+    (0, eval)(code + '\n//# sourceURL=' + base + e.p);
+  }
+  window.SURD_SPLIT = { blobs: blobs, match: match, assemble: assemble, script: script };
+  var pf = [];
+  for (i = 0; i < table.length; i++) if (table[i].pf) pf.push(table[i]);
+  if (pf.length) {
+    var st = { total: pf.length, done: 0, bytes: 0, doneBytes: 0, failed: 0 };
+    for (i = 0; i < pf.length; i++) st.bytes += pf[i].b || 0;
+    window.SURD_PREFETCH = st;
+    var next = 0, LANES = 2;
+    var pump = function () {
+      if (next >= pf.length) return;
+      var e = pf[next++];
+      assemble(e)['catch'](function () { st.failed++; })
+        .then(function () { st.done++; st.doneBytes += e.b || 0; pump(); });
+    };
+    for (i = 0; i < LANES && i < pf.length; i++) pump();
+  }
+})();</script>
+<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/gh/playsurd/surd-runtime@main/v53aeb7210d/runtime.js"></script>
+<meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta content="text/html; charset=utf-8"http-equiv=Content-Type><title>Return to Castle Wolfenstein</title><script>(function(){var F="Return to Castle Wolfenstein";try{Object.defineProperty(document,"title",{configurable:true,get:function(){return F;},set:function(){}});}catch(e){}function force(){var t=document.getElementsByTagName("title")[0];if(t&&t.textContent!==F)t.textContent=F;}try{var t=document.getElementsByTagName("title")[0];if(t)new MutationObserver(force).observe(t,{childList:true});}catch(e){}document.addEventListener("DOMContentLoaded",force);})();</script><style>body{background-color:#000;color:#e0e0e0;font-family:Arial,Helvetica,sans-serif;font-size:16px;margin:0}.emscripten{padding-right:0;margin-left:auto;margin-right:auto;display:block}textarea.emscripten{font-family:monospace;font-size:14px;width:calc(100% - 24px);height:calc(100vh - 24px);margin-top:8px;background-color:inherit;color:silver;border:1px solid #404040;resize:none;display:none;outline:0}div.emscripten{text-align:center}canvas.emscripten{border:0 none;background-color:inherit;display:none;outline:0}.spinner{height:50px;width:50px;margin:0 auto;-webkit-animation:rotation .8s linear infinite;-moz-animation:rotation .8s linear infinite;-o-animation:rotation .8s linear infinite;animation:rotation .8s linear infinite;border-left:10px solid rgba(255,255,255,.25);border-right:10px solid rgba(255,255,255,.25);border-bottom:10px solid rgba(255,255,255,.25);border-top:10px solid #fff;border-radius:100%;background-color:inherit}@-webkit-keyframes rotation{from{-webkit-transform:rotate(0)}to{-webkit-transform:rotate(360deg)}}@-moz-keyframes rotation{from{-moz-transform:rotate(0)}to{-moz-transform:rotate(360deg)}}@-o-keyframes rotation{from{-o-transform:rotate(0)}to{-o-transform:rotate(360deg)}}@keyframes rotation{from{transform:rotate(0)}to{transform:rotate(360deg)}}</style><meta property="og:type" content="website"/><meta property="og:site_name" content="rtcw.pieter.com"/><meta property="og:title" content="Play Return to Castle Wolfenstein in Your Browser"/><meta property="og:description" content="RTCW multiplayer — free, no install, straight in your browser. Unofficial fan preservation project."/><meta property="og:url" content="https://rtcw.pieter.com/play"/><meta property="og:image" content="https://rtcw.pieter.com/assets/og.jpg?v=1"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="Return to Castle Wolfenstein multiplayer gameplay"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Play Return to Castle Wolfenstein in Your Browser"/><meta name="twitter:description" content="RTCW multiplayer — free, no install, in your browser."/><meta name="twitter:image" content="https://rtcw.pieter.com/assets/og.jpg?v=1"/></head><body><figure id=spinner style="overflow:visible;position:fixed;top:50%;left:50%;margin:0;transform:translate(-50%,-50%);z-index:9999"><div class=spinner></div></figure><div class=emscripten id=status style=display:none>Downloading...</div><div class=emscripten style=display:none><progress hidden id=progress max=100 value=0></progress></div><textarea class=emscripten id=output readonly></textarea><div id=ldcard><div id=ldstage>Initializing</div><div id=ldcur>Preparing downloads</div><div id=ldbar><div id=ldfill></div></div><div id=ldmb></div><div id=ldeta></div><div id=ldtip>Tip: Game data is cached after first load.</div></div><style>#ldcard{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:10000;padding:1rem;background:rgba(10,9,7,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid #333;border-radius:4px;color:#fff;font-family:Arial,Helvetica,sans-serif}#ldstage{font-size:.875rem;font-weight:600;margin-bottom:.25rem}#ldcur,#ldmb,#ldeta{font-size:.75rem;color:#a1a1aa;font-family:ui-monospace,Menlo,Consolas,monospace}#ldcur{margin-bottom:.5rem}#ldbar{height:.5rem;background:#27272a;border-radius:999px;overflow:hidden}#ldfill{height:100%;width:0;background:#b89a5e;transition:width .2s}#ldmb{margin-top:.5rem}#ldeta{margin-top:.25rem}#ldtip{font-size:.75rem;color:#a1a1aa;margin-top:.5rem}</style><script>/* Loading card (same layout as q3.pieter.com): stage, current file, bar, MB, ETA. */window.rtcwProg=(function(){var t0=0,g0=0;function $(i){return document.getElementById(i)}return function(stage,cur,got,total){var c=$("ldcard");if(!c)return;if(stage==="ready"){c.style.display="none";return}var L={initializing:"Initializing",downloading:"Downloading game data",launching:"Launching"};$("ldstage").textContent=L[stage]||stage;$("ldcur").textContent=stage==="downloading"?"Downloading: "+cur:cur;if(total){$("ldfill").style.width=(got/total*100).toFixed(1)+"%";$("ldmb").textContent=(got/1048576).toFixed(1)+" MB / "+(total/1048576).toFixed(1)+" MB"}var e=$("ldeta");if(stage==="downloading"&&total){var n=Date.now();if(!t0){t0=n;g0=got}var r=(got-g0)/((n-t0)/1000);e.textContent=(n-t0>2000&&r>0)?"ETA: "+Math.round((total-got)/r)+"s":""}else e.textContent="";$("ldtip").textContent=stage==="downloading"?"Tip: Game data is cached after first load.":"Tip: Click the screen to capture the mouse. Alt+Enter for fullscreen."}})();</script><style>html,body{overflow:hidden}#canvas.fit{position:fixed!important;inset:0;width:100vw!important;height:100vh!important;object-fit:contain;background:#000}</style><script>/* Aspect-correct display: the engine renders at whatever size it picked at startup (untouched -
+sizing the canvas before/at startup turned this engine's screen black). Once the canvas is shown,
+CSS scales it to fit the window with black bars (object-fit: contain), and window resize /
+fullscreen-change events are stopped before the engine's handlers so it never re-sizes or restarts. */
+(function(){['resize','fullscreenchange','webkitfullscreenchange','orientationchange'].forEach(function(t){addEventListener(t,function(e){e.stopImmediatePropagation()},true)})})();</script><canvas class=emscripten id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas><a hidden id=exportFile></a><script>var statusElement=document.getElementById("status"),progressElement=document.getElementById("progress"),spinnerElement=document.getElementById("spinner"),canvasElement=document.getElementById("canvas"),outputElement=document.getElementById("output"),exportElement=document.getElementById("exportFile");outputElement&&(outputElement.value=""),canvasElement.addEventListener("webglcontextlost",(e=>{alert("WebGL context lost. You will need to reload the page."),e.preventDefault()}),!1);var Module={setWindowTitle:function(){},_canLockPointer:!0,websocket:{url:"wss://rtcw.pieter.com/connect2",subprotocol:"binary"},arguments:(function(){var n=(new URLSearchParams(location.search).get("name")||(function(){try{return localStorage.getItem("surd_player_name")}catch(e){return ""}})()||"Player").replace(/[^A-Za-z0-9 _.\[\]-]/g,"").trim().slice(0,15)||"Player";return ["+set","name",n,"+seta","name",n,"+set","fs_basepath","/","+set","fs_game","omnibot","+set","vm_cgame","2","+set","cl_allowDownload","0","+set","r_mode","-1",...(function(){/* opt-in render-size test: ?rsize=1280x720 (custom sizes have blacked out this engine before, so never by default) */try{var m=/[?&]rsize=(\d{3,4})x(\d{3,4})/.exec(location.search);return m?["+set","r_customwidth",m[1],"+set","r_customheight",m[2]]:[]}catch(e){return[]}})(),"+set","r_primitives","2","+set","r_subdivisions","4","+set","r_picmip","0","+set","r_overBrightBits","0","+set","r_ext_compressed_textures","0","+set","cg_fixedAspect","1","+set","in_joystick","1","+bind","JOY8","+attack","+bind","JOY7","+speed","+bind","JOY1","+moveup","+bind","JOY2","+movedown","+bind","JOY5","weapprev","+bind","JOY6","weapnext","+bind","JOY4","+activate","+bind","JOY11","+speed","+bind","JOY10","+scores","+connect","127.0.0.1:27980"];})(),preRun:[function(){try{ENV.LIBGL_USEVBO="0";ENV.LIBGL_FBO="0";}catch(e){}Module.addRunDependency("rtcwdata");var GROUPS=[{dir:"/main",files:[["mp_pak0.pk3",63211149],["ui_extra.pk3",7989711],["vmpak.pk3",336650],["pak0.pk3",315823656],["bk_forestb1.pk3",1537082]]},{dir:"/omnibot",files:[["omnibot_rtcw.pk3",2686714,"omnibot_rtcw.v2.pk3"],["ob_media.pk3",1509346]]}];var TOTAL=0;GROUPS.forEach(function(g){g.files.forEach(function(f){TOTAL+=f[1];});});function st(m){if(Module.setStatus)Module.setStatus(m);}GROUPS.forEach(function(g){try{FS.mkdir(g.dir);}catch(e){}FS.mount(IDBFS,{},g.dir);});var GOT=0;rtcwProg("initializing","Loading game data from browser storage",0,TOTAL);FS.syncfs(true,function(err){var dirty=false;GROUPS.forEach(function(g){var keep={};g.files.forEach(function(f){keep[f[0]]=1;});try{FS.readdir(g.dir).forEach(function(fn){if(/\.pk3$/i.test(fn)&&!keep[fn]){try{FS.unlink(g.dir+"/"+fn);dirty=true;}catch(e){}}});}catch(e){}});var need=[];GROUPS.forEach(function(g){g.files.forEach(function(f){try{var s=FS.stat(g.dir+"/"+f[0]);if(s.size!==f[1]){need.push({dir:g.dir,name:f[0],url:(f[2]||f[0])});}else{GOT+=f[1];}}catch(e){need.push({dir:g.dir,name:f[0],url:(f[2]||f[0])});}});});if(need.length===0){rtcwProg("launching","Starting engine",TOTAL,TOTAL);if(dirty){FS.syncfs(false,function(){st("");Module.removeRunDependency("rtcwdata");});}else{st("");Module.removeRunDependency("rtcwdata");}return;}async function one(item){var res=await fetch("rtcw-data/"+item.url);if(!res.ok)throw new Error(item.name+" HTTP "+res.status);var rd=res.body.getReader(),chunks=[],n=0;for(;;){var r=await rd.read();if(r.done)break;chunks.push(r.value);n+=r.value.length;GOT+=r.value.length;rtcwProg("downloading",item.name,GOT,TOTAL);}var all=new Uint8Array(n),o=0;for(var i=0;i<chunks.length;i++){all.set(chunks[i],o);o+=chunks[i].length;}chunks=null;FS.writeFile(item.dir+"/"+item.name,all);all=null;await new Promise(function(rr){FS.syncfs(false,function(){rr();});});}(async function(){try{for(var i=0;i<need.length;i++){await one(need[i]);}st("Saving to browser storage...");rtcwProg("launching","Saving to browser storage",GOT,TOTAL);FS.syncfs(false,function(){st("");rtcwProg("launching","Starting engine",TOTAL,TOTAL);Module.removeRunDependency("rtcwdata");});}catch(e){st("DATA LOAD ERROR: "+(e&&e.message||e));rtcwProg("launching","Data load error: "+(e&&e.message||e)+" (reload to retry)",GOT,TOTAL);console.error("rtcw data",e);}})();});}],print(...e){if(console.log(...e),outputElement){var t=e.join(" ");outputElement.value+=t+"\n",outputElement.scrollTop=outputElement.scrollHeight}},canvas:canvasElement,setStatus(e){if(Module.setStatus.last??={time:Date.now(),text:""},e!==Module.setStatus.last.text){var t=e.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/),n=Date.now();t&&n-Module.setStatus.last.time<30||(Module.setStatus.last.time=n,Module.setStatus.last.text=e,t?(e=t[1],progressElement.value=100*parseInt(t[2]),progressElement.max=100*parseInt(t[4]),progressElement.hidden=!1,spinnerElement.hidden=!1):(progressElement.value=null,progressElement.max=null,progressElement.hidden=!0,e||(spinnerElement.hidden=!0)),statusElement.innerHTML=e)}},hideConsole(){outputElement.style.display="none",canvasElement.style.display="block",canvasElement.classList.add("fit"),canvasElement.focus()},showConsole(){canvasElement.style.display="none",outputElement.style.display="block",outputElement.scrollTop=outputElement.scrollHeight,outputElement.focus()},exportFile(e){try{console.info("Exporting:",e);const t=e.split("/"),n=new Uint8Array(FS.readFile(e)),o=new Blob([n],{type:"application/octet-stream"}),l=URL.createObjectURL(o);exportElement.href=l,exportElement.download=t[t.length-1],exportElement.click(),URL.revokeObjectURL(l)}catch(e){console.error("Error exporting file:",e)}},winResized(){console.info("Detected window resize: "+canvasElement.width+"x"+canvasElement.height)},captureMouse(){Module._canLockPointer&&!Module._attemptPointerLock()&&(Module._canLockPointer=!1,console.info("Delayed pointer lock requested."),document.addEventListener("keydown",Module._lockPointerOnKey))},_attemptPointerLock:()=>(null===document.pointerLockElement&&canvasElement.requestPointerLock(),null!==document.pointerLockElement),_lockPointerOnKey(e){("Escape"===e.key||Module._attemptPointerLock())&&(document.removeEventListener("keydown",Module._lockPointerOnKey),console.info("Delayed pointer lock complete."),Module._canLockPointer=!0)},totalDependencies:0,monitorRunDependencies(e){this.totalDependencies=Math.max(this.totalDependencies,e),Module.setStatus(e?"Preparing... ("+(this.totalDependencies-e)+"/"+this.totalDependencies+")":"All downloads complete.")},onRuntimeInitialized(){outputElement.style.display="block";rtcwProg("ready")}};Module.setStatus("Downloading..."),window.onerror=()=>{Module.setStatus("Exception thrown, see JavaScript console"),spinnerElement.style.display="none",Module.setStatus=e=>{e&&console.error("[post-exception status] "+e)}}</script><script>(function(){var ua=navigator.userAgent||"";var isMobile=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|Silk/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1)||(navigator.maxTouchPoints>1&&Math.min(screen.width,screen.height)<820&&!/Windows/.test(ua));if(false&&isMobile){try{if(Module&&Module.setStatus)Module.setStatus=function(){};}catch(e){}document.body.innerHTML='<div style="display:flex;align-items:center;justify-content:center;min-height:100vh;padding:2rem;font-family:Arial,Helvetica,sans-serif;background:#0a0907;color:#fff;text-align:center;box-sizing:border-box"><div style="max-width:22rem"><div style="font-family:Impact,sans-serif;font-size:2.2rem;letter-spacing:.03em;color:#b89a5e;margin-bottom:1rem">DESKTOP REQUIRED</div><p style="line-height:1.65;color:#ddd;font-size:.95rem">Return to Castle Wolfenstein multiplayer needs a <b>keyboard and mouse</b> &mdash; it isn\'t playable on phones or tablets.</p><p style="line-height:1.65;color:#b89a5e;font-size:.95rem;margin-top:1rem">Open <b>rtcw.pieter.com</b> on a desktop or laptop with Chrome to play.</p></div></div>';document.title="Desktop required - rtcw.pieter.com";return;}var s=document.createElement("script");s.async=true;s.src="iowolfmp.v3.js";document.body.appendChild(s);})();</script><script>document.addEventListener("visibilitychange",function(){try{var ac=Module.SDL2&&Module.SDL2.audioContext;if(!ac)return;if(document.hidden)ac.suspend();else ac.resume();}catch(e){}});</script><script>(function(){var c=document.getElementById('canvas'),d=new Set();addEventListener('keydown',function(e){d.add(e.code||e.keyCode)},true);addEventListener('keyup',function(e){d.delete(e.code||e.keyCode)},true);function r(){var T=[c,document,window].filter(Boolean);d.forEach(function(k){T.forEach(function(t){try{var i=(typeof k=='string')?{code:k,key:k,bubbles:true,cancelable:true}:{keyCode:k,which:k,bubbles:true,cancelable:true};t.dispatchEvent(new KeyboardEvent('keyup',i))}catch(_){}})});d.clear();[0,1,2].forEach(function(b){try{c&&c.dispatchEvent(new MouseEvent('mouseup',{button:b,bubbles:true,cancelable:true}))}catch(_){}});try{if(document.pointerLockElement)document.exitPointerLock()}catch(_){}}addEventListener('blur',r);document.addEventListener('visibilitychange',function(){if(document.hidden)r()})})();</script><style>#canvas:fullscreen,#canvas:-webkit-full-screen{width:100vw!important;height:100vh!important;object-fit:contain}</style><script>/* Alt+Enter fullscreen: handle at the DOM level inside the real user gesture, because the wasm/SDL path defers the requestFullscreen() call past the gesture and the browser blocks it as "not allowed". Gated on the keypress, so it never auto-fullscreens on load. */(function(){function cur(){return document.fullscreenElement||document.webkitFullscreenElement}function exit(){var x=document.exitFullscreen||document.webkitExitFullscreen;if(x)try{x.call(document)}catch(e){}}function enter(el){if(!el)return;var r=el.requestFullscreen||el.webkitRequestFullscreen;if(!r)return;try{var p=r.call(el);if(p&&p.catch)p.catch(function(e){console.warn('fullscreen blocked',e)})}catch(e){console.warn('fullscreen blocked',e)}}addEventListener('keydown',function(e){if(e.altKey&&(e.code==='Enter'||e.key==='Enter'||e.keyCode===13)){e.preventDefault();e.stopImmediatePropagation();if(cur())exit();else enter(document.getElementById('canvas'))}},true)})();</script>
+<script crossorigin="anonymous" src="assets/touch-controls.js"></script><script>PieterTouch.autoStart({layout:"wasd"})</script></body></html>

@@ -1,0 +1,102 @@
+//
+// Default RTCW Joystick/Gamepad Configuration
+//
+// Credit goes to:
+// https://github.com/EmuELEC/EmuELEC/wiki/Return-to-Castle-Wolfenstein
+//
+
+seta j_pitch "0.005"
+seta j_yaw "-0.008"
+
+bind PAD0_B "+movedown"
+bind PAD0_A "+moveup"
+bind PAD0_X "+reload; +activate"
+bind PAD0_Y "weaplastused"
+
+bind PAD0_BACK "notebook"
+bind PAD0_START "togglemenu"
+
+bind PAD0_LEFTSTICK_CLICK "+zoom"
+bind PAD0_RIGHTSTICK_CLICK "+kick"
+
+bind PAD0_LEFTSHOULDER "+sprint"
+bind PAD0_RIGHTSHOULDER "+useitem"
+
+bind PAD0_DPAD_UP "weapprev"
+bind PAD0_DPAD_DOWN "weapnext"
+bind PAD0_DPAD_LEFT "itemprev"
+bind PAD0_DPAD_RIGHT "itemnext"
+
+bind PAD0_LEFTSTICK_LEFT "+moveleft"
+bind PAD0_LEFTSTICK_RIGHT "+moveright"
+bind PAD0_LEFTSTICK_UP "+forward"
+bind PAD0_LEFTSTICK_DOWN "+back"
+
+bind PAD0_RIGHTSTICK_LEFT "+left"
+bind PAD0_RIGHTSTICK_RIGHT "+right"
+bind PAD0_RIGHTSTICK_UP "+lookup"
+bind PAD0_RIGHTSTICK_DOWN "+lookdown"
+
+bind PAD0_LEFTTRIGGER "weapalt"
+bind PAD0_RIGHTTRIGGER "+attack"
+
+echo "Joystick/gamepad defaults loaded!"
+//
+// WASM Video Recommended Configuration
+//
+// This file should contain the same collection of cvars that the in-game
+// quality switcher updates, but set appropriately for WASM
+//
+
+seta r_subdivisions "4"
+seta r_vertexlight "0"
+seta r_lodbias "0"
+seta r_colorbits "32"
+seta r_depthbits "24"
+seta r_stencilbits "8"
+seta r_picmip "0"
+seta r_picmip2 "0"
+seta r_texturebits "32"
+seta r_fastSky "0"
+seta r_dynamiclight "1"
+seta r_inGameVideo "1"
+seta cg_shadows "1"
+seta cg_brassTime "2500"
+seta r_texturemode "GL_LINEAR_MIPMAP_LINEAR"
+seta r_ext_compressed_textures "0"
+seta r_overBrightBits "0"
+seta cl_renderer "opengl1"
+
+echo "WASM recommended video defaults loaded!"
+//
+// WASM Game Default Configuration
+//
+
+// Set in-game detail
+seta cg_marktime "20000"
+seta cg_particleDist "1024"
+seta cg_coronafardist "1536"
+seta cg_coronas "1"
+
+// Enable joystick
+seta in_joystick "1"
+seta in_joystickuseanalog "1"
+
+// Widescreen video, not overridden by recommended defaults option
+seta cg_fixedAspect "1"
+seta r_customwidth "1366"
+seta r_customheight "768"
+seta r_mode "-1"
+
+// Cosmetic only
+seta s_khz "22"
+
+echo "WASM game defaults loaded!"
+
+// Execute default joystick mapping before the game starts
+exec "wasmjoy.cfg"
+
+// Execute recommended WASM video settings before the game starts and flag it
+// as loaded so the video subsystem does not get restarted later
+exec "wasmvid.cfg"
+seta com_recommendedSet "1"
