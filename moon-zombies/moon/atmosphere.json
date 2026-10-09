@@ -1,0 +1,2196 @@
+{
+ "fog": {
+  "exterior": {
+   "start_dist": 2098.71,
+   "half_dist": 1740.12,
+   "half_height": 1332.23,
+   "base_height": 576.887,
+   "fog_scale": 4.1367,
+   "sun_start_ang": 0.0,
+   "sun_stop_ang": 55.0,
+   "time": 0.0,
+   "max_fog_opacity": 0.95,
+   "color": [
+    0.0196078,
+    0.0235294,
+    0.0352941
+   ],
+   "sunColor": [
+    0.247,
+    0.235,
+    0.16
+   ],
+   "sunDir": [
+    0.796421,
+    0.425854,
+    0.429374
+   ],
+   "sunlight": 8.0,
+   "sundirection": [
+    -16.28,
+    56.06,
+    0.0
+   ],
+   "suncolor": [
+    0.655,
+    0.768,
+    0.817
+   ],
+   "vision": "zme"
+  },
+  "interior": {
+   "start_dist": 2098.71,
+   "half_dist": 1740.12,
+   "half_height": 1332.23,
+   "base_height": 576.887,
+   "fog_scale": 4.1367,
+   "sun_start_ang": 0.0,
+   "sun_stop_ang": 55.0,
+   "time": 0.0,
+   "max_fog_opacity": 0.95,
+   "color": [
+    0.0196078,
+    0.0235294,
+    0.0352941
+   ],
+   "sunColor": [
+    0.247,
+    0.235,
+    0.16
+   ],
+   "sunDir": [
+    0.796421,
+    0.425854,
+    0.429374
+   ],
+   "sunlight": 8.0,
+   "sundirection": [
+    -16.28,
+    56.06,
+    0.0
+   ],
+   "suncolor": [
+    0.655,
+    0.768,
+    0.817
+   ],
+   "vision": "zmi"
+  },
+  "biodome": {
+   "start_dist": 65.3744,
+   "half_dist": 860.241,
+   "half_height": 35.1158,
+   "base_height": 116.637,
+   "fog_scale": 2.96282,
+   "sun_start_ang": 0.0,
+   "sun_stop_ang": 44.4323,
+   "time": 0.0,
+   "max_fog_opacity": 0.836437,
+   "color": [
+    0.117647,
+    0.137255,
+    0.101961
+   ],
+   "sunColor": [
+    0.341176,
+    0.231373,
+    0.141176
+   ],
+   "sunDir": [
+    0.315232,
+    0.132689,
+    -0.939693
+   ],
+   "sunlight": 1.13,
+   "sundirection": [
+    -33.34,
+    -38.56,
+    0.0
+   ],
+   "r_lightGridIntensity": 1.25,
+   "r_lightGridContrast": 0.45,
+   "r_sky_intensity_factor0": 2.0,
+   "vision": "zmb"
+  },
+  "tunnels": {
+   "start_dist": 1413.46,
+   "half_dist": 4300.81,
+   "half_height": 32.2476,
+   "base_height": -238.873,
+   "fog_scale": 3.2984,
+   "sun_start_ang": 0.0,
+   "sun_stop_ang": 0.0,
+   "time": 0.0,
+   "max_fog_opacity": 0.22,
+   "color": [
+    0.192157,
+    0.137255,
+    0.180392
+   ],
+   "sunColor": [
+    0.34902,
+    0.129412,
+    0.219608
+   ],
+   "sunDir": [
+    0.954905,
+    0.280395,
+    0.0976461
+   ],
+   "vision": "zmt"
+  },
+  "nml": {
+   "start_dist": 1662.13,
+   "half_dist": 18604.1,
+   "half_height": 2618.86,
+   "base_height": -5373.56,
+   "fog_scale": 5.0,
+   "sun_start_ang": 0.0,
+   "sun_stop_ang": 45.87,
+   "time": 0.0,
+   "max_fog_opacity": 0.72,
+   "color": [
+    0.764706,
+    0.505882,
+    0.231373
+   ],
+   "sunColor": [
+    0.8,
+    0.435294,
+    0.101961
+   ],
+   "sunDir": [
+    0.796421,
+    0.425854,
+    0.429374
+   ],
+   "sunlight": 5.0,
+   "sundirection": [
+    -16.0,
+    56.06,
+    0.0
+   ],
+   "suncolor": [
+    0.924,
+    0.775,
+    0.651
+   ],
+   "vision": "zmh"
+  },
+  "hellearth": {
+   "start_dist": 2146.77,
+   "half_dist": 14890.1,
+   "half_height": 99.8105,
+   "base_height": -294.011,
+   "fog_scale": 3.97095,
+   "sun_start_ang": 0.0,
+   "sun_stop_ang": 58.1887,
+   "time": 0.0,
+   "max_fog_opacity": 0.72,
+   "color": [
+    0.819608,
+    0.34902,
+    0.176471
+   ],
+   "sunColor": [
+    0.666667,
+    0.321569,
+    0.141176
+   ],
+   "sunDir": [
+    0.804298,
+    0.433214,
+    0.406731
+   ],
+   "sunlight": 5.0,
+   "sundirection": [
+    -16.0,
+    56.06,
+    0.0
+   ],
+   "suncolor": [
+    0.905,
+    0.203,
+    0.0
+   ],
+   "vision": "zmhe"
+  },
+  "moon": {
+   "start_dist": 2098.71,
+   "half_dist": 1740.12,
+   "half_height": 1332.23,
+   "base_height": 576.887,
+   "fog_scale": 4.1367,
+   "sun_start_ang": 0.0,
+   "sun_stop_ang": 55.0,
+   "time": 0.0,
+   "max_fog_opacity": 0.95,
+   "color": [
+    0.0196078,
+    0.0235294,
+    0.0352941
+   ],
+   "sunColor": [
+    0.247,
+    0.235,
+    0.16
+   ],
+   "sunDir": [
+    0.796421,
+    0.425854,
+    0.429374
+   ],
+   "sunlight": 8.0,
+   "sundirection": [
+    -16.28,
+    56.06,
+    0.0
+   ],
+   "suncolor": [
+    0.655,
+    0.768,
+    0.817
+   ],
+   "r_lightGridIntensity": 2.0,
+   "r_lightGridContrast": 0.4,
+   "vision": "zme"
+  }
+ },
+ "visionSets": {
+  "zme": "zombie_moon",
+  "zmi": "zombie_moonInterior",
+  "zmb": "zombie_moonBioDome",
+  "zmt": "zombie_moonTunnels",
+  "zmh": "zombie_moonHanger18",
+  "zmhe": "zombie_moon_hellEarth",
+  "dte": "zombie_coast_powerOn"
+ },
+ "visionPriorities": {
+  "zme": 5,
+  "zmi": 5,
+  "zmb": 5,
+  "zmt": 5,
+  "zmh": 5,
+  "zmhe": 5,
+  "dte": 7
+ },
+ "visions": {
+  "zombie_coast_powerOn": {
+   "r_filmEnable": 1.0,
+   "r_sCurveEnable": 1.0,
+   "r_reviveFX_Enable": 0.0,
+   "r_filmMidStart": 0.168375,
+   "r_filmMidEnd": 0.161375,
+   "r_filmDarkFeather": 0.428,
+   "r_filmLightFeather": 0.52625,
+   "r_filmColorTemp": [
+    4435.9473,
+    4599.3965,
+    4435.9473
+   ],
+   "r_filmSaturation": [
+    0.6316,
+    0.6316,
+    0.6316
+   ],
+   "r_filmDarkTint": [
+    1.0733,
+    1.0941,
+    1.0941
+   ],
+   "r_filmMidTint": [
+    0.8843,
+    0.8843,
+    0.8843
+   ],
+   "r_filmLightTint": [
+    0.9996,
+    0.9683,
+    1.0101
+   ],
+   "r_filmBleach": [
+    0.0702,
+    0.0702,
+    0.0702
+   ],
+   "r_filmContrast": [
+    1.5011,
+    1.5017,
+    1.5011
+   ],
+   "r_sCurveShoulderStrength": 0.073688,
+   "r_sCurveLinearStrength": 0.442094,
+   "r_sCurveLinearAngle": 0.066625,
+   "r_sCurveToeStrength": 0.148228,
+   "r_sCurveToeNumerator": 0.009641,
+   "r_sCurveToeDenominator": 0.242852,
+   "r_bloomTintWeights": [
+    0.6175,
+    0.6175,
+    0.6175,
+    0.0
+   ],
+   "r_bloomColorScale": [
+    0.6035,
+    0.6035,
+    0.6035,
+    0.0
+   ],
+   "r_bloomTintScale": [
+    0.5474,
+    0.5474,
+    0.5474,
+    1.0
+   ],
+   "r_bloomCurveBreakpoint": [
+    0.2877,
+    0.2877,
+    0.2877,
+    1.0
+   ],
+   "r_bloomCurveLoGamma": [
+    1.5226,
+    1.8697,
+    1.5912,
+    1.3835
+   ],
+   "r_bloomCurveHiGamma": [
+    1.4188,
+    1.4188,
+    1.4188,
+    1.1406
+   ],
+   "r_bloomExpansionControl": [
+    0.4946,
+    0.1,
+    0.4979,
+    0.1032
+   ],
+   "r_bloomExpansionWeights": [
+    0.3274,
+    0.2674,
+    0.1505,
+    0.34
+   ],
+   "r_bloomExpansionSource": 1.0,
+   "r_bloomBlurRadius": 3.0,
+   "r_bloomPersistence": 0.0,
+   "r_primaryLightUseTweaks": 1.0,
+   "r_primaryLightTweakDiffuseStrength": 1.894688,
+   "r_primaryLightTweakSpecularStrength": 1.0875,
+   "r_bloomCurveLoBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_filmHue": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakXLevels0": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakXLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakXInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXTintControl": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakXTint": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakYLevels0": [
+    0.0772,
+    0.0772,
+    0.0772,
+    1.0
+   ],
+   "r_bloomStreakYLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakYInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYTintControl": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakYTint": [
+    0.1192,
+    0.0491,
+    0.0211
+   ]
+  },
+  "zombie_moon": {
+   "r_filmEnable": 1.0,
+   "r_sCurveEnable": 1.0,
+   "r_reviveFX_Enable": 0.0,
+   "r_filmMidStart": 0.192969,
+   "r_filmMidEnd": 0.242094,
+   "r_filmDarkFeather": 0.368375,
+   "r_filmLightFeather": 0.90175,
+   "r_filmColorTemp": [
+    5255.3857,
+    5337.1108,
+    5337.1108
+   ],
+   "r_filmSaturation": [
+    0.3298,
+    0.3298,
+    0.3298
+   ],
+   "r_filmDarkTint": [
+    0.8421,
+    0.8843,
+    0.7789
+   ],
+   "r_filmMidTint": [
+    0.8211,
+    0.8001,
+    0.7159
+   ],
+   "r_filmLightTint": [
+    0.9684,
+    1.0523,
+    0.9473
+   ],
+   "r_filmBleach": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_filmContrast": [
+    0.9965,
+    0.9965,
+    0.9965
+   ],
+   "r_sCurveShoulderStrength": 0.10175,
+   "r_sCurveLinearStrength": 0.5,
+   "r_sCurveLinearAngle": 0.125,
+   "r_sCurveToeStrength": 0.134148,
+   "r_sCurveToeNumerator": 0.01,
+   "r_sCurveToeDenominator": 0.574988,
+   "r_bloomTintWeights": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomColorScale": [
+    0.1264,
+    0.1123,
+    0.056,
+    0.0
+   ],
+   "r_bloomTintScale": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomCurveBreakpoint": [
+    0.1579,
+    0.1579,
+    0.1579,
+    1.0
+   ],
+   "r_bloomCurveLoGamma": [
+    0.376,
+    0.55,
+    0.4805,
+    1.0
+   ],
+   "r_bloomCurveHiGamma": [
+    1.4188,
+    1.4188,
+    1.4188,
+    1.0
+   ],
+   "r_bloomExpansionControl": [
+    0.4316,
+    0.8547,
+    0.3242,
+    0.7158
+   ],
+   "r_bloomExpansionWeights": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomExpansionSource": 0.1,
+   "r_bloomBlurRadius": 1.75,
+   "r_bloomPersistence": 0.0,
+   "r_primaryLightUseTweaks": 1.0,
+   "r_primaryLightTweakDiffuseStrength": 2.105313,
+   "r_primaryLightTweakSpecularStrength": 1.0,
+   "r_bloomCurveLoBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_filmHue": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakXLevels0": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakXLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakXInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXTintControl": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakXTint": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakYLevels0": [
+    0.0211,
+    0.0211,
+    0.0211,
+    1.0
+   ],
+   "r_bloomStreakYLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakYInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYTintControl": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakYTint": [
+    0.0,
+    0.2526,
+    0.3368
+   ]
+  },
+  "zombie_moonBioDome": {
+   "r_filmEnable": 1.0,
+   "r_reviveFX_enable": 0.0,
+   "r_reviveFX_contrastEdge": 0.0,
+   "r_reviveFX_brightnessEdge": 0.0,
+   "r_reviveFX_desaturationEdge": 0.0,
+   "r_reviveFX_darkTintEdge": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_reviveFX_lightTintEdge": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_reviveFX_blurRadiusEdge": 0.0,
+   "r_reviveFX_motionblurWeight": 0.0,
+   "r_reviveFX_contrastCenter": 0.0,
+   "r_reviveFX_brightnessCenter": 0.0,
+   "r_reviveFX_desaturationCenter": 0.0,
+   "r_reviveFX_darkTintCenter": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_reviveFX_lightTintCenter": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_sCurveEnable": 1.0,
+   "r_filmMidStart": 0.340344,
+   "r_filmMidEnd": 0.543875,
+   "r_filmDarkFeather": 0.7,
+   "r_filmLightFeather": 0.7,
+   "r_filmColorTemp": [
+    5254.6563,
+    4926.2969,
+    5008.752
+   ],
+   "r_filmSaturation": [
+    0.7439,
+    0.6386,
+    0.4281
+   ],
+   "r_filmDarkTint": [
+    0.9683,
+    1.0734,
+    1.0734
+   ],
+   "r_filmMidTint": [
+    1.1156,
+    1.2422,
+    1.1889
+   ],
+   "r_filmLightTint": [
+    0.9996,
+    0.9996,
+    0.9996
+   ],
+   "r_filmBleach": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_filmContrast": [
+    1.0105,
+    1.0105,
+    1.0105
+   ],
+   "r_sCurveShoulderStrength": 0.147375,
+   "r_sCurveLinearStrength": 0.5,
+   "r_sCurveLinearAngle": 0.125,
+   "r_sCurveToeStrength": 0.204203,
+   "r_sCurveToeNumerator": 0.01,
+   "r_sCurveToeDenominator": 0.574988,
+   "r_bloomTintWeights": [
+    0.25,
+    0.5,
+    0.25,
+    0.0
+   ],
+   "r_bloomColorScale": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomTintScale": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomCurveBreakpoint": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoGamma": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiGamma": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomExpansionControl": [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "r_bloomExpansionWeights": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomExpansionSource": 0.1,
+   "r_bloomBlurRadius": 2.95,
+   "r_bloomPersistence": 0.0,
+   "r_primaryLightUseTweaks": 1.0,
+   "r_primaryLightTweakDiffuseStrength": 1.47375,
+   "r_primaryLightTweakSpecularStrength": 1.122813,
+   "r_bloomCurveLoBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_filmHue": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakXLevels0": [
+    0.25,
+    0.5,
+    0.25,
+    1.0
+   ],
+   "r_bloomStreakXLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakXInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXTintControl": [
+    0.25,
+    0.5,
+    0.25,
+    1.0
+   ],
+   "r_bloomStreakXTint": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakYLevels0": [
+    0.1228,
+    0.0842,
+    0.1228,
+    1.0
+   ],
+   "r_bloomStreakYLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakYInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYTintControl": [
+    0.25,
+    0.5,
+    0.25,
+    0.5825
+   ],
+   "r_bloomStreakYTint": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "zombie_moonHanger18": {
+   "r_filmEnable": 1.0,
+   "r_sCurveEnable": 1.0,
+   "r_filmMidStart": 0.25,
+   "r_filmMidEnd": 0.75,
+   "r_filmDarkFeather": 0.5,
+   "r_filmLightFeather": 0.5,
+   "r_filmColorTemp": [
+    4517.6719,
+    4517.6719,
+    4517.6719
+   ],
+   "r_filmSaturation": [
+    0.7228,
+    0.6807,
+    0.7859
+   ],
+   "r_filmDarkTint": [
+    1.0526,
+    1.0526,
+    1.0526
+   ],
+   "r_filmMidTint": [
+    1.1578,
+    1.3264,
+    1.3048
+   ],
+   "r_filmLightTint": [
+    1.0104,
+    0.9996,
+    0.9996
+   ],
+   "r_filmBleach": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_filmContrast": [
+    0.9053,
+    0.9053,
+    0.9053
+   ],
+   "r_sCurveShoulderStrength": 0.068,
+   "r_sCurveLinearStrength": 0.413,
+   "r_sCurveLinearAngle": 0.093,
+   "r_sCurveToeStrength": 0.116978,
+   "r_sCurveToeNumerator": 0.0,
+   "r_sCurveToeDenominator": 0.326955,
+   "r_bloomTintWeights": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomColorScale": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomTintScale": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomCurveBreakpoint": [
+    0.2877,
+    0.2877,
+    0.2877,
+    1.0
+   ],
+   "r_bloomCurveLoGamma": [
+    0.1683,
+    0.1,
+    0.2372,
+    1.0
+   ],
+   "r_bloomCurveHiGamma": [
+    1.4188,
+    1.4188,
+    1.4188,
+    1.0
+   ],
+   "r_bloomExpansionControl": [
+    0.4946,
+    0.1,
+    0.4979,
+    0.1032
+   ],
+   "r_bloomExpansionWeights": [
+    0.16,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomExpansionSource": 1.0,
+   "r_bloomBlurRadius": 1.75,
+   "r_bloomPersistence": 0.0,
+   "r_primaryLightUseTweaks": 1.0,
+   "r_primaryLightTweakDiffuseStrength": 2.385938,
+   "r_primaryLightTweakSpecularStrength": 1.57875,
+   "r_bloomCurveLoBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_filmHue": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakXLevels0": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakXLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakXInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXTintControl": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakXTint": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakYLevels0": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakYLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakYInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYTintControl": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakYTint": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "zombie_moonInterior": {
+   "r_filmEnable": 1.0,
+   "r_sCurveEnable": 1.0,
+   "r_reviveFX_Enable": 0.0,
+   "r_filmMidStart": 0.192969,
+   "r_filmMidEnd": 0.242094,
+   "r_filmDarkFeather": 0.368375,
+   "r_filmLightFeather": 0.90175,
+   "r_filmColorTemp": [
+    5418.8359,
+    5499.8311,
+    5499.8311
+   ],
+   "r_filmSaturation": [
+    0.393,
+    0.393,
+    0.393
+   ],
+   "r_filmDarkTint": [
+    0.7789,
+    0.8843,
+    0.7789
+   ],
+   "r_filmMidTint": [
+    0.8211,
+    0.8001,
+    0.7159
+   ],
+   "r_filmLightTint": [
+    0.9894,
+    1.0523,
+    0.9473
+   ],
+   "r_filmBleach": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_filmContrast": [
+    1.0035,
+    0.9965,
+    0.9965
+   ],
+   "r_sCurveShoulderStrength": 0.10175,
+   "r_sCurveLinearStrength": 0.5,
+   "r_sCurveLinearAngle": 0.125,
+   "r_sCurveToeStrength": 0.134148,
+   "r_sCurveToeNumerator": 0.01,
+   "r_sCurveToeDenominator": 0.574988,
+   "r_bloomTintWeights": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomColorScale": [
+    0.1264,
+    0.1123,
+    0.056,
+    0.0
+   ],
+   "r_bloomTintScale": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomCurveBreakpoint": [
+    0.1579,
+    0.1579,
+    0.1579,
+    1.0
+   ],
+   "r_bloomCurveLoGamma": [
+    0.376,
+    0.55,
+    0.4805,
+    1.0
+   ],
+   "r_bloomCurveHiGamma": [
+    1.4188,
+    1.4188,
+    1.4188,
+    1.0
+   ],
+   "r_bloomExpansionControl": [
+    0.4316,
+    0.8547,
+    0.3242,
+    0.7158
+   ],
+   "r_bloomExpansionWeights": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomExpansionSource": 0.1,
+   "r_bloomBlurRadius": 1.75,
+   "r_bloomPersistence": 0.0,
+   "r_primaryLightUseTweaks": 1.0,
+   "r_primaryLightTweakDiffuseStrength": 2.105313,
+   "r_primaryLightTweakSpecularStrength": 1.0,
+   "r_bloomCurveLoBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_filmHue": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakXLevels0": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakXLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakXInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXTintControl": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakXTint": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakYLevels0": [
+    0.0211,
+    0.0211,
+    0.0211,
+    1.0
+   ],
+   "r_bloomStreakYLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakYInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYTintControl": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakYTint": [
+    0.0,
+    0.2526,
+    0.3368
+   ]
+  },
+  "zombie_moonTunnels": {
+   "r_filmEnable": 1.0,
+   "r_sCurveEnable": 1.0,
+   "r_reviveFX_Enable": 0.0,
+   "r_filmMidStart": 0.25,
+   "r_filmMidEnd": 0.75,
+   "r_filmDarkFeather": 0.5,
+   "r_filmLightFeather": 0.5,
+   "r_filmColorTemp": [
+    8777.5879,
+    8777.5879,
+    8777.5879
+   ],
+   "r_filmSaturation": [
+    0.6667,
+    0.6737,
+    0.6737
+   ],
+   "r_filmDarkTint": [
+    1.0946,
+    1.0946,
+    1.0946
+   ],
+   "r_filmMidTint": [
+    0.9893,
+    0.9893,
+    0.9996
+   ],
+   "r_filmLightTint": [
+    0.9996,
+    0.9893,
+    0.9996
+   ],
+   "r_filmBleach": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_filmContrast": [
+    1.0176,
+    1.0176,
+    1.0176
+   ],
+   "r_sCurveShoulderStrength": 0.1,
+   "r_sCurveLinearStrength": 0.5,
+   "r_sCurveLinearAngle": 0.125,
+   "r_sCurveToeStrength": 0.109985,
+   "r_sCurveToeNumerator": 0.01,
+   "r_sCurveToeDenominator": 0.574988,
+   "r_bloomTintWeights": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomColorScale": [
+    0.07,
+    0.1123,
+    0.0983,
+    0.0
+   ],
+   "r_bloomTintScale": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomCurveBreakpoint": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoGamma": [
+    0.898,
+    0.898,
+    0.898,
+    1.0
+   ],
+   "r_bloomCurveHiGamma": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomExpansionControl": [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "r_bloomExpansionWeights": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomExpansionSource": 0.1,
+   "r_bloomBlurRadius": 1.75,
+   "r_bloomPersistence": 0.0,
+   "r_primaryLightUseTweaks": 1.0,
+   "r_primaryLightTweakDiffuseStrength": 2.14,
+   "r_primaryLightTweakSpecularStrength": 2.736875,
+   "r_bloomCurveLoBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_filmHue": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakXLevels0": [
+    0.25,
+    0.5,
+    0.25,
+    1.0
+   ],
+   "r_bloomStreakXLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakXInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXTintControl": [
+    0.25,
+    0.5,
+    0.25,
+    1.0
+   ],
+   "r_bloomStreakXTint": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakYLevels0": [
+    0.25,
+    0.5,
+    0.25,
+    1.0
+   ],
+   "r_bloomStreakYLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakYInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYTintControl": [
+    0.25,
+    0.5,
+    0.25,
+    1.0
+   ],
+   "r_bloomStreakYTint": [
+    0.0,
+    0.0,
+    0.0
+   ]
+  },
+  "zombie_moon_black_hole": {
+   "r_filmEnable": 1.0,
+   "r_sCurveEnable": 1.0,
+   "r_reviveFX_Enable": 0.0,
+   "r_filmMidStart": 0.424563,
+   "r_filmMidEnd": 0.91225,
+   "r_filmDarkFeather": 0.368375,
+   "r_filmLightFeather": 1.0,
+   "r_filmColorTemp": [
+    10007.1113,
+    11645.2598,
+    10088.1064
+   ],
+   "r_filmSaturation": [
+    1.3894,
+    1.2,
+    1.3474
+   ],
+   "r_filmDarkTint": [
+    1.1377,
+    0.8211,
+    1.0948
+   ],
+   "r_filmMidTint": [
+    3.3476,
+    1.7263,
+    3.1581
+   ],
+   "r_filmLightTint": [
+    1.1363,
+    1.1151,
+    1.1363
+   ],
+   "r_filmBleach": [
+    0.0877,
+    0.0877,
+    0.0877
+   ],
+   "r_filmContrast": [
+    1.4246,
+    1.4246,
+    1.4246
+   ],
+   "r_sCurveShoulderStrength": 0.136844,
+   "r_sCurveLinearStrength": 0.207,
+   "r_sCurveLinearAngle": 0.407,
+   "r_sCurveToeStrength": 0.390048,
+   "r_sCurveToeNumerator": 0.025438,
+   "r_sCurveToeDenominator": 0.249876,
+   "r_bloomTintWeights": [
+    0.2211,
+    0.2211,
+    0.2211,
+    0.0
+   ],
+   "r_bloomColorScale": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomTintScale": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomCurveBreakpoint": [
+    1.0,
+    1.0,
+    1.0,
+    0.986
+   ],
+   "r_bloomCurveLoGamma": [
+    1.106,
+    1.106,
+    1.106,
+    0.8288
+   ],
+   "r_bloomCurveHiGamma": [
+    1.2797,
+    1.2797,
+    1.2797,
+    1.5922
+   ],
+   "r_bloomExpansionControl": [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "r_bloomExpansionWeights": [
+    0.1,
+    0.1,
+    0.1,
+    0.4821
+   ],
+   "r_bloomExpansionSource": 0.1,
+   "r_bloomBlurRadius": 1.70875,
+   "r_bloomPersistence": 0.684219,
+   "r_primaryLightUseTweaks": 1.0,
+   "r_primaryLightTweakDiffuseStrength": 1.199375,
+   "r_primaryLightTweakSpecularStrength": 1.5,
+   "r_bloomCurveLoBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_filmHue": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakXLevels0": [
+    0.0105,
+    0.0105,
+    0.0105,
+    1.0
+   ],
+   "r_bloomStreakXLevels1": [
+    0.0,
+    1.0,
+    0.0632,
+    1.0
+   ],
+   "r_bloomStreakXInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXTintControl": [
+    0.33,
+    0.33,
+    0.33,
+    1.0
+   ],
+   "r_bloomStreakXTint": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakYLevels0": [
+    0.007,
+    0.007,
+    0.0072,
+    0.7589
+   ],
+   "r_bloomStreakYLevels1": [
+    0.9298,
+    0.3754,
+    0.0421,
+    1.0
+   ],
+   "r_bloomStreakYInnerTint": [
+    0.2667,
+    0.3298,
+    0.4561
+   ],
+   "r_bloomStreakYOuterTint": [
+    0.3474,
+    0.021,
+    0.0246
+   ],
+   "r_bloomStreakYTintControl": [
+    0.8772,
+    0.8772,
+    0.8772,
+    1.0
+   ],
+   "r_bloomStreakYTint": [
+    0.9334,
+    0.9404,
+    0.9404
+   ]
+  },
+  "zombie_moon_hellEarth": {
+   "r_reviveFX_Enable": 0.0,
+   "r_filmMidStart": 0.189469,
+   "r_filmMidEnd": 0.3965,
+   "r_filmDarkFeather": 0.073688,
+   "r_filmLightFeather": 0.361375,
+   "r_filmColorTemp": [
+    5255.3857,
+    5091.2061,
+    5171.4717
+   ],
+   "r_filmSaturation": [
+    1.3965,
+    1.0737,
+    1.0737
+   ],
+   "r_filmDarkTint": [
+    0.8843,
+    0.9053,
+    0.8843
+   ],
+   "r_filmMidTint": [
+    0.8839,
+    0.9053,
+    0.8854
+   ],
+   "r_filmLightTint": [
+    1.0528,
+    1.1368,
+    1.0948
+   ],
+   "r_filmBleach": [
+    0.0351,
+    0.0351,
+    0.0351
+   ],
+   "r_filmContrast": [
+    1.4105,
+    1.4105,
+    1.4105
+   ],
+   "r_sCurveShoulderStrength": 0.028063,
+   "r_sCurveLinearStrength": 0.178875,
+   "r_sCurveLinearAngle": 0.242094,
+   "r_sCurveToeStrength": 0.001,
+   "r_sCurveToeNumerator": 0.027188,
+   "r_sCurveToeDenominator": 0.165679,
+   "r_bloomTintWeights": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomColorScale": [
+    0.1404,
+    0.1404,
+    0.1404,
+    0.0
+   ],
+   "r_bloomTintScale": [
+    0.0,
+    0.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomCurveBreakpoint": [
+    0.9965,
+    0.9965,
+    0.9965,
+    1.0
+   ],
+   "r_bloomCurveLoGamma": [
+    1.5922,
+    1.5922,
+    1.5922,
+    0.898
+   ],
+   "r_bloomCurveHiGamma": [
+    2.4909,
+    2.5626,
+    2.4909,
+    1.382
+   ],
+   "r_bloomExpansionControl": [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+   ],
+   "r_bloomExpansionWeights": [
+    0.1,
+    0.1,
+    0.1,
+    0.3589
+   ],
+   "r_bloomExpansionSource": 0.1,
+   "r_bloomBlurRadius": 1.771875,
+   "r_bloomPersistence": 0.0,
+   "r_primaryLightUseTweaks": 1.0,
+   "r_primaryLightTweakDiffuseStrength": 2.070313,
+   "r_primaryLightTweakSpecularStrength": 1.43875,
+   "r_bloomCurveLoBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveLoRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveLoRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomCurveHiRemapBlack": [
+    0.1,
+    0.1,
+    0.1,
+    0.1
+   ],
+   "r_bloomCurveHiRemapWhite": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_filmHue": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakXLevels0": [
+    0.0842,
+    0.0842,
+    0.0842,
+    1.0
+   ],
+   "r_bloomStreakXLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakXInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakXTintControl": [
+    0.8491,
+    0.8491,
+    0.8491,
+    1.0
+   ],
+   "r_bloomStreakXTint": [
+    0.0211,
+    0.0,
+    0.0
+   ],
+   "r_bloomStreakYLevels0": [
+    0.0561,
+    0.0561,
+    0.0561,
+    1.0371
+   ],
+   "r_bloomStreakYLevels1": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+   ],
+   "r_bloomStreakYInnerTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYOuterTint": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "r_bloomStreakYTintControl": [
+    0.9965,
+    0.9965,
+    0.9965,
+    1.0
+   ],
+   "r_bloomStreakYTint": [
+    0.0281,
+    0.0491,
+    0.0491
+   ]
+  }
+ },
+ "triggers": {
+  "zombie_moonExterior": "exterior",
+  "zombie_moonInterior": "interior",
+  "zombie_moonBiodome": "biodome",
+  "zombie_moonTunnels": "tunnels",
+  "zombie_nmlVision": "nml"
+ },
+ "lightGrid": {
+  "r_lightGridEnableTweaks": 1.0,
+  "r_lightGridIntensity": 1.2,
+  "r_lightGridContrast": 0.2
+ },
+ "sky": {
+  "cloudsUVMad1": [
+   0.0,
+   0.0,
+   0.5,
+   0.5
+  ],
+  "cloudsUVMad2": [
+   0.0,
+   0.0,
+   0.5,
+   0.5
+  ],
+  "cloudsUVMul1": [
+   0.00048828125,
+   0.00048828125,
+   1.52587890625e-05,
+   1.52587890625e-05
+  ],
+  "cloudsUVMul2": [
+   0.00048828125,
+   0.00048828125,
+   1.52587890625e-05,
+   1.52587890625e-05
+  ],
+  "cloudsHeights": [
+   2000.0,
+   1000.0,
+   10.0,
+   0.0
+  ],
+  "skyBoxCloudWeights": [
+   1.0,
+   1.0,
+   0.5,
+   0.0
+  ],
+  "cloudsFeather": [
+   -0.019999999552965164,
+   41.0,
+   -0.019999999552965164,
+   41.0
+  ],
+  "skyBoxRotationSize": [
+   -0.866025447845459,
+   -0.49999991059303284,
+   0.866025447845459,
+   1000.0
+  ]
+ },
+ "sun": {
+  "r_sunsprite_shader": "sun_flare_icbm",
+  "r_sunflare_shader": "sun_flare",
+  "r_sunsprite_size": "14",
+  "r_sun_fx_position": [
+   -24.18,
+   28.0,
+   0.0
+  ],
+  "r_sunflare_min_size": "300",
+  "r_sunflare_max_size": "290",
+  "r_sunflare_min_angle": "90",
+  "r_sunflare_max_angle": "35",
+  "r_sunflare_max_alpha": "1",
+  "r_sunflare_fadein": "0.15",
+  "r_sunflare_fadeout": "0.15",
+  "r_sunblind_min_angle": "30",
+  "r_sunblind_max_angle": "5",
+  "r_sunblind_max_darken": "0",
+  "r_sunblind_fadein": "0.25",
+  "r_sunblind_fadeout": "0.25",
+  "r_sunglare_min_angle": "45",
+  "r_sunglare_max_angle": "35",
+  "r_sunglare_max_lighten": "0",
+  "r_sunglare_fadein": "0.5",
+  "r_sunglare_fadeout": "0.5"
+ },
+ "fov": {
+  "cg_fov": 65,
+  "source": "common_zombie_patch/maps/_zombiemode.gsc SetClientDvars cg_fov 65 (horizontal, 4:3 basis)"
+ },
+ "sources": {
+  "clientscripts/zombie_moon_fx.csc": "93d28426ed90569dd7c45a515fbd8c2ccfe1a8449cfb22cba8efa60f693034c1",
+  "clientscripts/zombie_moon.csc": "d1480b36e5ff5c4369a944638c2c10d3c5b8fb0176a87db04d1649b4d9092bdd",
+  "vision/zombie_coast_poweron.vision": "0f968260187c1f43f2e7fa45d9a2391a23e4de56aa4d48817c83701d0ba82c76",
+  "vision/zombie_moon.vision": "b1317fe9f3aca809c30a9cb44ada53904c22988c89e1ca9dee5eb7e02c6faa45",
+  "vision/zombie_moonbiodome.vision": "35f0a5046d4cd1de58d498b0306ba89980b96b078e22714545535a144e667a34",
+  "vision/zombie_moonhanger18.vision": "9012c1385b4c2c4faed7c48bad2a9e99280abe3ef6aa44c96cba010ffec1cb12",
+  "vision/zombie_mooninterior.vision": "b06e804c077c4b3bddd1bb918564cdde2b38020998dbde56c0380387f2ccaf17",
+  "vision/zombie_moontunnels.vision": "6ae37612e90d06520c7c7941b76874c62e03ec09eed179ee942e681f7932efae",
+  "vision/zombie_moon_black_hole.vision": "5b90bd917624423c044285049675ceb3f9b320b6d3786c8dee1c21274e52a202",
+  "vision/zombie_moon_hellearth.vision": "7565b703cdd082133f5db6b40aa04615322abb6f734b4e94f6fefd2737b2d286",
+  "maps/createart/zombie_moon_art.gsc": "420db4b0ebfb95b16c126539648c638c1b48efae389db784322664753db68396",
+  "materials/mc/mtl_skybox_zom_moon.json": "44393ae4708c2705494a89c27c680315747b220652004a4cf76bbb053d5b8707",
+  "sun/zombie_moon.sun": "50c80193729a9ad11bb1430a085c5e3ac4f8e57ec0aae1ea7e5395fe1bc3fb1a"
+ }
+}

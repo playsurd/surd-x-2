@@ -1,0 +1,19 @@
+{
+ "p_zom_moon_re_glass_1_broken": "moon/models/p_zom_moon_re_glass_1_broken.glb",
+ "p_zom_moon_re_glass_2_broken": "moon/models/p_zom_moon_re_glass_2_broken.glb",
+ "p_zom_moon_re_glass_3_broken": "moon/models/p_zom_moon_re_glass_3_broken.glb",
+ "p_zom_moon_re_glass_4_broken": "moon/models/p_zom_moon_re_glass_4_broken.glb",
+ "p_zom_moon_lab_glass_top_broken": "moon/models/p_zom_moon_lab_glass_top_broken.glb",
+ "p_zom_moon_lab_glass_middle_broken": "moon/models/p_zom_moon_lab_glass_middle_broken.glb",
+ "p_zom_moon_lab_glass_bottom_broken": "moon/models/p_zom_moon_lab_glass_bottom_broken.glb",
+ "p_zom_moon_lab_airlock_door01_left": "moon/models/p_zom_moon_lab_airlock_door01_left.glb",
+ "p_zom_moon_lab_airlock_door01_right": "moon/models/p_zom_moon_lab_airlock_door01_right.glb",
+ "p_zom_moon_biodome_hole_broken": "moon/models/p_zom_moon_biodome_hole_broken.glb",
+ "zombie_trap_switch_light_on_red": "moon/models/zombie_trap_switch_light_on_red.glb",
+ "zombie_trap_switch_light_on_green": "moon/models/zombie_trap_switch_light_on_green.glb",
+ "p_glo_data_recorder01_static_reel": "moon/models/p_glo_data_recorder01_static_reel.glb",
+ "p_zom_moon_py_capacitor": "moon/models/p_zom_moon_py_capacitor.glb",
+ "p_zom_moon_py_collector_fill": "moon/models/p_zom_moon_py_collector_fill.glb",
+ "p_zom_moon_button_console_lid": "moon/models/p_zom_moon_button_console_lid.glb",
+ "p_zom_moon_py_glyph_dial_cap": "moon/models/p_zom_moon_py_glyph_dial_cap.glb"
+}
