@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<base href="https://cdn.jsdelivr.net/gh/playsurd/surd-x-2@main/cheese-cube/">
+<script data-surd="1">(function () {
+  var W = window;
+  var unityTarget = null;
+  function tellUnity(methods, arg) {
+    var inst = W.__surdUnity || W.unityInstance || W.gameInstance;
+    if (!inst || !inst.SendMessage || !unityTarget) return;
+    for (var i = 0; i < methods.length; i++) {
+      try { arg === undefined ? inst.SendMessage(unityTarget, methods[i]) : inst.SendMessage(unityTarget, methods[i], arg); }
+      catch (e) {  }
+    }
+  }
+  if (typeof W.initPokiBridge !== 'function') {
+    W.initPokiBridge = function (name) { unityTarget = name || unityTarget; };
+  }
+  if (typeof W.commercialBreak !== 'function') {
+    W.commercialBreak = function () { setTimeout(function () { tellUnity(['CommercialBreakComplete', 'commercialBreakComplete']); }, 0); };
+  }
+  if (typeof W.rewardedBreak !== 'function') {
+    W.rewardedBreak = function () { setTimeout(function () { tellUnity(['RewardedBreakComplete', 'rewardedBreakComplete'], 'false'); }, 0); };
+  }
+  var resolved = function () { return Promise.resolve(); };
+  if (!W.PokiSDK) {
+    W.PokiSDK = {
+      init: resolved, initPokiBridge: function () {}, setDebug: function () {},
+      gameLoadingStart: function () {}, gameLoadingFinished: function () {},
+      gameLoadingProgress: function () {},
+      gameplayStart: function () {}, gameplayStop: function () {},
+      commercialBreak: resolved, rewardedBreak: function () { return Promise.resolve(false); },
+      happyTime: function () {}, customEvent: function () {}, captureError: function () {},
+      isAdBlocked: function () { return false; }, shareableURL: function () { return Promise.resolve(location.href); },
+      getURLParam: function (k) { try { return new URL(location.href).searchParams.get(k) || ''; } catch (e) { return ''; } },
+    };
+  }
+  if (!W.YaGames) {
+    var yPlayer = {
+      getName: function () { return 'player'; }, getUniqueID: function () { return 'local'; },
+      getData: function () { return Promise.resolve({}); }, setData: resolved,
+      getStats: function () { return Promise.resolve({}); }, setStats: resolved, incrementStats: resolved,
+      getMode: function () { return 'lite'; }, getPhoto: function () { return ''; },
+    };
+    var yLeaderboards = {
+      setLeaderboardScore: resolved,
+      getLeaderboardEntries: function () { return Promise.resolve({ entries: [] }); },
+      getLeaderboardPlayerEntry: function () { return Promise.reject(new Error('no entry')); },
+      getLeaderboardDescription: function () { return Promise.resolve({}); },
+    };
+    var ySdk = {
+      adv: {
+        showFullscreenAdv: function (o) { var c = o && o.callbacks; if (c && c.onClose) setTimeout(function () { c.onClose(false); }, 0); },
+        showRewardedVideo: function (o) { var c = o && o.callbacks; if (c && c.onClose) setTimeout(function () { c.onClose(); }, 0); },
+        getBannerAdvStatus: function () { return Promise.resolve({ stickyAdvIsShowing: false }); },
+      },
+      getPlayer: function () { return Promise.resolve(yPlayer); },
+      getPayments: function () { return Promise.resolve({
+        getCatalog: function () { return Promise.resolve([]); },
+        getPurchases: function () { return Promise.resolve([]); },
+        purchase: function () { return Promise.reject(new Error('payments unavailable')); },
+        consumePurchase: resolved,
+      }); },
+      getFlags: function () { return Promise.resolve({}); },
+      getStorage: function () { return Promise.resolve(window.localStorage); },
+      clipboard: { writeText: resolved },
+      shortcut: { canShowPrompt: function () { return Promise.resolve({ canShow: false }); }, showPrompt: function () { return Promise.resolve({ outcome: 'rejected' }); } },
+      feedback: { canReview: function () { return Promise.resolve({ value: false }); }, requestReview: function () { return Promise.resolve({ feedbackSent: false }); } },
+      getLeaderboards: function () { return Promise.resolve(yLeaderboards); },
+      features: { LoadingAPI: { ready: function () {} } },
+      screen: { fullscreen: { request: resolved, exit: resolved } },
+      isAvailableMethod: function () { return Promise.resolve(false); },
+      environment: { i18n: { lang: 'en' }, app: { id: 'local' } },
+      deviceInfo: { isDesktop: function () { return true; }, isMobile: function () { return false; },
+                    isTablet: function () { return false; }, isTV: function () { return false; },
+                    type: 'desktop' },
+    };
+    W.YaGames = { init: function () { return Promise.resolve(ySdk); } };
+    W.ysdk = ySdk;
+  }
+  if (!W.ytgame) {
+    var ytNoop = function () {};
+    W.ytgame = {
+      IN_PLAYABLES_ENV: false,
+      game: { firstFrameReady: ytNoop, gameReady: ytNoop, loadData: function () { return Promise.resolve(''); },
+              saveData: function () { return Promise.resolve(); }, isPaused: function () { return false; } },
+      system: { getLanguage: function () { return 'en'; }, isAudioEnabled: function () { return true; },
+                onAudioEnabledChange: ytNoop, onPause: ytNoop, onResume: ytNoop },
+      health: { logError: ytNoop, logWarning: ytNoop },
+      engagement: { sendScore: function () { return Promise.resolve(); } },
+      ads: { requestInterstitialAd: function () { return Promise.resolve(); } },
+    };
+  }
+  if (typeof document !== 'undefined' && document.xURL === undefined) {
+    try { document.xURL = 'https://poki.com/'; } catch (e) {  }
+  }
+  if (!W.YYGGames) {
+    var yyAds = function (o) {
+      o = o || {};
+      var step = function (fn) { if (typeof fn === 'function') setTimeout(fn, 0); };
+      step(o.beforeShowAd);
+      setTimeout(function () { step(o.afterShowAd); step(o.rewardDismissed); }, 1);
+    };
+    W.YYGGames = {
+      startup: function (o) { if (o && typeof o.complete === 'function') setTimeout(o.complete, 0); },
+      startupByYad: function () {}, showSplash: function () {},
+      showInterstitial: yyAds, showReward: yyAds,
+      canShowReward: function () { return false; },
+      getAdPlatformType: function () { return 'none'; },
+      getForgames: function () { return Promise.resolve([]); },
+      navigate: function () {},
+      onVisibilitychange: function () {},
+    };
+  }
+  if (!W.GamePix) {
+    W.GamePix = { init: function () {}, ping: function () {}, gameLoadingStart: function () {}, gameLoadingFinished: function () {},
+                  interstitialAd: resolved, rewardAd: function () { return Promise.resolve(false); }, happyMoment: function () {} };
+  }
+  if (!W.CrazyGames) {
+    var noop = function () {};
+    W.CrazyGames = { SDK: {
+      init: resolved, game: { gameplayStart: noop, gameplayStop: noop, loadingStart: noop, loadingStop: noop, happytime: noop },
+      ad: { requestAd: function (t, cb) { if (cb && cb.adFinished) cb.adFinished(); }, hasAdblock: function () { return Promise.resolve(false); } },
+      user: { getUser: function () { return Promise.resolve(null); } },
+      banner: { requestBanner: resolved, clearAllBanners: noop },
+    } };
+  }
+})();
+if (typeof window !== 'undefined') {
+  if (typeof window.environmentData === 'undefined') window.environmentData = 'NO_DATA';
+  if (typeof window.nowFullAdOpen === 'undefined') window.nowFullAdOpen = false;
+}
+try {
+  var parentWin = window.parent;
+  if (parentWin && parentWin !== window) {
+    if (typeof parentWin.maeExportApis_ !== 'function') parentWin.maeExportApis_ = function () {};
+  }
+} catch (e) {  }
+if(typeof window.UnityProgress!=="function")window.UnityProgress=function(){this.SetMessage=function(){};this.SetProgress=function(){};this.Clear=function(){};};
+window.alert=function(){};window.confirm=function(){return false;};window.prompt=function(){return null;};
+(function(){
+    /* DEAD HOSTS, blocked for a different reason than the ad networks below.
+     *
+     * Sixteen files across the catalogue live on hosts that no longer answer. Vendoring could not
+     * save them (nothing to download, and none are in the Wayback Machine), but every one turned
+     * out to be inessential once looked at: an ad SWF (bbplayer), a portal logo (kizi), portal
+     * SDKs (gamemix, gmsdk), a sitelock check (pegasgames' "wheely7sec.swf" — wheely-7 ships its
+     * real game in _vendor), cosmetic images, and duplicates of files the game already has
+     * locally (both spongebob ports ship their own flambe.js). Left alone, each one is a request
+     * that hangs until it times out; blocked, it fails instantly and the game gets on with it. */
+    var DEAD = /(bbplayer\.net|cdn0\.kizi\.com|gmapi\.gamemix\.com|r3tq6l1\/gmsdk|candystand\.com|eags\.us|iep-esy\.ir|pegasgames\.com|ngames365\.github\.io|yurivish\.com|chicken\.royalredeemerlutheranschool\.org|marketjs-us\/en\/patch|cdn\.jsdelivr\.net\/discount\.json)/i;
+    var BAD = /(doubleclick\.net|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adtrafficquality\.google|2mdn\.net|imasdk\.googleapis\.com|adsbygoogle|google-analytics\.com|googletagmanager\.com|gstatic\.com\/firebasejs|gamemonetize\.com|fliplineads\.com|cpmstar\.com|ngads\.com|adinplay\.com|mochibot\.com|mochiads\.com|gamedistribution\.com|msgrt\.gamedistribution\.com|azerioncircle\.com|gamemonkey\.org|gameanalytics\.com|gamedock\.io|enjoy4fun\.com|gamebridge\.games|gamearter\.com|poki\.io|famobi\.com|softgames\.de|analytics\.shapez\.io|scorecardresearch\.com|moatads\.com|amazon-adsystem\.com|criteo|pubmatic|rubiconproject|adnxs\.com|casalemedia|smartadserver|taboola|outbrain|hotjar\.com|mixpanel|clarity\.ms|rudderlabs\.com|analytics\.tiktok\.com|connect\.facebook\.net|yandex\.ru\/metrika|mc\.yandex|cloud\.unity3d\.com|pushalert\.co|quizvana\.com|serviceclic\.com|atpnd\.com|r9x\.in|adsgram\.ai)/i;
+    function bad(u){ try { var t = String(u); return BAD.test(t) || DEAD.test(t); } catch(e){ return false; } }
+    /* HOST-ABSOLUTE PATHS: "/version.json", "/audio/x.flac".
+     *
+     * A leading slash ignores <base> completely and resolves against the ORIGIN, which for us
+     * is the site (or an opaque blob origin) and never holds game assets — so every such
+     * request is a guaranteed 404. 2048-merge-run asked for /version.json, /fileconfig.json
+     * and every one of its scene files this way and showed a black screen with nothing but
+     * "Script error." to go on; a-dark-room does the same with /audio/*.flac.
+     *
+     * Since no host-absolute path can ever be correct here, point them all at the game's own
+     * base. This is a rewrite rather than a refusal: the files exist, just one level up.
+     * Protocol-relative "//host/x" is a different thing (a real remote host) and is left to
+     * the denylist above. */
+    /* Read the base LAZILY. This guard is deliberately installed before the manifest script
+     * (that order is load-bearing — moving SURD_GAME ahead of the prelude once stopped this
+     * very game from rendering at all), so at install time there is no base to capture. */
+    function gbase(){ try { return (window.SURD_GAME && window.SURD_GAME.base) || ''; } catch(e){ return ''; } }
+    /* A file we downloaded from a third-party host and now ship ourselves. Checked before
+     * anything else: this is what stops a game depending on someone else's server staying up,
+     * and it works even when the game builds the URL at runtime. */
+    function vendored(u){
+      try {
+        var M = window.SURD_GAME, map = M && M.ext;
+        if (!map || typeof u !== 'string') return null;
+        var q = u.split('#')[0];
+        if (map[q]) return String(M.base).replace(/\/?$/, '/') + map[q];
+        var noq = q.split('?')[0];
+        if (map[noq]) return String(M.base).replace(/\/?$/, '/') + map[noq];
+        return null;
+      } catch(e){ return null; }
+    }
+    function rebase(u){
+      try {
+        if (typeof u !== 'string' || !u) return u;
+        var v = vendored(u); if (v) return v;
+        var B = gbase(); if (!B) return u;
+        B = B.replace(/\/?$/, '/');
+        if (u.indexOf(B) === 0) return u;                        // already where it belongs
+        /* Never touch OUR OWN plumbing. The runtime and its adapters live at a different path
+         * (and in production a different origin), and rebasing them points the loader at the
+         * game's asset directory, where no adapter exists. */
+        var RT = '';
+        try { RT = (window.SURD_GAME && window.SURD_GAME.runtime) || ''; } catch(e){}
+        if (RT && u.indexOf(RT) === 0) return u;
+        if (u.indexOf('/_rt/') >= 0 || u.indexOf('surd-runtime') >= 0) return u;
+        /* A bare "/" (or "/?x") has NO path to rebase, and rewriting it produced a request for
+         * the base DIRECTORY, which 404s and shows up in the log as
+         * "failed to load .../suika-game/". Leave those alone. */
+        if (u.charAt(0) === '/' && u.charAt(1) !== '/') {
+          var rest = u.slice(1);
+          return rest && rest.charAt(0) !== '?' && rest.charAt(0) !== '#' ? B + rest : u;
+        }
+        /* An engine that builds its own absolute URLs from location, rather than letting the
+         * browser resolve a relative path, lands on the SITE origin — which holds no game
+         * assets either. 2048-merge-run (LayaAir) asks for "<origin>/version.json" outright,
+         * so matching only a leading slash was not enough. Our origin is never a legitimate
+         * place for a game to fetch from, so the same redirect applies. */
+        var o = location.origin;
+        if (o && o !== 'null' && u.indexOf(o + '/') === 0) return B + u.slice(o.length + 1);
+        return u;
+      } catch(e){ return u; }
+    }
+    var of = window.fetch;
+    if (of) window.fetch = function(i, o){
+      var u = (i && i.url) ? i.url : i;
+      /* 204 forbids a body, and passing one throws in Firefox ("Response body is given with a
+       * null body status") — INSIDE the game's own fetch call, which is exactly what this branch
+       * exists to protect (papa-burgeria). Status 200 with an empty body is accepted everywhere
+       * and reads to the caller as "nothing here", which is what we want to say. */
+      if (bad(u)) return Promise.resolve(new Response('', {status:200}));
+      if (typeof i === 'string') { var r = rebase(i); if (r !== i) return of.call(this, r, o); }
+      return of.apply(this, arguments);
+    };
+    var oo = window.XMLHttpRequest && window.XMLHttpRequest.prototype.open;
+    if (oo) window.XMLHttpRequest.prototype.open = function(m, u){
+      if (bad(u)) { arguments[1] = 'data:text/plain,'; }
+      else if (typeof u === 'string') { arguments[1] = rebase(u); }
+      return oo.apply(this, arguments);
+    };
+    if (navigator.sendBeacon) { var ob = navigator.sendBeacon.bind(navigator);
+      navigator.sendBeacon = function(u, d){ return bad(u) ? true : ob(u, d); }; }
+    var OW = window.WebSocket;
+    if (OW) window.WebSocket = function(u, p){
+      if (bad(u)) u = 'ws://127.0.0.1:1';
+      return p === undefined ? new OW(u) : new OW(u, p);
+    };
+    /* setAttribute('src', …) bypasses the property setter patched below, and several ad
+     * tags use exactly that form (moto-x3m still reached googlesyndication until this). */
+    try {
+      var osa = Element.prototype.setAttribute;
+      Element.prototype.setAttribute = function(n, v){
+        if (n && /^(src|href|data)$/i.test(n)) {
+          if (bad(v)) return;
+          /* Same host-absolute problem, reached through an attribute: an <img> or <audio>
+           * given "/audio/x.flac" resolves against the origin and 404s. */
+          if (typeof v === 'string') arguments[1] = rebase(v);
+        }
+        return osa.apply(this, arguments);
+      };
+    } catch(e){}
+    /* Element src= is how most ad tags actually load. */
+    try {
+      ['HTMLImageElement','HTMLScriptElement','HTMLIFrameElement','HTMLAudioElement','HTMLVideoElement','HTMLSourceElement'].forEach(function(k){
+        var P = window[k] && window[k].prototype; if (!P) return;
+        var d = Object.getOwnPropertyDescriptor(P, 'src'); if (!d || !d.set) return;
+        Object.defineProperty(P, 'src', {
+          configurable: true, enumerable: d.enumerable, get: d.get,
+          set: function(v){
+            if (bad(v)) return;
+            var t = typeof v === 'string' ? rebase(v) : v;
+            /* CORS ON OUR OWN ASSETS — not politeness, a hard requirement.
+             *
+             * WebGL refuses to upload a texture from an image fetched cross-origin without
+             * CORS: the canvas would be tainted, so it throws "SecurityError: The operation is
+             * insecure" inside uploadTexture and the game shows a grey screen with everything
+             * apparently loaded (stair-race-3d, PlayCanvas). Our assets live on another origin
+             * by definition — the page is a blob, the files are on the CDN — so every engine
+             * that loads textures through <img> hits this.
+             *
+             * Scoped to OUR hosts and to relative URLs (which resolve against our base through
+             * <base>): jsDelivr and raw both send Access-Control-Allow-Origin: *, so requesting
+             * CORS always succeeds there. Setting it on a third-party host that does NOT send
+             * the header would turn a working image into a failed one, so those are left alone.
+             *
+             * Scripts get the same treatment for a different reason: without crossorigin an
+             * error inside an engine-injected script arrives as the bare, useless
+             * "Script error." with no file or line (2048-merge-run's laya.core.min.js). */
+            try {
+              var ours = typeof t === 'string' && (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(t)
+                || t.indexOf(gbase()) === 0
+                || /^https:\/\/(cdn\.jsdelivr\.net|raw\.githubusercontent\.com)\//.test(t));
+              if (ours && !this.crossOrigin) this.crossOrigin = 'anonymous';
+            } catch(e){}
+            return d.set.call(this, t);
+          }
+        });
+      });
+    } catch(e){}
+  })();</script>
+<script data-surd="1">window.SURD_GAME={"id":"cheese-cube","engine":"generic","base":"https://cdn.jsdelivr.net/gh/playsurd/surd-x-2@main/cheese-cube/","runtime":"https://cdn.jsdelivr.net/gh/playsurd/surd-runtime@main/v53aeb7210d/","files":{},"config":{},"split":[{"p":"zm_ccube/menu/frontend.mp4","u":["zm_ccube/menu/frontend.mp4"],"b":3204900,"m":"video/mp4","pf":1}]};</script>
+<script data-surd="1">(function () {
+  var M = window.SURD_GAME;
+  var table = M && M.split;
+  if (!table || !table.length) return;
+  var base = String(M.base || '').replace(/\/?$/, '/');
+  var byPath = {};
+  var i;
+  for (i = 0; i < table.length; i++) byPath[table[i].p] = table[i];
+  var blobs = {};
+  var urlOf = {};
+  var pending = {};
+  function partUrls(e) {
+    var out = [];
+    for (var k = 0; k < e.u.length; k++) out.push(base + e.u[k]);
+    return out;
+  }
+  function match(url) {
+    if (typeof url !== 'string') {
+      if (!url || typeof url.url !== 'string') return null;
+      url = url.url;
+    }
+    var q = url.split('#')[0].split('?')[0];
+    try { q = decodeURIComponent(q); } catch (e) {}
+    q = q.replace(/^\.\//, '');
+    try {
+      var ext = M && M.ext;
+      if (ext && ext[q]) q = ext[q];
+    } catch (e) {}
+    var hit = exact(q);
+    return hit || virtualPart(q);
+  }
+  function exact(q) {
+    for (var p in byPath) {
+      if (q === p || q === base + p) return byPath[p];
+      if (q.length > p.length && q.slice(-(p.length + 1)) === '/' + p) return byPath[p];
+    }
+    return null;
+  }
+  var firstIdx = {};
+  var EMPTY = { p: ' empty', u: [], b: 0, m: 'application/octet-stream' };
+  function virtualPart(q) {
+    var m = q.match(/^(.*)\.part(\d+)$/i);
+    if (!m) return null;
+    var e = exact(m[1]);
+    if (!e || !e.v) return null;
+    var n = +m[2];
+    if (!(e.p in firstIdx)) firstIdx[e.p] = n;
+    return n === firstIdx[e.p] ? e : EMPTY;
+  }
+  function finish(e, parts) {
+    var blob = new Blob(parts, { type: e.m || 'application/octet-stream' });
+    if (e.b && blob.size !== e.b) throw new Error('surd: ' + e.p + ' reassembled to ' + blob.size + ', expected ' + e.b);
+    var u = URL.createObjectURL(blob);
+    blobs[u] = blob; urlOf[e.p] = u;
+    return u;
+  }
+  function mirrorUrl(url) {
+    var m = /^https:\/\/cdn\.jsdelivr\.net\/gh\/([^/]+)\/([^@/]+)@([^/]+)\/(.*)$/.exec(url || '');
+    return m ? 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + m[3] + '/' + m[4] : null;
+  }
+  var TRANSIENT = { 403: 1, 408: 1, 425: 1, 429: 1, 500: 1, 502: 1, 503: 1, 504: 1, 522: 1 };
+  function fetchPart(url, attempt) {
+    attempt = attempt || 1;
+    var alt = mirrorUrl(url);
+    var target = (alt && attempt % 2 === 0) ? alt : url;
+    return nativeFetch(target).then(function (r) {
+      if (r.ok) return r.blob();
+      var e = new Error('surd: ' + r.status + ' on ' + target);
+      e.status = r.status;
+      throw e;
+    })['catch'](function (err) {
+      var retryable = !err.status || TRANSIENT[err.status];
+      if (attempt >= 4 || (!retryable && attempt > 1)) throw err;
+      return new Promise(function (r) { setTimeout(r, Math.min(8000, 400 * attempt * attempt)); })
+        .then(function () { return fetchPart(url, attempt + 1); });
+    });
+  }
+  function assemble(e) {
+    if (urlOf[e.p]) return Promise.resolve(urlOf[e.p]);
+    if (pending[e.p]) return pending[e.p];
+    var urls = partUrls(e);
+    var got = new Array(urls.length);
+    var next = 0;
+    function lane() {
+      if (next >= urls.length) return Promise.resolve();
+      var n = next++;
+      return fetchPart(urls[n]).then(function (b) { got[n] = b; return lane(); });
+    }
+    var lanes = [];
+    for (var k = 0; k < Math.min(6, urls.length); k++) lanes.push(lane());
+    var p = Promise.all(lanes).then(function () { return finish(e, got); });
+    pending[e.p] = p;
+    return p;
+  }
+  function syncBytes(url) {
+    var x = new NativeXHR();
+    nativeOpen.call(x, 'GET', url, false);
+    if (x.overrideMimeType) x.overrideMimeType('text/plain; charset=x-user-defined');
+    nativeSend.call(x, null);
+    if (x.status && x.status !== 200 && x.status !== 0) throw new Error('surd: ' + x.status + ' on ' + url);
+    var s = x.responseText, n = s.length, a = new Uint8Array(n);
+    for (var k = 0; k < n; k++) a[k] = s.charCodeAt(k) & 0xff;
+    return a;
+  }
+  function assembleSync(e) {
+    if (urlOf[e.p]) return urlOf[e.p];
+    var urls = partUrls(e), got = [];
+    for (var k = 0; k < urls.length; k++) got.push(syncBytes(urls[k]));
+    var u = finish(e, got);
+    pending[e.p] = Promise.resolve(u);
+    return u;
+  }
+  var nativeFetch = window.fetch && window.fetch.bind(window);
+  if (nativeFetch) {
+    window.fetch = function (input, init) {
+      var e = match(typeof input === 'string' ? input : input);
+      if (!e) return nativeFetch(input, init);
+      if (init && init.method && String(init.method).toUpperCase() === 'HEAD') {
+        return Promise.resolve(new Response(null, { status: 200, headers: { 'Content-Length': String(e.b || 0) } }));
+      }
+      return assemble(e).then(function (u) { return nativeFetch(u); });
+    };
+  }
+  var NativeXHR = window.XMLHttpRequest;
+  var XP = NativeXHR.prototype;
+  var nativeOpen = XP.open, nativeSend = XP.send;
+  XP.open = function (method, url, async) {
+    var e = match(url);
+    this.__surdSplit = e || null;
+    if (e) {
+      this.__surdArgs = Array.prototype.slice.call(arguments);
+      this.__surdSync = async === false;
+      if (this.__surdSync) {
+        try { return nativeOpen.apply(this, [method, assembleSync(e), false].concat(Array.prototype.slice.call(arguments, 3))); }
+        catch (err) { this.__surdSplit = null; }
+      }
+    }
+    return nativeOpen.apply(this, arguments);
+  };
+  XP.send = function (body) {
+    var e = this.__surdSplit;
+    if (!e || this.__surdSync) return nativeSend.apply(this, arguments);
+    var self = this, args = this.__surdArgs;
+    assemble(e).then(function (u) {
+      args[1] = u;
+      nativeOpen.apply(self, args);
+      nativeSend.call(self, body);
+    })['catch'](function (err) {
+      try { if (self.onerror) self.onerror({ target: self, message: String(err && err.message || err) }); } catch (x) {}
+    });
+  };
+  function script(path) {
+    var e = byPath[path] || match(path);
+    if (!e) { throw new Error('surd: no split entry for script ' + path); }
+    var urls = partUrls(e), chunks = [], total = 0, k;
+    for (k = 0; k < urls.length; k++) { chunks.push(syncBytes(urls[k])); total += chunks[k].length; }
+    var all = new Uint8Array(total), at = 0;
+    for (k = 0; k < chunks.length; k++) { all.set(chunks[k], at); at += chunks[k].length; }
+    if (e.b && total !== e.b) throw new Error('surd: ' + e.p + ' reassembled to ' + total + ', expected ' + e.b);
+    var code = new TextDecoder('utf-8').decode(all);
+    (0, eval)(code + '\n//# sourceURL=' + base + e.p);
+  }
+  window.SURD_SPLIT = { blobs: blobs, match: match, assemble: assemble, script: script };
+  var pf = [];
+  for (i = 0; i < table.length; i++) if (table[i].pf) pf.push(table[i]);
+  if (pf.length) {
+    var st = { total: pf.length, done: 0, bytes: 0, doneBytes: 0, failed: 0 };
+    for (i = 0; i < pf.length; i++) st.bytes += pf[i].b || 0;
+    window.SURD_PREFETCH = st;
+    var next = 0, LANES = 2;
+    var pump = function () {
+      if (next >= pf.length) return;
+      var e = pf[next++];
+      assemble(e)['catch'](function () { st.failed++; })
+        .then(function () { st.done++; st.doneBytes += e.b || 0; pump(); });
+    };
+    for (i = 0; i < LANES && i < pf.length; i++) pump();
+  }
+})();</script>
+<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/gh/playsurd/surd-runtime@main/v53aeb7210d/runtime.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cheese Cube — Zombies</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #1b1810; }
+    body { color: #fff; font: 14px/1.4 system-ui, sans-serif; user-select: none; }
+    canvas { display: block; width: 100%; height: 100%; outline: none; }
+    #debug, #center { position: fixed; margin: 0; pointer-events: none; }
+    #debug { top: 10px; right: 10px; padding: 6px 9px; background: #0008; font: 12px/1.4 monospace; white-space: pre; }
+    /* Messages in the style of the game's iPrintLnBold: plain white text in the upper middle. */
+    #center { left: 50%; top: 24%; transform: translateX(-50%); font: calc(100vh / 720 * 21)/1.35 HudText, system-ui, sans-serif; color: #fff; text-align: center; white-space: pre; text-shadow: 0 0 3px #000, 0 1px 4px #000; z-index: 3; }
+    #center { max-width: 90vw; white-space: pre-wrap; }
+    @keyframes deny { 50% { color: #ff5a4a; } }
+    #damage { position: fixed; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at center, transparent 45%, #a0000088 100%); }
+    [hidden] { display: none !important; }
+    #coop-notice { z-index: 3; position: fixed; left: 50%; bottom: 120px; transform: translateX(-50%); padding: 8px 14px; background: #2a0d0bd0; color: #ffd7cf; font: 600 15px system-ui; border-radius: 3px; pointer-events: none; text-align: center; }
+  </style>
+  <link rel="stylesheet" href="./game/hud.css">
+  <link rel="stylesheet" href="./game/menu.css">
+  <script type="importmap">
+    {"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/jsm/","three-mesh-bvh":"./vendor/bvh.js","@recast-navigation/core":"./vendor/recast-core.mjs","@recast-navigation/wasm":"./vendor/recast-wasm.js"}}
+  </script>
+</head>
+<body data-map="zm_ccube" data-title="Cheese Cube">
+  <!-- The map's own loading screen, as the game shows a Workshop map while it loads. -->
+  <div id="loading"><img src="./zm_ccube/menu/loading.jpg" alt="" onerror="this.remove()"><div class="loading-bar"><i id="loading-fill"></i></div><p id="status" role="status">Loading Cheese Cube…</p></div>
+  <div id="damage"></div>
+  <!-- The original BO3 Zombies HUD, built by web/game/hud.js from the game's own images. -->
+  <div id="hud" class="hidden"></div>
+  <p id="center" hidden></p>
+  <!-- The Zombies menus (web/game/menu.js): the frontend lobby before a match, the start menu during one. -->
+  <div id="help" class="menu frontend" hidden>
+    <video id="menu-video" class="menu-video" src="./zm_ccube/menu/frontend.mp4" poster="./zm_ccube/menu/frontend.jpg" muted loop playsinline preload="auto"></video>
+    <div class="menu-shade"></div>
+    <div class="menu-left">
+      <i class="menu-rail"></i>
+      <h1 id="menu-title">Zombies</h1>
+      <p id="help-status" class="menu-mode">Offline</p>
+      <nav id="menu-main" class="menu-list" aria-label="Menu">
+        <button id="menu-play" type="button" data-nav-default>Start Game</button>
+        <button id="coop-open" type="button" disabled>Play with Friends</button>
+        <button type="button" data-open="menu-options">Options</button>
+        <button type="button" data-open="menu-controls">Controls</button>
+        <button id="support-open" type="button" data-open="menu-support" hidden>Support the Servers</button>
+        <button id="menu-restart" type="button" hidden>Restart Game</button>
+        <button id="coop-exit" type="button" hidden>Leave Co-op</button>
+      </nav>
+      <p id="menu-leader"></p>
+      <section id="coop-panel" class="menu-sub" hidden aria-label="Play with friends">
+        <h2 class="menu-heading">Play with Friends</h2>
+        <div id="coop-connect" class="menu-list-inline">
+          <label class="menu-field">Name <input id="coop-name" maxlength="20" autocomplete="nickname" placeholder="Survivor"></label>
+          <button id="coop-host" type="button">Create Room</button>
+          <label class="menu-field">Room code <input id="coop-code" maxlength="6" placeholder="CODE" autocomplete="off" autocapitalize="characters"></label>
+          <button id="coop-join" type="button">Join Room</button>
+        </div>
+        <div id="coop-room" hidden>
+          <p class="menu-room">Room <strong id="coop-room-code"></strong></p>
+          <button id="coop-ready" type="button">Ready</button>
+          <button id="coop-start" type="button" hidden>Start Game</button>
+          <button id="coop-copy" type="button">Copy Invite</button>
+        </div>
+        <button id="coop-leave" type="button">Back</button>
+        <p id="coop-status" class="menu-note" role="status" aria-live="polite"></p>
+      </section>
+      <section id="menu-options" class="menu-sub" hidden aria-label="Options">
+        <h2 class="menu-heading">Options</h2>
+        <label class="menu-slider">Field of View <input id="fov" type="range" min="65" max="120" value="80"><output id="fov-value">80°</output></label>
+        <label class="menu-slider">Sensitivity <input id="sensitivity" type="range" min="0.25" max="3" step="0.05" value="1"><output id="sensitivity-value">1.00</output></label>
+        <label class="menu-slider">Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="1"><output id="volume-value">100%</output></label>
+        <button type="button" data-back>Back</button>
+      </section>
+      <section id="menu-controls" class="menu-sub" hidden aria-label="Controls">
+        <h2 class="menu-heading">Controls</h2>
+        <dl class="menu-controls">
+          <dt>W A S D</dt><dd>Move</dd><dt>Shift</dt><dd>Sprint</dd><dt>Space</dt><dd>Jump</dd><dt>C / Ctrl</dt><dd>Crouch</dd>
+          <dt>Mouse</dt><dd>Fire / aim down sights</dd><dt>R</dt><dd>Reload</dd><dt>V / Mouse 3</dt><dd>Melee</dd><dt>G</dt><dd>Grenade</dd>
+          <dt>Hold F</dt><dd>Buy, use, revive</dd><dt>1–3 / Wheel</dt><dd>Switch weapons</dd><dt>Esc</dt><dd>Menu</dd><dt>F3</dt><dd>Performance</dd>
+        </dl>
+        <dl id="menu-controls-pad" class="menu-controls" hidden></dl>
+        <button type="button" data-back>Back</button>
+      </section>
+      <section id="menu-support" class="menu-sub" hidden aria-label="Support the servers">
+        <h2 class="menu-heading">Support the Servers</h2>
+        <p id="support-message" class="menu-support-text"></p>
+        <ul id="support-wallets" class="menu-wallets"></ul>
+        <p id="support-status" class="menu-note" role="status" aria-live="polite"></p>
+        <button type="button" data-back>Back</button>
+      </section>
+      <figure class="menu-map"><img src="./zm_ccube/menu/preview.jpg" alt="Cheese Cube"><figcaption>zm_ccube</figcaption></figure>
+    </div>
+    <aside class="menu-right">
+      <p id="menu-party-head">1 Player (4 Max)</p>
+      <div class="menu-score-head"><span>Score</span><span>Kills</span><span>Heads</span></div>
+      <ul id="menu-party-list"></ul>
+      <ul id="coop-roster" hidden></ul>
+      <section class="menu-intel"><header>Objective</header><p id="objective"></p><p id="hazard"></p></section>
+    </aside>
+    <footer class="menu-footer"><span><kbd id="menu-back-key">ESC</kbd>Back</span><span id="menu-hint">Click the game to play</span></footer>
+  </div>
+  <div id="coop-notice" hidden role="status"></div>
+  <pre id="debug" hidden></pre>
+  <script crossorigin="anonymous" type="module" src="./game/main.js"></script>
+</body>
+</html>

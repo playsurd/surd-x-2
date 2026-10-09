@@ -1,0 +1,117 @@
+/* Black Ops III Zombies menus (web/game/menu.js). Layout in LUI units (720 per screen height), measured from the
+   native Zombies lobby; images from .tools/build-menu.mjs. Saira (variable width) stands in for the game's menu font. */
+@font-face { font-family: MenuFont; src: url('../vendor/fonts/Saira-Variable.ttf'); font-stretch: 50% 125%; font-weight: 100 900; }
+
+.menu { position: fixed; inset: 0; z-index: 4; pointer-events: none; --u: calc(100vh / 720); color: #e6e6e6; font-family: MenuFont, system-ui, sans-serif; font-stretch: 75%; overflow: hidden; }
+.menu * { font-stretch: inherit; }
+.menu button, .menu input, .menu label { pointer-events: auto; }
+.menu-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.menu-shade { position: absolute; inset: 0; background: linear-gradient(90deg, #000c, #0007 32%, #0000 58%), linear-gradient(#0000 70%, #000a); }
+.menu.pause .menu-video { display: none; }
+.menu.pause .menu-shade { background: radial-gradient(ellipse at 60% 45%, #0005, #000d 85%), #0006; backdrop-filter: blur(5px) saturate(.7); }
+
+/* Left column: the rail, title, mode, list and the map card. */
+.menu-left { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--u) * 430); }
+.menu-rail { position: absolute; left: calc(var(--u) * 27); top: calc(var(--u) * 26); bottom: calc(var(--u) * 52); width: 1px; background: #ffffff36; }
+.menu-rail::before { content: ''; position: absolute; left: calc(var(--u) * -4); top: 0; bottom: 0; width: calc(var(--u) * 9);
+  background: repeating-linear-gradient(#0000 0 calc(var(--u) * 140), #ffffff50 calc(var(--u) * 140) calc(var(--u) * 141)); }
+.menu-rail::after { content: ''; position: absolute; left: calc(var(--u) * -3.5); top: calc(var(--u) * 38); width: calc(var(--u) * 8); height: calc(var(--u) * 8); background: #e8e8e8; box-shadow: 0 0 calc(var(--u) * 4) #fff8; }
+#menu-title { position: absolute; left: calc(var(--u) * 52); top: calc(var(--u) * 34); margin: 0; font: 500 calc(var(--u) * 58)/1 MenuFont; font-stretch: 100%; text-transform: uppercase; letter-spacing: .03em; color: #f3f3f3; text-shadow: 0 calc(var(--u) * 2) calc(var(--u) * 6) #000b; white-space: nowrap; }
+.menu-mode { position: absolute; left: calc(var(--u) * 50); top: calc(var(--u) * 99); margin: 0; font: calc(var(--u) * 25)/1 MenuFont; font-stretch: 90%; text-transform: uppercase; letter-spacing: .02em; text-shadow: 0 1px 4px #000; white-space: nowrap; }
+.menu-list, .menu-sub { position: absolute; left: calc(var(--u) * 60); top: calc(var(--u) * 138); width: calc(var(--u) * 310); display: flex; flex-direction: column; gap: calc(var(--u) * 2); }
+.menu-list button, .menu-sub button { position: relative; height: calc(var(--u) * 31); padding: 0 calc(var(--u) * 14); text-align: left; font: calc(var(--u) * 20)/1 MenuFont; font-stretch: 90%; font-variant: small-caps; letter-spacing: .05em;
+  color: #dadada; background: none; border: 0; cursor: pointer; text-shadow: 0 1px 3px #000c; }
+/* Focus: the frontend's orange focus panel with its arrow. */
+.menu-list button:focus, .menu-sub button:focus { outline: none; color: #111; text-shadow: none; background: url('../zm_ccube/menu/uie_t7_menu_frontend_buttonfocusfull.png') center / 100% 100% no-repeat; }
+.menu-list button:focus::before, .menu-sub button:focus::before { content: ''; position: absolute; left: calc(var(--u) * -17); top: 50%; width: calc(var(--u) * 12); height: calc(var(--u) * 12); translate: 0 -50%;
+  background: url('../zm_ccube/menu/uie_t7_menu_frontend_buttonfocusarrow.png') center / contain no-repeat; }
+.menu-list button:disabled, .menu-sub button:disabled { color: #ffffff4a; cursor: default; }
+.menu-sub > div { display: flex; flex-direction: column; gap: calc(var(--u) * 2); }
+.menu-heading { margin: 0 0 calc(var(--u) * 6); font: calc(var(--u) * 24)/1.1 MenuFont; text-transform: uppercase; letter-spacing: .04em; color: #f4f4f4; text-shadow: 0 1px 4px #000; }
+/* Submenus replace the main list. */
+.menu:has(.menu-sub:not([hidden])) #menu-main { display: none; }
+.menu-field { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--u) * 8); padding: 0 calc(var(--u) * 14); font: calc(var(--u) * 17)/1 MenuFont; font-variant: small-caps; letter-spacing: .05em; color: #cfcfcf; }
+.menu-field input { width: calc(var(--u) * 160); padding: calc(var(--u) * 4) calc(var(--u) * 8); font: calc(var(--u) * 18)/1.1 MenuFont; color: #fff; background: #000a; border: 1px solid #ffffff45; border-radius: 0; }
+.menu-field input:focus { outline: none; border-color: #ff7a1a; }
+#coop-code { text-transform: uppercase; letter-spacing: .25em; }
+.menu-room { margin: 0 calc(var(--u) * 14) calc(var(--u) * 4); font: calc(var(--u) * 18)/1.2 MenuFont; text-transform: uppercase; letter-spacing: .04em; }
+.menu-room strong { color: #f0d54a; letter-spacing: .22em; font-size: calc(var(--u) * 22); }
+.menu-slider { display: grid; grid-template-columns: 1fr calc(var(--u) * 130) calc(var(--u) * 46); align-items: center; gap: calc(var(--u) * 8); padding: calc(var(--u) * 4) calc(var(--u) * 14); font: calc(var(--u) * 18)/1 MenuFont; font-variant: small-caps; letter-spacing: .05em; }
+.menu-slider input { width: 100%; accent-color: #ff7a1a; }
+.menu-slider output { text-align: right; color: #f0d54a; }
+.menu-controls { display: grid; grid-template-columns: auto 1fr; gap: calc(var(--u) * 3) calc(var(--u) * 14); margin: 0 0 calc(var(--u) * 8); padding: 0 calc(var(--u) * 14); font: calc(var(--u) * 16)/1.25 MenuFont; }
+.menu-controls dt { color: #f0d54a; white-space: nowrap; }
+.menu-controls dd { margin: 0; color: #d8d8d8; }
+/* Support the Servers: the message and one row per wallet, with its Copy button. */
+.menu-support-text { margin: 0 calc(var(--u) * 14) calc(var(--u) * 6); font: calc(var(--u) * 16)/1.3 MenuFont; color: #d8d8d8; text-shadow: 0 1px 3px #000; }
+.menu-wallets { margin: 0; padding: 0; list-style: none; }
+.menu-wallets li { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: calc(var(--u) * 2) calc(var(--u) * 24); padding: calc(var(--u) * 6) 0 calc(var(--u) * 6) calc(var(--u) * 14); border-top: 1px solid #ffffff26; }
+.menu-wallets span { font: calc(var(--u) * 17)/1 MenuFont; font-variant: small-caps; letter-spacing: .05em; color: #f0d54a; text-shadow: 0 1px 3px #000; }
+.menu-wallets code { grid-column: 1; font: max(10px, calc(var(--u) * 12))/1.35 ui-monospace, Consolas, monospace; color: #e8e8e8; word-break: break-all; user-select: all; text-shadow: 0 1px 3px #000; }
+.menu-wallets button { grid-column: 2; grid-row: 1 / 3; }
+.menu-note { margin: calc(var(--u) * 8) calc(var(--u) * 14) 0; min-height: 1.2em; font: calc(var(--u) * 16)/1.25 MenuFont; color: #f2d98a; text-shadow: 0 1px 3px #000; }
+#menu-leader { position: absolute; left: calc(var(--u) * 55); top: calc(var(--u) * 300); margin: 0; font: calc(var(--u) * 17)/1 MenuFont; text-shadow: 0 1px 3px #000; }
+.menu:has(.menu-sub:not([hidden])) #menu-leader { display: none; }
+.menu-map { position: absolute; left: calc(var(--u) * 53); bottom: calc(var(--u) * 116); width: calc(var(--u) * 317); margin: 0; transform: rotate(-1.2deg); filter: drop-shadow(0 calc(var(--u) * 4) calc(var(--u) * 10) #000d); }
+.menu-map img { display: block; width: 100%; }
+.menu-map figcaption { position: absolute; left: 6%; bottom: 9%; padding: calc(var(--u) * 2) calc(var(--u) * 7); background: #f2d21a; color: #121212; font: 600 calc(var(--u) * 19)/1 MenuFont; letter-spacing: .02em; transform: rotate(-3deg); box-shadow: 0 1px 3px #0008; }
+.menu.pause .menu-map, .menu:has(#menu-controls:not([hidden])) .menu-map, .menu:has(#menu-support:not([hidden])) .menu-map { display: none; }
+
+/* Right column: the party (lobby) or scoreboard (start menu), and the objective. */
+.menu-right { position: absolute; right: calc(var(--u) * 53); top: calc(var(--u) * 43); width: calc(var(--u) * 363); }
+#menu-party-head { margin: 0; padding: calc(var(--u) * 3) calc(var(--u) * 12); font: calc(var(--u) * 17)/1.1 MenuFont; color: #1e1e1e; background: linear-gradient(90deg, #ececec, #c7c7c7); transform: rotate(-1.6deg) skewX(-8deg); transform-origin: left; }
+#menu-party-list { list-style: none; margin: calc(var(--u) * 8) 0 0; padding: 0; }
+#menu-party-list li { display: grid; grid-template-columns: calc(var(--u) * 16) 1fr auto auto auto; align-items: center; gap: calc(var(--u) * 10); height: calc(var(--u) * 34); margin-bottom: calc(var(--u) * 4);
+  padding: 0 calc(var(--u) * 14); background: url('../zm_ccube/menu/menu_zm_gamertag.png') center / 100% 100% no-repeat; font: italic calc(var(--u) * 19)/1 MenuFont; text-shadow: 0 1px 3px #000; }
+#menu-party-list li i { width: calc(var(--u) * 12); height: calc(var(--u) * 16); background: url('../zm_ccube/menu/uie_t7_menu_frontend_iconpartymember.png') center / contain no-repeat; opacity: .8; }
+#menu-party-list li.leader i { background-image: url('../zm_ccube/menu/uie_t7_menu_frontend_iconpartyleader.png'); }
+#menu-party-list li .score, #menu-party-list li .kills, #menu-party-list li .heads { min-width: calc(var(--u) * 40); text-align: right; font-style: normal; color: #ececec; white-space: nowrap; }
+#menu-party-list li.ready .score { color: #9fe870; }
+#menu-party-list li.down .name { text-decoration: line-through; opacity: .7; }
+#menu-party-list li.dead { opacity: .5; }
+.menu-score-head { display: none; justify-content: flex-end; gap: calc(var(--u) * 10); margin: calc(var(--u) * 10) calc(var(--u) * 14) 0 0; font: calc(var(--u) * 14)/1 MenuFont; font-variant: small-caps; letter-spacing: .06em; color: #bbb; }
+.menu-score-head span { min-width: calc(var(--u) * 40); text-align: right; }
+.menu.pause .menu-score-head { display: flex; }
+.menu-intel { display: none; margin-top: calc(var(--u) * 22); }
+.menu.pause .menu-intel { display: block; }
+.menu-intel header { padding: calc(var(--u) * 3) calc(var(--u) * 12); font: calc(var(--u) * 17)/1.1 MenuFont; color: #1e1e1e; background: linear-gradient(90deg, #ececec, #c7c7c7); transform: skewX(-8deg); }
+.menu-intel p { margin: calc(var(--u) * 7) calc(var(--u) * 12) 0; font: calc(var(--u) * 16)/1.3 MenuFont; color: #e0e0e0; text-shadow: 0 1px 3px #000; }
+.menu-intel p.danger { color: #ff8a70; }
+
+/* Footer: key prompts on the frontend's help bar. */
+.menu-footer { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--u) * 40); display: flex; align-items: center; justify-content: space-between; padding: 0 calc(var(--u) * 30);
+  background: linear-gradient(#0000, #000d 45%); font: calc(var(--u) * 17)/1 MenuFont; text-shadow: 0 1px 3px #000; border-top: 1px solid #ffffff1c; }
+.menu-footer kbd { display: inline-block; margin-right: calc(var(--u) * 8); padding: calc(var(--u) * 3) calc(var(--u) * 7); font: inherit; border: 1px solid #ffffffa0; background: #0009; }
+
+/* Loading: the map's loading screen with a progress bar. */
+#loading { position: fixed; inset: 0; z-index: 6; background: #000; --u: calc(100vh / 720); }
+/* The image is 2:1; anchor it left so the map's title is never cropped. */
+#loading img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left center; }
+.loading-bar { position: absolute; left: 50%; bottom: 8%; width: 36%; height: calc(var(--u) * 4); translate: -50% 0; background: #ffffff2c; }
+.loading-bar i { display: block; width: 0; height: 100%; background: #ff7a1a; box-shadow: 0 0 calc(var(--u) * 8) #ff7a1a; transition: width .2s; }
+#loading #status { position: absolute; left: 50%; bottom: calc(8% + var(--u) * 12); top: auto; translate: -50% 0; margin: 0; padding: 0; background: none; font: calc(var(--u) * 18)/1.3 MenuFont, system-ui, sans-serif; font-variant: small-caps; letter-spacing: .06em; white-space: pre-wrap; text-align: center; text-shadow: 0 1px 4px #000; }
+
+/* End of the match: "GAME OVER" and how far the team got. */
+#center.ending { top: 28%; font-family: MenuFont, system-ui, sans-serif; }
+#center.ending strong { display: block; font: 500 calc(100vh / 720 * 64)/1.05 MenuFont; letter-spacing: .05em; text-transform: uppercase; }
+#center.ending span { display: block; font-size: calc(100vh / 720 * 24); }
+
+/* End of the match (web/game/game-over.js): the hud lines from _zm.gsc end_game() at their positions (130 and 100
+   hud units above centre, font scale 3 and 2) and the forced scoreboard. */
+.game-over { position: fixed; inset: 0; z-index: 3; pointer-events: none; --h: calc(100vh / 480); --u: calc(100vh / 720); color: #fff; font-family: MenuFont, system-ui, sans-serif; font-stretch: 75%; }
+.game-over::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, #0000 35%, #000a 100%); }
+.game-over-title, .game-over-subtitle { position: absolute; left: 50%; translate: -50% -50%; white-space: nowrap; text-align: center; text-shadow: 0 0 calc(var(--h) * 2) #000, 0 calc(var(--h) * .6) calc(var(--h) * 3) #000c; opacity: 0; }
+.game-over-title { top: calc(50% - var(--h) * 130); font: 500 calc(var(--h) * 33)/1 MenuFont, system-ui, sans-serif; letter-spacing: .04em; }
+.game-over-title.escaped { font-size: calc(var(--h) * 24); }
+.game-over-subtitle { top: calc(50% - var(--h) * 100); font: 400 calc(var(--h) * 19)/1 MenuFont, system-ui, sans-serif; }
+.game-over-board { position: absolute; left: 50%; top: 50%; translate: -50% -38%; width: min(92vw, calc(var(--u) * 760)); background: linear-gradient(#0b0b0bd9, #151515d0);
+  border: 1px solid #ffffff26; box-shadow: 0 calc(var(--u) * 6) calc(var(--u) * 30) #000a; font-size: calc(var(--u) * 19); }
+.game-over-head { display: flex; justify-content: space-between; padding: calc(var(--u) * 10) calc(var(--u) * 16); border-bottom: 2px solid #ff7a1a; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.game-over-head .round { color: #ff7a1a; }
+.game-over-row { display: grid; grid-template-columns: 2.4fr repeat(5, 1fr); align-items: center; padding: calc(var(--u) * 7) calc(var(--u) * 16); text-align: right; }
+.game-over-row > :first-child { text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.game-over-row.columns { color: #bdbdbd; font-size: .78em; letter-spacing: .08em; text-transform: uppercase; }
+.game-over-row.player { background: #ffffff0d; margin: calc(var(--u) * 3) calc(var(--u) * 8); padding-left: calc(var(--u) * 10); font-weight: 600; }
+.game-over-row.player.local { background: linear-gradient(90deg, #ff7a1a33, #ffffff0d 60%); }
+.game-over-rows { padding-bottom: calc(var(--u) * 8); }
+.game-over-footer { position: absolute; left: 50%; bottom: 7%; translate: -50% 0; font-size: calc(var(--u) * 17); color: #d8d8d8; text-shadow: 0 1px 4px #000; white-space: nowrap; }

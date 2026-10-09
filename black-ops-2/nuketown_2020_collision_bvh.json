@@ -1,0 +1,43 @@
+{
+  "format": "collision-bvh-v1",
+  "threeMeshBvhVersion": "0.9.14",
+  "source": "export/web/nuketown_2020_collision.gltf",
+  "binary": "nuketown_2020_collision_bvh.bin",
+  "coordinateSystem": "three-y-up",
+  "vertices": 383761,
+  "triangles": 439726,
+  "bounds": {
+    "min": [
+      -35369.5,
+      -718.5,
+      -37392
+    ],
+    "max": [
+      39872,
+      4237.5,
+      35960
+    ]
+  },
+  "buildMilliseconds": 509,
+  "byteLength": 13331540,
+  "layout": {
+    "position": {
+      "byteOffset": 0,
+      "byteLength": 4605132,
+      "type": "Float32Array",
+      "count": 1151283
+    },
+    "index": {
+      "byteOffset": 4605132,
+      "byteLength": 5276712,
+      "type": "Uint32Array",
+      "count": 1319178
+    },
+    "roots": [
+      {
+        "byteOffset": 9881844,
+        "byteLength": 3449696
+      }
+    ]
+  }
+}

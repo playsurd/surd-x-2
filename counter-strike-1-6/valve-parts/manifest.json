@@ -1,0 +1,265 @@
+{
+  "source": "https://github.com/Igu2012/cs1.6-browser/tree/main/valve-parts",
+  "archive": "valve.zip",
+  "archiveSize": 426826452,
+  "archiveSha256": "f913a48ca4955a98712e4037ae6a8d647bf5b0047ebd081b78517a77652ec6b4",
+  "partSize": 8388608,
+  "partCount": 51,
+  "parts": [
+    {
+      "file": "valve.part-000",
+      "size": 8388608,
+      "sha256": "86e1d2fa836c0a4608bb258e06953d1120f8226a3ff6fd1e06d7bf883f8f0950"
+    },
+    {
+      "file": "valve.part-001",
+      "size": 8388608,
+      "sha256": "134324af8bf667979dafcb5b321015a8a1734d93eb81dfed40fb643c211e5a31"
+    },
+    {
+      "file": "valve.part-002",
+      "size": 8388608,
+      "sha256": "383e499a55c1a02cad2e5924db5827d93a7caec9398436fc849250ab3a187fe4"
+    },
+    {
+      "file": "valve.part-003",
+      "size": 8388608,
+      "sha256": "26169ed20f0faeac0a1ce01b3e07bd32b7b6983ca68801e4ba8b775014fb40cc"
+    },
+    {
+      "file": "valve.part-004",
+      "size": 8388608,
+      "sha256": "7c655acf2e9c8d3650ffd1a11fb0a3dbae36941d852a9aa6bf0d219e0d375be9"
+    },
+    {
+      "file": "valve.part-005",
+      "size": 8388608,
+      "sha256": "32ff02e954473c2873b88d0575fca7c79d79c387edb48226575a48b1f33efd06"
+    },
+    {
+      "file": "valve.part-006",
+      "size": 8388608,
+      "sha256": "44d1e2d7dbb692b1106591e6f5257cf29806ad60fd27ebc91f67d88af43bd4f6"
+    },
+    {
+      "file": "valve.part-007",
+      "size": 8388608,
+      "sha256": "31048e9c0735e14366573d7ca34407a0de296439503ad793aee1ccd7efe4e76e"
+    },
+    {
+      "file": "valve.part-008",
+      "size": 8388608,
+      "sha256": "69704f59d8be82fe099600cc9856431963bf0a784ce3a41213155e217a153bd7"
+    },
+    {
+      "file": "valve.part-009",
+      "size": 8388608,
+      "sha256": "880145517d4934fe0e17d946322e106a433e38a784aaf796fe21e4cf4713297d"
+    },
+    {
+      "file": "valve.part-010",
+      "size": 8388608,
+      "sha256": "b96574f1dbc7474b1114a8e03140addd388ec211266990d1453a0deb8ff3a61d"
+    },
+    {
+      "file": "valve.part-011",
+      "size": 8388608,
+      "sha256": "21441baaf99acb9ee9d093e7a2146a7c287ee9ca9e6968e8aad6e33f824fa1f2"
+    },
+    {
+      "file": "valve.part-012",
+      "size": 8388608,
+      "sha256": "8ff36efc27f178539b8bdda05f682f897666a58c5f5611e59b57b5e56a818244"
+    },
+    {
+      "file": "valve.part-013",
+      "size": 8388608,
+      "sha256": "4f8101c09d3f6ac038bda68127108ff22dfe685b772297d1ae46b92606e04c3e"
+    },
+    {
+      "file": "valve.part-014",
+      "size": 8388608,
+      "sha256": "0fd1cc77b06ab98f81cf160234515ee46578f3d0bb12de1a479ea26773fe4575"
+    },
+    {
+      "file": "valve.part-015",
+      "size": 8388608,
+      "sha256": "1665671905fa6a391a81ba9e35e2312c8cd657559d244935ea9abe8d409babec"
+    },
+    {
+      "file": "valve.part-016",
+      "size": 8388608,
+      "sha256": "2b7a5a4e9265d0df1cb2f4ebe18dbec996528217eced7eb5d9c1ec19b5cc10f1"
+    },
+    {
+      "file": "valve.part-017",
+      "size": 8388608,
+      "sha256": "49b9e52ce1d03b37be43f8ff2684ae7419eb5bf2ee2a47ec831aa3d13258f5fe"
+    },
+    {
+      "file": "valve.part-018",
+      "size": 8388608,
+      "sha256": "feb6fe1ad37d34d8b2be5a522ac103e2ebc5a85b079f6ee5108596043356313c"
+    },
+    {
+      "file": "valve.part-019",
+      "size": 8388608,
+      "sha256": "baa4e0221c6191417611f52d45d7e4955af9a3529fd352782a70866c0f894a4e"
+    },
+    {
+      "file": "valve.part-020",
+      "size": 8388608,
+      "sha256": "37dcc62246aa80fa73c5493225e9907872704263c7dd8e78aba8ca22b500c5cb"
+    },
+    {
+      "file": "valve.part-021",
+      "size": 8388608,
+      "sha256": "6b00c0b503431006ebe97d2a8af751b98c81ef5f2775b9a4695a10ef9569b25c"
+    },
+    {
+      "file": "valve.part-022",
+      "size": 8388608,
+      "sha256": "8b2f27925db17c053bd1127d0cbdc5ccfe7d38b3ed1bd95d408c226e62c7f284"
+    },
+    {
+      "file": "valve.part-023",
+      "size": 8388608,
+      "sha256": "839dc164e520855f784073d6ca1d0d94c1b546ba97f3c68381ba5ea121ec947f"
+    },
+    {
+      "file": "valve.part-024",
+      "size": 8388608,
+      "sha256": "d511913a6be5bb3379bc48afd759b671536ceb82373a151f4573e7beb9c8b7a8"
+    },
+    {
+      "file": "valve.part-025",
+      "size": 8388608,
+      "sha256": "9a2d9e390a241fd3d1cf64cd6dc7dc1185168985c3eba3fac1408be7c16f9d33"
+    },
+    {
+      "file": "valve.part-026",
+      "size": 8388608,
+      "sha256": "ad618e1b40fed63ea0f15e9ba1e9e13f1180878e92cfd35d9cc296eaa5792622"
+    },
+    {
+      "file": "valve.part-027",
+      "size": 8388608,
+      "sha256": "d005b65bc5e9e859186cd61d902b50470b3932710c605461366fa9646f158d60"
+    },
+    {
+      "file": "valve.part-028",
+      "size": 8388608,
+      "sha256": "9b1acbb1fdd5dccba474e8759646cdb93b66689cd1d1e6c00de5bfd15f5b7f4a"
+    },
+    {
+      "file": "valve.part-029",
+      "size": 8388608,
+      "sha256": "5f9b502090ee2bba921c2e351260436ef0a4e6c092659afc4e1f9357a15955ed"
+    },
+    {
+      "file": "valve.part-030",
+      "size": 8388608,
+      "sha256": "e6e75bbf9e82a163f409fcabd0f75f568562d8ff2d958411f28b216137414e8d"
+    },
+    {
+      "file": "valve.part-031",
+      "size": 8388608,
+      "sha256": "898334635721f271bf5bc52a87d5a3948274252e21fbb9c4eaf4dfdef08e9678"
+    },
+    {
+      "file": "valve.part-032",
+      "size": 8388608,
+      "sha256": "9e9b35c9899b2d9d09cbad31f9d4176fbb8c77058276737da34827416e3ac5dd"
+    },
+    {
+      "file": "valve.part-033",
+      "size": 8388608,
+      "sha256": "c9d5942b3d257f38fbf9c7f5d09c840647927bba03ff244c5f7883707dc9d8e6"
+    },
+    {
+      "file": "valve.part-034",
+      "size": 8388608,
+      "sha256": "0d79ff63204d28a332ab8e68c02d6ebd58213affee9b34cc6cd089bf1c70fd4e"
+    },
+    {
+      "file": "valve.part-035",
+      "size": 8388608,
+      "sha256": "679263ef98f013b6695710c4242fb22fb38eeeeea5c8a0c2b3d8e2cdf6c69c09"
+    },
+    {
+      "file": "valve.part-036",
+      "size": 8388608,
+      "sha256": "ef324171d270e89badffc924a5c7f01c5f361da6ceb0e5e167a81f24692375c9"
+    },
+    {
+      "file": "valve.part-037",
+      "size": 8388608,
+      "sha256": "825d3c68adf4831d9e365093d4cbbb9fcf7575c893896b0748625e01651b965e"
+    },
+    {
+      "file": "valve.part-038",
+      "size": 8388608,
+      "sha256": "52f225b0621cfdb867a5f0997ea7da07adcb8e1c7f5a01f3837caf082086fe89"
+    },
+    {
+      "file": "valve.part-039",
+      "size": 8388608,
+      "sha256": "9072c122569a5bcc6766a06c1aab02ff5ce8d183e2a89204b5e1df64add4dc9c"
+    },
+    {
+      "file": "valve.part-040",
+      "size": 8388608,
+      "sha256": "908b692e2000da740b00cf2d1ed4ca96341e3f9654b33730681a9a362cf896b8"
+    },
+    {
+      "file": "valve.part-041",
+      "size": 8388608,
+      "sha256": "f793c6026d987c54402fa66cb0f19a425080230334a47ff73578f4dda5129f01"
+    },
+    {
+      "file": "valve.part-042",
+      "size": 8388608,
+      "sha256": "7b1c1566d3e1b521b91f439af9715ca4df7d75e710c24735752387262d36322e"
+    },
+    {
+      "file": "valve.part-043",
+      "size": 8388608,
+      "sha256": "4517c4fbe837e4f6040bf13bec42720e0f62664a31a87098e2e9c94e3b459cfa"
+    },
+    {
+      "file": "valve.part-044",
+      "size": 8388608,
+      "sha256": "c3dcfc2aee661ff17f95845706a9152a73456e2391eab1b98059f3da69617a6f"
+    },
+    {
+      "file": "valve.part-045",
+      "size": 8388608,
+      "sha256": "66654ed9fc88447d940ba8449abb6dd9094ffae84324db017820b7bc0b78965c"
+    },
+    {
+      "file": "valve.part-046",
+      "size": 8388608,
+      "sha256": "738a8ae2590b5c54fbd716a04d6c89c1a180aa221a8285a406466cdf5c47a4e7"
+    },
+    {
+      "file": "valve.part-047",
+      "size": 8388608,
+      "sha256": "59f0c066465e7de118ae84af2a29624684ca2cfc93aa87244a0cf4175177eb32"
+    },
+    {
+      "file": "valve.part-048",
+      "size": 8388608,
+      "sha256": "52ef85431eb0928f84a6b7da43b8f74bc4ee8b126406dcc3ca7d669a3a0303a2"
+    },
+    {
+      "file": "valve.part-049",
+      "size": 8388608,
+      "sha256": "2bb117b45e709018325f4e7911c1ce16f9d57aab554a1b25861a967763ab76e3"
+    },
+    {
+      "file": "valve.part-050",
+      "size": 7396052,
+      "sha256": "11d92a3d51e9ff490f7d901ae1b148f7dd6e73e61deab643fca5a47dd185939f"
+    }
+  ]
+}

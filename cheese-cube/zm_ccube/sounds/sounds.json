@@ -1,0 +1,1226 @@
+{
+ "powerup_spawn": {
+  "file": "sounds/powerup_spawn.flac",
+  "source": "zm_common.all.sabl: zmb\\powerups\\common\\spawn.LN100.pc.snd",
+  "duration": 0.95,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "2bdc8a1e1ce12ff7021592940bd81e41a655e2bedbc2f2d48e6008ca672ec961"
+ },
+ "powerup_grab": {
+  "file": "sounds/powerup_grab.flac",
+  "source": "zm_common.all.sabl: zmb\\powerups\\common\\grab.LN100.pc.snd",
+  "duration": 1.293,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "4afc14b7d5847610cc2b2a993714fd61cfed349b507e05bcd96f96a3c28fdb76"
+ },
+ "powerup_maxammo": {
+  "file": "sounds/powerup_maxammo.flac",
+  "source": "zm_common.all.sabl: zmb\\powerups\\maxammo\\max_ammo_00.LN100.pc.snd",
+  "duration": 2.718,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "ecef3add65b10b751da0a17553e5daae7ddf3772386e8a66abf6f23a70aa2359"
+ },
+ "powerup_instakill": {
+  "file": "sounds/powerup_instakill.flac",
+  "source": "zm_common.all.sabl: zmb\\powerups\\instakill\\instakill_00.LN100.pc.snd",
+  "duration": 2.188,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "d1cf311592ba7ae3eab1cd76521d38725dccbcb38b48108a540444b634270ae8"
+ },
+ "powerup_nuke": {
+  "file": "sounds/powerup_nuke.flac",
+  "source": "zm_common.all.sabl: zmb\\powerups\\nuke\\nuke_flash.LN100.pc.snd",
+  "duration": 1.385,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "3d04863db3be26ddbad1e6c58326a7072630f7b85255f7ddfb9ced41c81249d2"
+ },
+ "powerup_double_off": {
+  "file": "sounds/powerup_double_off.flac",
+  "source": "zm_common.all.sabl: zmb\\powerups\\double\\off\\off_00.LN100.pc.snd",
+  "duration": 5.564,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "e01cb57e1b5e2615c56f00705bc2337b88663464c573d714f143ce9bc3ec79f8"
+ },
+ "buy": {
+  "file": "sounds/buy.flac",
+  "source": "zm_common.all.sabl: zmb\\purchases\\common\\accept.LN100.pc.snd",
+  "duration": 2.773,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "b19202f467d64e25ea2c34e36d385e2fd3f7b2b73eb989b0e52c6c923f2f478f"
+ },
+ "deny": {
+  "file": "sounds/deny.flac",
+  "source": "zm_common.all.sabl: zmb\\purchases\\common\\deny.LN100.pc.snd",
+  "duration": 0.207,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "9d737d5f870b2e238a0919f2d1895d40f6059b805df5de0b0bf7976023f93d33"
+ },
+ "power_on": {
+  "file": "sounds/power_on.flac",
+  "source": "zm_common.all.sabl: zmb\\purchases\\power\\power.LN100.pc.snd",
+  "duration": 14.128,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "22e2a0578aa35e7e3a67e9364dcae77fe159d99c714faed66642fa72d635bff1"
+ },
+ "hit_alert": {
+  "file": "sounds/hit_alert.flac",
+  "source": "zm_common.all.sabl: mpl\\hit\\alert\\alert_00.LN100.pc.snd",
+  "duration": 0.118,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "577a0112ffef011f86de18c57af1fd6a254d4bd0cedfbe9a30e8195be49ad95f"
+ },
+ "knife_swing_0": {
+  "file": "sounds/knife_swing_0.flac",
+  "source": "zm_common.all.sabl: wpn\\melee\\knife\\knife_new\\swing\\knife_swing\\knife_whoosh_00.LN100.pc.snd",
+  "duration": 0.863,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "4b7fc10c8e1f9841fc9ce2a6285948120a121f864ad3d4f3e057a646d5f96a5d"
+ },
+ "knife_swing_1": {
+  "file": "sounds/knife_swing_1.flac",
+  "source": "zm_common.all.sabl: wpn\\melee\\knife\\knife_new\\swing\\knife_swing\\knife_whoosh_01.LN100.pc.snd",
+  "duration": 0.661,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "afa232d9a3d2391141cfc8f43b1e94c8a9d53375e94561f62c86e531d9b05b3c"
+ },
+ "knife_swing_2": {
+  "file": "sounds/knife_swing_2.flac",
+  "source": "zm_common.all.sabl: wpn\\melee\\knife\\knife_new\\swing\\knife_swing\\knife_whoosh_02.LN100.pc.snd",
+  "duration": 0.876,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "475d31f9b76c111d572e6efd5e5e94744753c8f1424a0a2462232ce355658c3d"
+ },
+ "knife_hit_0": {
+  "file": "sounds/knife_hit_0.flac",
+  "source": "zm_common.all.sabl: fly\\melee\\knife\\knife_stab\\knife_hit_00.LN100.pc.snd",
+  "duration": 1.069,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "bbb2a8669f630f3f25bacc764e043178e620c822c0aa51930ad2c1b0f3973e94"
+ },
+ "knife_hit_1": {
+  "file": "sounds/knife_hit_1.flac",
+  "source": "zm_common.all.sabl: fly\\melee\\knife\\knife_stab\\knife_hit_01.LN100.pc.snd",
+  "duration": 0.602,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "3f9f7c23971bc2c25c6785545f79faa0464f6a9e0cdda09efc7abb9d35cd6eb2"
+ },
+ "box_open": {
+  "file": "sounds/box_open.flac",
+  "source": "zm_common.all.sabl: zmb\\purchases\\box\\open\\open_00.LN100.pc.snd",
+  "duration": 1.95,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "7fe0d5f395ced9db4aa8e36c8e38be8f141ccbdd299b57c1179d65d3fd32d01b"
+ },
+ "box_music": {
+  "file": "sounds/box_music.flac",
+  "source": "zm_common.all.sabl: zmb\\purchases\\box\\music_box\\music_box_00.LN100.pc.snd",
+  "duration": 7.788,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "33af371629317eded6d5c7046151ae01f5fea100b592a992e601013376d271b0"
+ },
+ "box_close": {
+  "file": "sounds/box_close.flac",
+  "source": "zm_common.all.sabl: zmb\\purchases\\box\\close\\close_00.LN100.pc.snd",
+  "duration": 1.274,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "78778cc355fe168eaa3eb542dfca019901c36b686703fccab48affed77b5df8f"
+ },
+ "perk_open": {
+  "file": "sounds/perk_open.flac",
+  "source": "zm_ccube.all.sabl: zmb\\perksacola\\bottle\\open.LN100.pc.snd",
+  "duration": 1.096,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "f3641c21a64f486c9eded5928359a55c2651e793d18428df766eeed2ee8decec"
+ },
+ "perk_swallow": {
+  "file": "sounds/perk_swallow.flac",
+  "source": "zm_ccube.all.sabl: zmb\\perksacola\\bottle\\swallow.LN100.pc.snd",
+  "duration": 0.427,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "e718a2f8da8ea4983697943c43e2cfd8b1fed7296545bb2d02e757a297f083bd"
+ },
+ "perk_belch": {
+  "file": "sounds/perk_belch.flac",
+  "source": "zm_ccube.all.sabl: zmb\\perksacola\\bottle\\belch.LN100.pc.snd",
+  "duration": 0.427,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "00d17df127ecd589707263c3b4461a096948d8e594bf905e9423a86503e68e58"
+ },
+ "pap_upgrade": {
+  "file": "sounds/pap_upgrade.flac",
+  "source": "zm_ccube.all.sabl: zmb\\perksacola\\pap\\upgrade.LN100.pc.snd",
+  "duration": 5.892,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "0c68992815255b08a42d40a11d8ff6a811977fa3c88255cf46a6c37a1e7100db"
+ },
+ "pap_ready": {
+  "file": "sounds/pap_ready.flac",
+  "source": "zm_ccube.all.sabl: zmb\\perksacola\\pap\\ready.LN100.pc.snd",
+  "duration": 2.807,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "648bef9e35f82da7085944cf88feb5b0193263b9616328a3dc7d82c36e26bfa1"
+ },
+ "sting_specialty_packapunch": {
+  "file": "sounds/sting_specialty_packapunch.flac",
+  "source": "zm_ccube.all.sabl: mus\\zombie\\perksacola\\mus_packapunch_sting.LN100.pc.snd",
+  "duration": 8.887,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "b9c54353500334144919ccadad1a513919c4e39ea3a6ccda6320f07b594a3b40"
+ },
+ "sting_specialty_armorvest": {
+  "file": "sounds/sting_specialty_armorvest.flac",
+  "source": "zm_ccube.all.sabl: mus\\zombie\\perksacola\\mus_jugganog_sting.LN100.pc.snd",
+  "duration": 4.202,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "0a10056988142ea019811b07a572459c74b8621e68af5d8b84fd5db23f8ba393"
+ },
+ "sting_specialty_quickrevive": {
+  "file": "sounds/sting_specialty_quickrevive.flac",
+  "source": "zm_ccube.all.sabl: mus\\zombie\\perksacola\\mus_revive_sting.LN100.pc.snd",
+  "duration": 6.899,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "d4bf33ace3f0140fd136e2a8bc6060c130c7c9d347bd8c51d4db4123b9c907c2"
+ },
+ "sting_specialty_fastreload": {
+  "file": "sounds/sting_specialty_fastreload.flac",
+  "source": "zm_ccube.all.sabl: mus\\zombie\\perksacola\\mus_speed_sting.LN100.pc.snd",
+  "duration": 4.656,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "d26984b99e7f61cec6eb5f023867027aef336ee14d10b8e9af16fe4bfe192a03"
+ },
+ "sting_specialty_doubletap2": {
+  "file": "sounds/sting_specialty_doubletap2.flac",
+  "source": "zm_ccube.all.sabl: mus\\zombie\\perksacola\\mus_doubletap_sting.LN100.pc.snd",
+  "duration": 5.276,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "c30b43fca2b422af3484346a94ce1162eb2a5ec5e6db71426d09178b54a168b1"
+ },
+ "sting_specialty_staminup": {
+  "file": "sounds/sting_specialty_staminup.flac",
+  "source": "zm_ccube.all.sabl: mus\\zombie\\perksacola\\mus_stamin_sting.LN100.pc.snd",
+  "duration": 9.181,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "cd155cd4608b7bdc6b3ea4849ca943f4745e554496bcdeb950caa5fd4bc47a0a"
+ },
+ "sting_specialty_phdflopper": {
+  "file": "sounds/sting_specialty_phdflopper.flac",
+  "source": "zm_ccube.all.sabl: mus\\zombie\\perksacola\\mus_phd_sting.LN100.pc.snd",
+  "duration": 13.496,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "f9770a3dc09c8246596db5c514f6fb72f5fa583e95f8ef66fe730615a7b26e65"
+ },
+ "sting_specialty_deadshot": {
+  "file": "sounds/sting_specialty_deadshot.flac",
+  "source": "zm_ccube.all.sabl: mus\\zombie\\perksacola\\mus_deadshot_sting.LN100.pc.snd",
+  "duration": 9.83,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "6c2dd15bcd8b7ddaed4aff64ca54ef654e6aaa4a6de851bdc01fd0cecce423f3"
+ },
+ "sting_specialty_additionalprimaryweapon": {
+  "file": "sounds/sting_specialty_additionalprimaryweapon.flac",
+  "source": "zm_ccube.all.sabl: mus\\zombie\\perksacola\\mus_mulekick_sting.LN100.pc.snd",
+  "duration": 9.473,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "136d3ad303973394b41aa6b45d06f6ff7388f89e9d97569ee63c96a161f13bda"
+ },
+ "fire_wpn_1911_fire_npc": {
+  "file": "sounds/fire_wpn_1911_fire_npc.flac",
+  "source": "black_ops_2\\wpn\\pistol\\mauser\\shot\\wpn_mauser_fire.LN100.pc.snd",
+  "duration": 0.466,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "77ac2ad64b44de1794f92e0bb7b6f6d177c62d734d99ecbbd7e7753c6072ee3f"
+ },
+ "fire_wpn_mp40_fire_plr": {
+  "file": "sounds/fire_wpn_mp40_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\assault\\mp40\\shot\\wpn_mp40_fire.LN100.pc.snd",
+  "duration": 0.79,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "79c9846b620eee8c9d1d9c0177ba99a7855b38caa1e54a1c5c00f18422d03569"
+ },
+ "fire_wpn_pdw57_fire_plr": {
+  "file": "sounds/fire_wpn_pdw57_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\assault\\pdw_57\\plr\\shot\\wpn_pdw57_fire_plr.LN100.pc.snd",
+  "duration": 0.686,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "a1c7e2e8441813451891d87c06c396cc4d9d7e41324472f539606e32cf459dbb"
+ },
+ "fire_wpn_kard_fire_plr": {
+  "file": "sounds/fire_wpn_kard_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\smg\\kard\\plr\\shot\\wpn_kard_shot_plr.LN100.pc.snd",
+  "duration": 1.278,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "7662d64eac3044b703d800f38b208a72139109b1566d15fa155d102c50494e1f"
+ },
+ "fire_wpn_an94_shot_plr": {
+  "file": "sounds/fire_wpn_an94_shot_plr.flac",
+  "source": "black_ops_2\\wpn\\assault\\an94\\plr\\shot\\wpn_an94_shot_plr.LN100.pc.snd",
+  "duration": 1.236,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "59e6323a637246676fcb0f9e0e0d6de1ee51bda0174ea938b41e3594f333cb11"
+ },
+ "fire_wpn_mp7_fire_plr": {
+  "file": "sounds/fire_wpn_mp7_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\smg\\mp7\\plr\\shot\\wpn_mp7_shot_plr.LN100.pc.snd",
+  "duration": 0.531,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "a03de5939d1685a9ed5445f759e4d26f0b74fa341acf309ff8b0c881a7964777"
+ },
+ "fire_wpn_msmc_fire_plr": {
+  "file": "sounds/fire_wpn_msmc_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\smg\\msmc\\shot\\wpn_msmc_shot_plr.LN100.pc.snd",
+  "duration": 0.672,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "4c4480050e673443efc0e288b59ff8a0d8e3423a5a9f51a31b9be890b648b30a"
+ },
+ "fire_wpn_beretta93r_fire_plr": {
+  "file": "sounds/fire_wpn_beretta93r_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\pistol\\beretta\\plr\\shot\\wpn_beretta_fire_plr.LN100.pc.snd",
+  "duration": 1.395,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "b4ea066dcb035d50a0b245185f99083b5f9d1d466f0f55a03acacbeb2a11a540"
+ },
+ "fire_wpn_357_fire_plr": {
+  "file": "sounds/fire_wpn_357_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\pistol\\357\\shot\\plr\\wpn_357_fire_plr.LN100.pc.snd",
+  "duration": 1.9,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "7b8694d803479f9c84aefe974cc910dbf1d48e3eb6cc0991daf24d2a08174921"
+ },
+ "fire_wpn_fiveseven_fire_plr": {
+  "file": "sounds/fire_wpn_fiveseven_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\pistol\\fiveseven\\plr\\shot\\wpn_fiveseven_shot_plr.LN100.pc.snd",
+  "duration": 0.952,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "70d49d0b011ffb6e039effc5c2b8eaec0fd26d76a60c80cb01e41487598c0c9d"
+ },
+ "fire_wpn_judge_fire_plr": {
+  "file": "sounds/fire_wpn_judge_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\pistol\\judge\\plr\\shot\\wpn_judge_shot_plr.LN100.pc.snd",
+  "duration": 0.812,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "48dcfebce5135789f48a8566a71f68505fbc7414b89b4f97c153c8bf59c5a4c7"
+ },
+ "fire_wpn_rnma_fire_plr": {
+  "file": "sounds/fire_wpn_rnma_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\pistol\\rnma\\fire\\wpn_rnma_fire.LN100.pc.snd",
+  "duration": 2.363,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "4c54e88080b763eaff5907eacf1d2a1741049d0e6aa8a2941ccfa91034c5b3bc"
+ },
+ "fire_wpn_evoskorpion_fire_plr": {
+  "file": "sounds/fire_wpn_evoskorpion_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\smg\\evoskorpion\\plr\\shot\\wpn_evoskorpion_fire_plr.LN100.pc.snd",
+  "duration": 0.913,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "61c2de7229a4a741c6ca86685b64b7e13c692afe0576a1d6ef64e9a70eafde0d"
+ },
+ "fire_wpn_qcw05_fire_plr": {
+  "file": "sounds/fire_wpn_qcw05_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\smg\\qcw05\\plr\\shot\\wpn_qcw05_shot_plr.LN100.pc.snd",
+  "duration": 1.1,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "c4e135d4b4e7882b6a736a4b9239b824f907cd5525b8bc9d06bbddd4992d868b"
+ },
+ "fire_wpn_hamr_fire_plr": {
+  "file": "sounds/fire_wpn_hamr_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\lmg\\hamr\\shot\\wpn_hamr_shot_plr.LN100.pc.snd",
+  "duration": 0.766,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "8de1386831f9c2e855f403982c4d28bd0f46e9dc4329225436fba4d8f6692ae2"
+ },
+ "fire_wpn_lsat_shot_plr": {
+  "file": "sounds/fire_wpn_lsat_shot_plr.flac",
+  "source": "black_ops_2\\wpn\\lmg\\lsat\\plr\\shot\\wpn_lsat_shot_plr.LN100.pc.snd",
+  "duration": 1.001,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "6def5ab850fcff8101f74dd2b6944d5c599cd6d1c261896f357ed6636a2fa1f2"
+ },
+ "fire_wpn_sig556_shot_plr": {
+  "file": "sounds/fire_wpn_sig556_shot_plr.flac",
+  "source": "black_ops_2\\wpn\\assault\\sig556\\plr\\shot\\wpn_sig556_shot_plr.LN100.pc.snd",
+  "duration": 0.963,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "d09b55390e0376f9c31b7a454c6630fb72394a4c32329f54738bf2d7fa6d0452"
+ },
+ "fire_wpn_type95_shot_plr": {
+  "file": "sounds/fire_wpn_type95_shot_plr.flac",
+  "source": "black_ops_2\\wpn\\assault\\type95\\plr\\shot\\wpn_type95_shot_plr.LN100.pc.snd",
+  "duration": 0.931,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "b6412f8bba1cbb6c0bb15e38b8b0b1eb3e238a0386cdd72a806bb7241b2bc776"
+ },
+ "fire_wpn_m27_shot_plr": {
+  "file": "sounds/fire_wpn_m27_shot_plr.flac",
+  "source": "black_ops_2\\wpn\\assault\\m27\\plr\\shot\\wpn_m27_shot_plr.LN100.pc.snd",
+  "duration": 1.126,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "cd966aaeddd9ef15c3904e3375cb363c079c3cac0e3cc97e593c7ed1f47713e3"
+ },
+ "fire_wpn_saritch_shot_plr": {
+  "file": "sounds/fire_wpn_saritch_shot_plr.flac",
+  "source": "black_ops_2\\wpn\\assault\\saritch\\plr\\shot\\wpn_saritch_shot_plr.LN100.pc.snd",
+  "duration": 1.025,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "92de68b403681710f4bd2c14630cfc4dfeb73a86680e78cf7b901dd23815ca66"
+ },
+ "fire_wpn_tar21_shot_plr": {
+  "file": "sounds/fire_wpn_tar21_shot_plr.flac",
+  "source": "black_ops_2\\wpn\\assault\\tar21\\plr\\shot\\wpn_tar21_shot_plr.LN100.pc.snd",
+  "duration": 0.933,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "69d197e3bb07746caa6348b4596d2f90e1c037dbf8922eb30178b0a9f4020384"
+ },
+ "fire_wpn_xm8_shot_plr": {
+  "file": "sounds/fire_wpn_xm8_shot_plr.flac",
+  "source": "black_ops_2\\wpn\\assault\\xm8\\plr\\shot\\wpn_xm8_shot_plr.LN100.pc.snd",
+  "duration": 0.952,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "875ad3f4e87ef2101d8c4a21ad6fe52d3b00ce6896e64f1f0db29fdd731eadc0"
+ },
+ "fire_wpn_ksg_fire_plr": {
+  "file": "sounds/fire_wpn_ksg_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\shotgun\\ksg\\plr\\shot\\wpn_ksg_fire_plr.LN100.pc.snd",
+  "duration": 0.844,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "46e846aefb01f6f1c2feadc4536f68dd7724505a4689934abc4aa5d85307bf8f"
+ },
+ "fire_wpn_srm1216_fire_plr": {
+  "file": "sounds/fire_wpn_srm1216_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\shotgun\\srm1216\\plr\\shot\\wpn_srm1216_fire.LN100.pc.snd",
+  "duration": 0.894,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "193abe3e54367d73d23816412e3480895185695b66cf8e6210f06a9042511367"
+ },
+ "fire_wpn_bo2_870mcs_fire_plr": {
+  "file": "sounds/fire_wpn_bo2_870mcs_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\shotgun\\870mcs\\fire\\wpn_870mcs_00.LN100.pc.snd",
+  "duration": 0.987,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "f931bb90aa55e52a20f5f7e26a57b0413b428343b990d488825a92f2d29a0f54"
+ },
+ "fire_wpn_ballista_fire_plr": {
+  "file": "sounds/fire_wpn_ballista_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\sniper\\ballista\\plr\\shot\\wpn_ballista_fire_plr.LN100.pc.snd",
+  "duration": 1.89,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "3871cb8733f40efc57ceb278e17e6ce45972b0d3ab5de999ac6d01aad3b13748"
+ },
+ "fire_wpn_svt_fire_plr": {
+  "file": "sounds/fire_wpn_svt_fire_plr.flac",
+  "source": "black_ops_2\\wpn\\sniper\\svt\\shot\\wpn_svt_fire_plr.LN100.pc.snd",
+  "duration": 1.734,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "10d413debd85f0c649997f76c531a4132ec4205ef8867b1a5657bcada8604bf2"
+ },
+ "dry_fire": {
+  "file": "sounds/dry_fire.flac",
+  "source": "wpn\\assault\\dry_fire\\plr\\dry_fire_00.LN100.pc.snd",
+  "duration": 0.153,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "012a21a5fafef761f1089bd8cd9de32fb0de19f84a7408578647285fab16e99d"
+ },
+ "note_fly_pistol_mag_out": {
+  "file": "sounds/note_fly_pistol_mag_out.flac",
+  "source": "black_ops_2\\wpn\\pistol\\reloads\\fly_pistol_mag_out.LN100.pc.snd",
+  "duration": 0.42,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "5ed4c4d4790f732a51b5952697688907be25d4ec8fd98f8445c9e26bb702ad2d"
+ },
+ "note_fly_makarov_futz": {
+  "file": "sounds/note_fly_makarov_futz.flac",
+  "source": "black_ops_2\\wpn\\pistol\\makarov\\reload\\fly_makarov_futz.LN100.pc.snd",
+  "duration": 0.71,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "8210e703b2854a6399684c55448a809004c2c7b78fc19aa648c44328573e0ec8"
+ },
+ "note_fly_pistol_mag_in": {
+  "file": "sounds/note_fly_pistol_mag_in.flac",
+  "source": "black_ops_2\\wpn\\pistol\\reloads\\fly_pistol_mag_in.LN100.pc.snd",
+  "duration": 0.106,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "e4178be4e64d99ee97fb09273d207bd548052396aa83a473c934774a91769325"
+ },
+ "note_fly_pistol_sf": {
+  "file": "sounds/note_fly_pistol_sf.flac",
+  "source": "black_ops_2\\wpn\\pistol\\reloads\\fly_pistol_sf.LN100.pc.snd",
+  "duration": 0.095,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "9d3c515023d158b7fa580c2b118ba6dbea38bfc31471eef2d10d18c40b1a5974"
+ },
+ "note_fly_assault_mag_out": {
+  "file": "sounds/note_fly_assault_mag_out.flac",
+  "source": "black_ops_2\\wpn\\assault\\reload\\fly_assault_mag_out.LN100.pc.snd",
+  "duration": 0.253,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "7d6e982f90883ca58527cb10e841f909870bdd5e41f29cf99d6f0f9d97c72645"
+ },
+ "note_fly_assault_mag_in": {
+  "file": "sounds/note_fly_assault_mag_in.flac",
+  "source": "black_ops_2\\wpn\\assault\\reload\\fly_assault_mag_in.LN100.pc.snd",
+  "duration": 0.282,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "4e2b995136e8c4ca020b7a9bbb331e83b8644db27c3afd986e61aef7f8a12aed"
+ },
+ "note_fly_assault_charge": {
+  "file": "sounds/note_fly_assault_charge.flac",
+  "source": "black_ops_2\\wpn\\assault\\reload\\fly_assault_charge.LN100.pc.snd",
+  "duration": 0.362,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "b873bb9058f09999c6a544a47a42dedf0678ff0f8d6fb69f32b6fcc29ac49f12"
+ },
+ "note_fly_uzi_mag_out": {
+  "file": "sounds/note_fly_uzi_mag_out.flac",
+  "source": "black_ops_2\\wpn\\smg\\uzi\\reload\\fly_uzi_mag_out.LN100.pc.snd",
+  "duration": 0.258,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "4f47518802ed19be377b1e059afc1ba52982d759749e55526274690bd4200d55"
+ },
+ "note_fly_uzi_futz": {
+  "file": "sounds/note_fly_uzi_futz.flac",
+  "source": "black_ops_2\\wpn\\smg\\uzi\\reload\\fly_uzi_futz.LN100.pc.snd",
+  "duration": 0.238,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "ee67ecd56b89346cf0e55be2913ac1294b5eb4a9dcd0eabcd21e6e990c2a143b"
+ },
+ "note_fly_uzi_mag_in": {
+  "file": "sounds/note_fly_uzi_mag_in.flac",
+  "source": "black_ops_2\\wpn\\smg\\uzi\\reload\\fly_uzi_mag_in.LN100.pc.snd",
+  "duration": 0.225,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "7f90307cb4c2dedea046e0fe42d758f13e3394ca74cf187bde85a9e9b3176ab2"
+ },
+ "note_fly_uzi_pull_charge": {
+  "file": "sounds/note_fly_uzi_pull_charge.flac",
+  "source": "black_ops_2\\wpn\\smg\\uzi\\reload\\fly_uzi_pull_charge.LN100.pc.snd",
+  "duration": 0.192,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "19dfe4fd68876a325cef465cfabc30c29ddc7f59138e157150cb483b9e9ccdf1"
+ },
+ "note_fly_uzi_charge": {
+  "file": "sounds/note_fly_uzi_charge.flac",
+  "source": "black_ops_2\\wpn\\smg\\uzi\\reload\\fly_uzi_charge.LN100.pc.snd",
+  "duration": 0.471,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "d0cd3b3476fbbbc1578e71084381bdd411f02817f79aeedcbb46203362d90727"
+ },
+ "note_fly_pistol_sb": {
+  "file": "sounds/note_fly_pistol_sb.flac",
+  "source": "black_ops_2\\wpn\\pistol\\reloads\\fly_pistol_sb.LN100.pc.snd",
+  "duration": 0.149,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "791238c945b1718a0e20fe82bb038134d34620b9f53ecfd9169e3844bbef8951"
+ },
+ "note_fly_ak47_mag_out": {
+  "file": "sounds/note_fly_ak47_mag_out.flac",
+  "source": "black_ops_2\\wpn\\assault\\ak47\\reload\\fly_ak47_mag_out.LN100.pc.snd",
+  "duration": 0.506,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "ea821dcd525cdcdca5b52e3080994d11c453d0d83e5cf23f6168c2564a4eb4ab"
+ },
+ "note_fly_ak47_futz": {
+  "file": "sounds/note_fly_ak47_futz.flac",
+  "source": "black_ops_2\\wpn\\assault\\ak47\\reload\\fly_ak47_futz.LN100.pc.snd",
+  "duration": 0.202,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "501a0eddbb7be34e4737d49b7074839497094b13775ebc3bb53b5b34689b5460"
+ },
+ "note_fly_ak47_mag_in": {
+  "file": "sounds/note_fly_ak47_mag_in.flac",
+  "source": "black_ops_2\\wpn\\assault\\ak47\\reload\\fly_ak47_mag_in.LN100.pc.snd",
+  "duration": 0.39,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "48335f5154591e38b5c5d3c40548807043fb010e88aecd62a3f55e43c208fef6"
+ },
+ "note_fly_assault_bb": {
+  "file": "sounds/note_fly_assault_bb.flac",
+  "source": "black_ops_2\\wpn\\assault\\reload\\fly_assault_bb.LN100.pc.snd",
+  "duration": 0.401,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "080fc2f8d3f2a6d6a2bb68c90b47c011c3f1a03b48cfca5911c49d2c61408fed"
+ },
+ "note_fly_assault_bf": {
+  "file": "sounds/note_fly_assault_bf.flac",
+  "source": "black_ops_2\\wpn\\assault\\reload\\fly_assault_bf.LN100.pc.snd",
+  "duration": 0.25,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "14d3e4fa894c14900eb4f3f695564aa85476c7aa2aef330bd0bad401d7d63af1"
+ },
+ "note_fly_mp7_mag_out": {
+  "file": "sounds/note_fly_mp7_mag_out.flac",
+  "source": "black_ops_2\\wpn\\smg\\mp7\\foley\\fly_mp7_mag_out.LN100.pc.snd",
+  "duration": 1.453,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "9d80af9638ccfc732db300ccded2c3a3e13e8dddea4be8e8e7c946fa059719d9"
+ },
+ "note_fly_mp5_futz": {
+  "file": "sounds/note_fly_mp5_futz.flac",
+  "source": "black_ops_2\\wpn\\smg\\mp5\\reload\\fly_mp5_futz.LN100.pc.snd",
+  "duration": 0.504,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "4e9d4100c5e05377e44ccefd5ec2d1c74f8791fe57547df2524de9c2f9c3d6a3"
+ },
+ "note_fly_mp5_mag_in": {
+  "file": "sounds/note_fly_mp5_mag_in.flac",
+  "source": "black_ops_2\\wpn\\smg\\mp5\\reload\\fly_mp5_mag_in.LN100.pc.snd",
+  "duration": 0.248,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "1878517ad13582351a89f4951c9067ffcf4b26e811a62814cbf005fbe963ef32"
+ },
+ "note_fly_mp5_pull_charge": {
+  "file": "sounds/note_fly_mp5_pull_charge.flac",
+  "source": "black_ops_2\\wpn\\smg\\mp5\\reload\\fly_mp5_pull_charge.LN100.pc.snd",
+  "duration": 0.15,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "279b8f9d1957f62b71e88fbe810dab3f5290d9a4058c82e828d2e6f6a1237bec"
+ },
+ "note_fly_mp5_charge": {
+  "file": "sounds/note_fly_mp5_charge.flac",
+  "source": "black_ops_2\\wpn\\smg\\mp5\\reload\\fly_mp5_charge.LN100.pc.snd",
+  "duration": 0.32,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "6c1d8aa1d5272c70deb5bffc42f13dc3d6ceb137b369c8221dbf3797aed901ad"
+ },
+ "note_fly_m14_tap": {
+  "file": "sounds/note_fly_m14_tap.flac",
+  "source": "black_ops_2\\wpn\\assault\\m14\\reload\\fly_m14_tap.LN100.pc.snd",
+  "duration": 0.373,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "f25b5f59052ca790bda13783c8e233a264dd1bcba688bfcd7c0b25e8b6acd40d"
+ },
+ "note_fly_ak47_charge": {
+  "file": "sounds/note_fly_ak47_charge.flac",
+  "source": "black_ops_2\\wpn\\assault\\ak47\\reload\\fly_ak47_charge.LN100.pc.snd",
+  "duration": 1.157,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "fe45bff4d3e5419f1c73dbdb7885832eb5ad80214493e38969a661114fedcdb6"
+ },
+ "note_fly_pistol_hammer": {
+  "file": "sounds/note_fly_pistol_hammer.flac",
+  "source": "black_ops_2\\wpn\\pistol\\reloads\\fly_pistol_hammer.LN100.pc.snd",
+  "duration": 0.035,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "20a5cfc63d0526b995dcad0b6dcbc655f12194f02cb4bc4a33ce54444bd3cbf9"
+ },
+ "note_fly_357_single_bullet_0": {
+  "file": "sounds/note_fly_357_single_bullet_0.flac",
+  "source": "black_ops_2\\wpn\\pistol\\357\\reload\\single\\fly_357_single_bullet_00.LN100.pc.snd",
+  "duration": 0.199,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "6d7308e95ab9efdf127d3007b0c3e2009d01df013f59c1987745409e499293e5"
+ },
+ "note_fly_357_single_bullet_1": {
+  "file": "sounds/note_fly_357_single_bullet_1.flac",
+  "source": "black_ops_2\\wpn\\pistol\\357\\reload\\single\\fly_357_single_bullet_01.LN100.pc.snd",
+  "duration": 0.125,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "4af05df9e9de875f5f7daee3ebb9fbd9862cc4eeaea4315613ea1e2d2a6fb003"
+ },
+ "note_fly_357_open": {
+  "file": "sounds/note_fly_357_open.flac",
+  "source": "black_ops_2\\wpn\\pistol\\357\\reload\\fly_357_open.LN100.pc.snd",
+  "duration": 0.321,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "8862cc7e9a370c4ab491bbcc6dc78add772c3a78b890fb47cf793d8026a3e93c"
+ },
+ "note_fly_357_spin": {
+  "file": "sounds/note_fly_357_spin.flac",
+  "source": "black_ops_2\\wpn\\pistol\\357\\reload\\fly_357_spin.LN100.pc.snd",
+  "duration": 0.76,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "5a7a2279f0a62383553aad200b58d4353ec2ae2863a571f6cedec1f328711925"
+ },
+ "note_fly_357_close": {
+  "file": "sounds/note_fly_357_close.flac",
+  "source": "black_ops_2\\wpn\\pistol\\357\\reload\\fly_357_close.LN100.pc.snd",
+  "duration": 0.317,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "29c727391eed7410ff50cec348eb1353ef01c5e7d1bb5523330e69eb25935336"
+ },
+ "note_fly_357_empty": {
+  "file": "sounds/note_fly_357_empty.flac",
+  "source": "black_ops_2\\wpn\\pistol\\357\\reload\\fly_357_empty.LN100.pc.snd",
+  "duration": 1.118,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "04635e9e4a93953954a08e4c322aff837aa406ef6e37f3d03476ad99ffd03d17"
+ },
+ "note_fly_judge_load_0": {
+  "file": "sounds/note_fly_judge_load_0.flac",
+  "source": "black_ops_2\\wpn\\pistol\\judge\\foley\\load\\fly_judge_load_00.LN100.pc.snd",
+  "duration": 0.445,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "d4ba68801b0d4c2c48bfccc522144ba83c7a30a954d54bf98d3839cdd19a8204"
+ },
+ "note_fly_judge_load_1": {
+  "file": "sounds/note_fly_judge_load_1.flac",
+  "source": "black_ops_2\\wpn\\pistol\\judge\\foley\\load\\fly_judge_load_01.LN100.pc.snd",
+  "duration": 0.517,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "d3b584e8430bb6f548c8582825b0e7864e76523cb30bfbd5ce1099ddcce7270e"
+ },
+ "note_fly_judge_empty": {
+  "file": "sounds/note_fly_judge_empty.flac",
+  "source": "black_ops_2\\wpn\\pistol\\judge\\foley\\fly_judge_empty.LN100.pc.snd",
+  "duration": 1.327,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "176044955cfc4960d1c92bf140b3640a800e92e9186bde25e109d8d1e414565a"
+ },
+ "note_fly_rnma_firstraise": {
+  "file": "sounds/note_fly_rnma_firstraise.flac",
+  "source": "black_ops_2\\wpn\\pistol\\rnma\\rnma_firstraise.LN100.pc.snd",
+  "duration": 0.995,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "cb2c494554943b0d96f036daa9646943b10e795cd6388742783f30c09160dc5e"
+ },
+ "note_fly_kiparis_mag_out": {
+  "file": "sounds/note_fly_kiparis_mag_out.flac",
+  "source": "black_ops_2\\wpn\\smg\\kiparis\\reload\\fly_kiparis_mag_out.LN100.pc.snd",
+  "duration": 0.374,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "11927e85345f68dc8b5bc4a582a62b429f9275c81e69c12f7667360d993cda7c"
+ },
+ "note_fly_spectre_futz": {
+  "file": "sounds/note_fly_spectre_futz.flac",
+  "source": "black_ops_2\\wpn\\smg\\spectre\\reload\\fly_spectre_futz.LN100.pc.snd",
+  "duration": 0.183,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "778c47acce56cd205667604177427970357fa7e970c27ab4028f4d418d4fff98"
+ },
+ "note_fly_kiparis_mag_in": {
+  "file": "sounds/note_fly_kiparis_mag_in.flac",
+  "source": "black_ops_2\\wpn\\smg\\kiparis\\reload\\fly_kiparis_mag_in.LN100.pc.snd",
+  "duration": 0.314,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "3ca263babd6d47a7abff4a5074e6b42d75ae9ecea13e9c9ba5139684a7437f48"
+ },
+ "note_fly_mac11_stock": {
+  "file": "sounds/note_fly_mac11_stock.flac",
+  "source": "black_ops_2\\wpn\\smg\\mac11\\reload\\fly_mac11_stock.LN100.pc.snd",
+  "duration": 0.305,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "8b90dbb7c432cd4450fd6fd586563a08508848365ed30953d3c366ae750e8240"
+ },
+ "note_fly_mk48_mag_out": {
+  "file": "sounds/note_fly_mk48_mag_out.flac",
+  "source": "black_ops_2\\wpn\\lmg\\mk48\\foley\\fly_mk48_mag_out.LN100.pc.snd",
+  "duration": 2.085,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "92666ea7b599de6eb6c737350614c33049215dae710fe5ee896e68493ff43a0a"
+ },
+ "note_fly_mk48_futz": {
+  "file": "sounds/note_fly_mk48_futz.flac",
+  "source": "black_ops_2\\wpn\\lmg\\mk48\\foley\\fly_mk48_futz.LN100.pc.snd",
+  "duration": 0.895,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "8fb4bc1712406a53a6b550dd7585c338bbfbe4f58d5e06ad68f12fea8f7244d0"
+ },
+ "note_fly_mk48_mag_in": {
+  "file": "sounds/note_fly_mk48_mag_in.flac",
+  "source": "black_ops_2\\wpn\\lmg\\mk48\\foley\\fly_mk48_mag_in.LN100.pc.snd",
+  "duration": 0.53,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "14b0b2eae9d84083aa7de2d89fd6fdf9279d20b211c71689486ff0f2b3eed75f"
+ },
+ "note_fly_mk48_pull": {
+  "file": "sounds/note_fly_mk48_pull.flac",
+  "source": "black_ops_2\\wpn\\lmg\\mk48\\foley\\fly_mk48_pull.LN100.pc.snd",
+  "duration": 0.331,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "089acb74031cd21c315d56f914b04b039a88db8df27318fb0ef337956868e4de"
+ },
+ "note_fly_mk48_release": {
+  "file": "sounds/note_fly_mk48_release.flac",
+  "source": "black_ops_2\\wpn\\lmg\\mk48\\foley\\fly_mk48_release.LN100.pc.snd",
+  "duration": 0.828,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "fcf21f56f6a73652e26c045162d24e3fcedb5df0b6fc6f3df54b8f7f48e3e4f8"
+ },
+ "note_fly_m60_box_off": {
+  "file": "sounds/note_fly_m60_box_off.flac",
+  "source": "black_ops_2\\wpn\\lmg\\m60\\reload\\fly_m60_box_off.LN100.pc.snd",
+  "duration": 0.878,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "eda064d0c5604777601ec935c68e11a5fa1cd715bccbd5320bda71850b21daa9"
+ },
+ "note_fly_m60_open": {
+  "file": "sounds/note_fly_m60_open.flac",
+  "source": "black_ops_2\\wpn\\lmg\\m60\\reload\\fly_m60_open.LN100.pc.snd",
+  "duration": 1.223,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "1378670fe3e50c0a741795b83ef10e58957338abcbcce9081f0bebf3c75fe947"
+ },
+ "note_fly_m60_futz": {
+  "file": "sounds/note_fly_m60_futz.flac",
+  "source": "black_ops_2\\wpn\\lmg\\m60\\reload\\fly_m60_futz.LN100.pc.snd",
+  "duration": 0.454,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "93248cb3271028f8d7332a76cf31df1101fd12ef0c191ee4e756057f4137c04c"
+ },
+ "note_fly_m60_box_on": {
+  "file": "sounds/note_fly_m60_box_on.flac",
+  "source": "black_ops_2\\wpn\\lmg\\m60\\reload\\fly_m60_box_on.LN100.pc.snd",
+  "duration": 0.301,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "5b7456db498dfbcd74f653c24d982cff0784249d6ffd2fe9dd0bf4bd6a420ab1"
+ },
+ "note_fly_m60_pull_belt": {
+  "file": "sounds/note_fly_m60_pull_belt.flac",
+  "source": "black_ops_2\\wpn\\lmg\\m60\\reload\\fly_m60_pull_belt.LN100.pc.snd",
+  "duration": 0.54,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "57121f4202e8c167433e1924b12c7478e2e9351dd95afc5562f036789f156fad"
+ },
+ "note_fly_m60_place_belt": {
+  "file": "sounds/note_fly_m60_place_belt.flac",
+  "source": "black_ops_2\\wpn\\lmg\\m60\\reload\\fly_m60_place_belt.LN100.pc.snd",
+  "duration": 0.312,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "1d11c323615f517ae03e6aa6eb7ea208cb5c8cdabc6dde34bb84c09a0a5fa5be"
+ },
+ "note_fly_m60_close": {
+  "file": "sounds/note_fly_m60_close.flac",
+  "source": "black_ops_2\\wpn\\lmg\\m60\\reload\\fly_m60_close.LN100.pc.snd",
+  "duration": 0.563,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "2a4b453859a33a5ec90cc7266729984d31f80c34dfeee6ebc401a1fb7445cf3f"
+ },
+ "note_fly_fnfal_mag_out": {
+  "file": "sounds/note_fly_fnfal_mag_out.flac",
+  "source": "black_ops_2\\wpn\\assault\\fnfal\\reload\\fly_fnfal_mag_out.LN100.pc.snd",
+  "duration": 0.177,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "0eee3270c4a6478b317c8986b7dbda0752b9f1193c3eee4a99ceba84f7fae6ab"
+ },
+ "note_fly_fnfal_futz": {
+  "file": "sounds/note_fly_fnfal_futz.flac",
+  "source": "black_ops_2\\wpn\\assault\\fnfal\\reload\\fly_fnfal_button.LN100.pc.snd",
+  "duration": 0.084,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "79ce6c3ec991d1f3b0e8eaa30bcfd91dd4f18ca734a1df3d7740431698e5765f"
+ },
+ "note_fly_fnfal_mag_in": {
+  "file": "sounds/note_fly_fnfal_mag_in.flac",
+  "source": "black_ops_2\\wpn\\assault\\fnfal\\reload\\fly_fnfal_mag_in.LN100.pc.snd",
+  "duration": 0.341,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "3a5af94b44d8b286b02bb2dfd0e9b16b143005dd02bb00d6da63836e4ada44d8"
+ },
+ "note_fly_galil_mag_out": {
+  "file": "sounds/note_fly_galil_mag_out.flac",
+  "source": "black_ops_2\\wpn\\assault\\galil\\reload\\fly_galil_mag_out.LN100.pc.snd",
+  "duration": 0.605,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "1a88088f3b600273ce9710074c7f40048cd9c1f5771b80d728b7024dfc8e5bcd"
+ },
+ "note_fly_galil_futz": {
+  "file": "sounds/note_fly_galil_futz.flac",
+  "source": "black_ops_2\\wpn\\assault\\galil\\reload\\fly_galil_futz.LN100.pc.snd",
+  "duration": 0.507,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "0ffed255a017ba0df49e1d2161803ed93f7b7256076177ed594724a8bab09200"
+ },
+ "note_fly_galil_mag_in": {
+  "file": "sounds/note_fly_galil_mag_in.flac",
+  "source": "black_ops_2\\wpn\\assault\\galil\\reload\\fly_galil_mag_in.LN100.pc.snd",
+  "duration": 0.138,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "841502f0189d0c7db96a42d2c655f1be5ad5f5e24f592245d6710792a8196ea7"
+ },
+ "note_fly_m14_mag_out": {
+  "file": "sounds/note_fly_m14_mag_out.flac",
+  "source": "black_ops_2\\wpn\\assault\\m14\\reload\\fly_m14_mag_out.LN100.pc.snd",
+  "duration": 0.172,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "2da5601dfb102adea96cfa40069f461ade9fb7c09874a543bfb6b3f8382bfffa"
+ },
+ "note_fly_m14_futz": {
+  "file": "sounds/note_fly_m14_futz.flac",
+  "source": "black_ops_2\\wpn\\assault\\m14\\reload\\fly_m14_futz.LN100.pc.snd",
+  "duration": 0.265,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "882f777dfc2dc8171dde05680e6618aa5bcb0c4bf003fd1c2f7ed7bbb0f430ad"
+ },
+ "note_fly_m14_mag_in": {
+  "file": "sounds/note_fly_m14_mag_in.flac",
+  "source": "black_ops_2\\wpn\\assault\\m14\\reload\\fly_m14_mag_in.LN100.pc.snd",
+  "duration": 0.234,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "03245a3c2e4d1fe40191a04c50212351bf013de20d40cd0ba7fed6a7ab1e7821"
+ },
+ "note_fly_m14_bolt_back": {
+  "file": "sounds/note_fly_m14_bolt_back.flac",
+  "source": "black_ops_2\\wpn\\assault\\m14\\reload\\fly_m14_bolt_back.LN100.pc.snd",
+  "duration": 0.201,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "2c4cab3677e4fe326a61f634126f2201ad81821c84cc018f6e1df18e4134aed9"
+ },
+ "note_fly_m14_bolt_release": {
+  "file": "sounds/note_fly_m14_bolt_release.flac",
+  "source": "black_ops_2\\wpn\\assault\\m14\\reload\\fly_m14_bolt_release.LN100.pc.snd",
+  "duration": 0.121,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "a902219198122b198ccdc0d88af6322b86c52a409d7b1f461c08874603520638"
+ },
+ "note_fly_m16_mag_out": {
+  "file": "sounds/note_fly_m16_mag_out.flac",
+  "source": "black_ops_2\\wpn\\assault\\m16\\reload\\fly_m16_mag_out.LN100.pc.snd",
+  "duration": 0.303,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "0b8afd4ba2153720f4b1c11085297ee0f2d4984126130503dfbcffc6edd56117"
+ },
+ "note_fly_m16_futz": {
+  "file": "sounds/note_fly_m16_futz.flac",
+  "source": "black_ops_2\\wpn\\assault\\m16\\reload\\fly_m16_futz.LN100.pc.snd",
+  "duration": 0.366,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "4ebcbced203dd83816080153e28a063a29766d14d76520afbc8a88eee8c9b5a3"
+ },
+ "note_fly_m16_mag_in": {
+  "file": "sounds/note_fly_m16_mag_in.flac",
+  "source": "black_ops_2\\wpn\\assault\\m16\\reload\\fly_m16_mag_in.LN100.pc.snd",
+  "duration": 0.222,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "dc4e90d954b241635080918cf7b1547de92ac7e640355330064baaad201eac72"
+ },
+ "note_fly_m16_button": {
+  "file": "sounds/note_fly_m16_button.flac",
+  "source": "black_ops_2\\wpn\\assault\\m16\\reload\\fly_m16_button.LN100.pc.snd",
+  "duration": 0.139,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "a243f3d9caec64c0f923c2b156d4411e9e5cd52d3c416034d2468b90d5e551c5"
+ },
+ "note_fly_shotgun_pump_back": {
+  "file": "sounds/note_fly_shotgun_pump_back.flac",
+  "source": "black_ops_2\\wpn\\shotgun\\reload\\fly_shotgun_pump_back.LN100.pc.snd",
+  "duration": 0.223,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "b63ceeff4a21f2a6522c1033ea32589311eb55245e27dcd2ec14a3142512b84c"
+ },
+ "note_fly_shotgun_pump_forward": {
+  "file": "sounds/note_fly_shotgun_pump_forward.flac",
+  "source": "black_ops_2\\wpn\\shotgun\\reload\\fly_shotgun_pump_forward.LN100.pc.snd",
+  "duration": 0.2,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "6fe5b825cb2b70afccbbd81c1cba3ee331ffa238dd16c3043e37ec3361acf37d"
+ },
+ "note_fly_shotgun_shell_in_0": {
+  "file": "sounds/note_fly_shotgun_shell_in_0.flac",
+  "source": "fly\\weapon\\reload\\shotgun\\870\\shell\\fly_870_shell_in_00.LN100.pc.snd",
+  "duration": 0.482,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "de83e2136a1ee90c9f2da5674f7143ae7841ac13c692456b349b4d16ee653ae2"
+ },
+ "note_fly_shotgun_shell_in_1": {
+  "file": "sounds/note_fly_shotgun_shell_in_1.flac",
+  "source": "fly\\weapon\\reload\\shotgun\\870\\shell\\fly_870_shell_in_01.LN100.pc.snd",
+  "duration": 0.394,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "4b1f9ab7967db6684727073094300d32249ab531cfea1f0e02605657cf2422e4"
+ },
+ "note_fly_shotgun_shell_in_2": {
+  "file": "sounds/note_fly_shotgun_shell_in_2.flac",
+  "source": "fly\\weapon\\reload\\shotgun\\870\\shell\\fly_870_shell_in_02.LN100.pc.snd",
+  "duration": 0.394,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "d055a875d424718ad29b8de5a81489f56c8c832246f8555f36588950fed01d76"
+ },
+ "note_fly_shotgun_shell_in_3": {
+  "file": "sounds/note_fly_shotgun_shell_in_3.flac",
+  "source": "fly\\weapon\\reload\\shotgun\\870\\shell\\fly_870_shell_in_03.LN100.pc.snd",
+  "duration": 0.394,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "99870f910b5b1af332afd5d2c7a5a1e67b2dd813901cc47f43abd2b189289df3"
+ },
+ "note_fly_shotgun_shell_in_4": {
+  "file": "sounds/note_fly_shotgun_shell_in_4.flac",
+  "source": "fly\\weapon\\reload\\shotgun\\870\\shell\\fly_870_shell_in_04.LN100.pc.snd",
+  "duration": 0.394,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "6e246a8694468a2de8e0bd8f4b259eebf2bf4bd37ccb5ae5f92baa3ce9f63b65"
+ },
+ "note_fly_srm1216_mag_out": {
+  "file": "sounds/note_fly_srm1216_mag_out.flac",
+  "source": "black_ops_2\\wpn\\shotgun\\srm1216\\foley\\fly_srm1216_mag_out.LN100.pc.snd",
+  "duration": 0.185,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "8012858fbe887d64ce8d4b00a13f0e6ffb9dae1e10e1b608343c7869503b665c"
+ },
+ "note_fly_srm1216_mag_in": {
+  "file": "sounds/note_fly_srm1216_mag_in.flac",
+  "source": "black_ops_2\\wpn\\shotgun\\srm1216\\foley\\fly_srm1216_mag_in.LN100.pc.snd",
+  "duration": 0.646,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "615891211f4c74d86e906df04317514dfde25c7df7f5d5a57b80b6dd75aa96d8"
+ },
+ "note_fly_srm1216_twist": {
+  "file": "sounds/note_fly_srm1216_twist.flac",
+  "source": "black_ops_2\\wpn\\shotgun\\srm1216\\foley\\fly_srm1216_twist.LN100.pc.snd",
+  "duration": 0.527,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "5457829cb2fc67e7a77955451719ad557f58a565b6889abebe08c08123ad9700"
+ },
+ "note_fly_sniper_mag_out": {
+  "file": "sounds/note_fly_sniper_mag_out.flac",
+  "source": "black_ops_2\\wpn\\sniper\\reload\\fly_sniper_mag_out.LN100.pc.snd",
+  "duration": 0.346,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "30673cba4f07abcd81e565afd798cbcd9bb5804fd6e68b3fc156d9d0b49673b9"
+ },
+ "note_fly_l96a1_futz": {
+  "file": "sounds/note_fly_l96a1_futz.flac",
+  "source": "black_ops_2\\wpn\\sniper\\l96a1\\reload\\fly_l96a1_futz.LN100.pc.snd",
+  "duration": 0.225,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "c4de524bc4d22c43aac4e850cd30a40823c5666194e489fe51823ee918d4fe2d"
+ },
+ "note_fly_sniper_mag_in": {
+  "file": "sounds/note_fly_sniper_mag_in.flac",
+  "source": "black_ops_2\\wpn\\sniper\\reload\\fly_sniper_mag_in.LN100.pc.snd",
+  "duration": 0.2,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "14d3d947ab7df148d5b927c3670c4edde274a3fa3f0e4908847c9f1e369902a6"
+ },
+ "note_fly_sniper_bu": {
+  "file": "sounds/note_fly_sniper_bu.flac",
+  "source": "black_ops_2\\wpn\\sniper\\reload\\fly_sniper_bu.LN100.pc.snd",
+  "duration": 0.095,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "a7ebe3a0f859141aafed0c317f02e6875cea71a705a4e261d8fb31c7073504e7"
+ },
+ "note_fly_sniper_bb": {
+  "file": "sounds/note_fly_sniper_bb.flac",
+  "source": "black_ops_2\\wpn\\sniper\\reload\\fly_sniper_bb.LN100.pc.snd",
+  "duration": 0.178,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "6cffce449d2f77354859b7e8184df4fce9eee1406ab10133ffc103fa0e2d533f"
+ },
+ "note_fly_sniper_bf": {
+  "file": "sounds/note_fly_sniper_bf.flac",
+  "source": "black_ops_2\\wpn\\sniper\\reload\\fly_sniper_bf.LN100.pc.snd",
+  "duration": 0.24,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "1c5b5c0f16331d73a56166a0c5331a2485b426e263704c8221ef2630d1e61f27"
+ },
+ "note_fly_sniper_bd": {
+  "file": "sounds/note_fly_sniper_bd.flac",
+  "source": "black_ops_2\\wpn\\sniper\\reload\\fly_sniper_bd.LN100.pc.snd",
+  "duration": 0.15,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "c3b2aa13e0b3e7a330456e760759a3d993db754bfea6223cab97f533ea6ad1b0"
+ },
+ "note_fly_metalstorm_spin": {
+  "file": "sounds/note_fly_metalstorm_spin.flac",
+  "source": "black_ops_2\\wpn\\sniper\\metalstorm\\foley\\fly_metalstorm_spin.LN100.pc.snd",
+  "duration": 0.288,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "527ebb0f2f163e43695d15a5bea99d279c6e0b652730a668f74b7d2409c5d397"
+ },
+ "note_fly_dsr50_bolt_up": {
+  "file": "sounds/note_fly_dsr50_bolt_up.flac",
+  "source": "fly\\weapon\\reload\\sniper\\dsr50\\fly_dsr50_bolt_up_00.LN100.pc.snd",
+  "duration": 0.659,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "7996a20040239b07e588328779b7f133489c9ce1f27a11467c836f547bfa78c0"
+ },
+ "note_fly_dsr50_bolt_back": {
+  "file": "sounds/note_fly_dsr50_bolt_back.flac",
+  "source": "fly\\weapon\\reload\\sniper\\dsr50\\fly_dsr50_bolt_back_00.LN100.pc.snd",
+  "duration": 0.239,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "ae3cf7687a43ff164c0ee8dfd8d306c26169f957dbb8cc952b183925166d38cc"
+ },
+ "note_fly_dsr50_bolt_forward": {
+  "file": "sounds/note_fly_dsr50_bolt_forward.flac",
+  "source": "fly\\weapon\\reload\\sniper\\dsr50\\fly_dsr50_bolt_forward_00.LN100.pc.snd",
+  "duration": 0.412,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "f85dafaf76e9bffc169891a9835587c16cceca8dfb23b53c35e088e238c5a58b"
+ },
+ "note_fly_dsr50_bolt_down": {
+  "file": "sounds/note_fly_dsr50_bolt_down.flac",
+  "source": "fly\\weapon\\reload\\sniper\\dsr50\\fly_dsr50_bolt_down_00.LN100.pc.snd",
+  "duration": 0.592,
+  "channels": 2,
+  "sampleRate": 48000,
+  "sha256": "ef2a9fae5e93c13f8ad983c4d4dc7ab0c2fb9bc8ee827139967359ebecec5d5a"
+ },
+ "note_fly_l96a1_mag_out": {
+  "file": "sounds/note_fly_l96a1_mag_out.flac",
+  "source": "black_ops_2\\wpn\\sniper\\l96a1\\reload\\fly_l96a1_mag_out.LN100.pc.snd",
+  "duration": 0.382,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "e031248338c9ac82be1af9775d218f5e1e533638bb14cb114314d9a1dd1c26bb"
+ },
+ "note_fly_l96a1_mag_in": {
+  "file": "sounds/note_fly_l96a1_mag_in.flac",
+  "source": "black_ops_2\\wpn\\sniper\\l96a1\\reload\\fly_l96a1_mag_in.LN100.pc.snd",
+  "duration": 0.201,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "644ce65e87033a7cbbcf8932968e121caf79d41315f0cdf8264542518a6f9c93"
+ },
+ "note_fly_l96a1_bb": {
+  "file": "sounds/note_fly_l96a1_bb.flac",
+  "source": "black_ops_2\\wpn\\sniper\\l96a1\\reload\\fly_l96a1_bb.LN100.pc.snd",
+  "duration": 0.26,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "79215f88dba5ab32a665caf47c593acfc1cef5318536b72d83a69e7deb0cf94e"
+ },
+ "note_fly_l96a1_bf": {
+  "file": "sounds/note_fly_l96a1_bf.flac",
+  "source": "black_ops_2\\wpn\\sniper\\l96a1\\reload\\fly_l96a1_bf.LN100.pc.snd",
+  "duration": 0.232,
+  "channels": 1,
+  "sampleRate": 48000,
+  "sha256": "7b4b48978d9b089bbc11503a62b6ed2fdc8caad680b37e0fb8bbcfdbf9932325"
+ }
+}

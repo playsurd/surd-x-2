@@ -1,0 +1,153 @@
+{
+  "source": "Call of Duty: Black Ops III, zm_levelcommon.ff, exported locally with t7export",
+  "models": {
+    "instaKill": "p7_zm_power_up_insta_kill",
+    "maxAmmo": "p7_zm_power_up_max_ammo",
+    "doublePoints": "p7_zm_power_up_double_points",
+    "nuke": "p7_zm_power_up_nuke"
+  },
+  "materials": {
+    "mc/mtl_p7_zm_power_up_insta_kill": {
+      "techset": "mc/lit_micro_tiled_advanced#e6142445",
+      "normalMap": {
+        "source": "i_mtl_p7_zm_power_up_insta_kill_n",
+        "file": "textures/i_mtl_p7_zm_power_up_insta_kill_n.png"
+      },
+      "occlusionMap": {
+        "source": "i_mtl_p7_zm_power_up_insta_kill_o",
+        "file": "textures/i_mtl_p7_zm_power_up_insta_kill_o.png"
+      }
+    },
+    "mc/mtl_p7_zm_power_up_max_ammo": {
+      "techset": "mc/lit_micro_tiled_advanced#e6142445",
+      "normalMap": {
+        "source": "i_mtl_p7_zm_power_up_max_ammo_n",
+        "file": "textures/i_mtl_p7_zm_power_up_max_ammo_n.png"
+      },
+      "occlusionMap": {
+        "source": "i_mtl_p7_zm_power_up_max_ammo_o",
+        "file": "textures/i_mtl_p7_zm_power_up_max_ammo_o.png"
+      }
+    },
+    "mc/mtl_p7_zm_power_up_double_points": {
+      "techset": "mc/lit_micro_tiled_advanced#e6142445",
+      "normalMap": {
+        "source": "i_mtl_p7_zm_power_up_double_points_n",
+        "file": "textures/i_mtl_p7_zm_power_up_double_points_n.png"
+      },
+      "occlusionMap": {
+        "source": "i_mtl_p7_zm_power_up_double_points_o",
+        "file": "textures/i_mtl_p7_zm_power_up_double_points_o.png"
+      }
+    },
+    "mc/mtl_p7_zm_power_up_nuke": {
+      "techset": "mc/lit_micro_tiled_advanced#e6142445",
+      "normalMap": {
+        "source": "i_mtl_p7_zm_power_up_nuke_n",
+        "file": "textures/i_mtl_p7_zm_power_up_nuke_n.png"
+      },
+      "occlusionMap": {
+        "source": "i_mtl_p7_zm_power_up_nuke_o",
+        "file": "textures/i_mtl_p7_zm_power_up_nuke_o.png"
+      }
+    }
+  },
+  "files": {
+    "models/p7_zm_power_up_insta_kill.glb": {
+      "bytes": 46868,
+      "sha256": "04f8c2dd4577419c4b9c0a5533acd87760930a089d1ae3ff08d43cd75d6a82d2"
+    },
+    "models/p7_zm_power_up_max_ammo.glb": {
+      "bytes": 179968,
+      "sha256": "4d8fbd52ad20e12ef2bc5b53f321e7dacd595d2198307a776addfba521cfe54a"
+    },
+    "models/p7_zm_power_up_double_points.glb": {
+      "bytes": 24492,
+      "sha256": "66010704f5e60b174b608e3425dc1cbeb40a790f461e94f917738004f3b2a96e"
+    },
+    "models/p7_zm_power_up_nuke.glb": {
+      "bytes": 136904,
+      "sha256": "7ffa3c1bafe1c4d899ae1adc4a82df447ecc67106dee7fa9d51cacef159b9aed"
+    },
+    "textures/i_mtl_p7_zm_power_up_insta_kill_n.png": {
+      "bytes": 956970,
+      "sha256": "c3c1b632f1a1ad7502be0ee00c24c5a121614a29b30cb23b1c34717de0a77466"
+    },
+    "textures/i_mtl_p7_zm_power_up_insta_kill_o.png": {
+      "bytes": 62497,
+      "sha256": "92a35485f8f394f527b49b216415f436ad5477239a6da57c3ee433d596d7910b"
+    },
+    "textures/i_mtl_p7_zm_power_up_max_ammo_n.png": {
+      "bytes": 218553,
+      "sha256": "4e02295bfa646a4b2d5b2c1c69460199edaa45b85923355cb4869b3b8b7ecd5e"
+    },
+    "textures/i_mtl_p7_zm_power_up_max_ammo_o.png": {
+      "bytes": 22341,
+      "sha256": "45dc1ef9aad424843922fff959b1bb6eaff4afc837e2eb92c77d328306aa2acd"
+    },
+    "textures/i_mtl_p7_zm_power_up_double_points_n.png": {
+      "bytes": 129161,
+      "sha256": "e5200c3176f711213d47f9484348817f96fa8ce907ba0e4e3a100dec98a426e2"
+    },
+    "textures/i_mtl_p7_zm_power_up_double_points_o.png": {
+      "bytes": 15942,
+      "sha256": "b0e1aa45a93b70e0393f5817d2d894ac05051cf321fb6b48ce505d2cbb4e5a03"
+    },
+    "textures/i_mtl_p7_zm_power_up_nuke_n.png": {
+      "bytes": 332910,
+      "sha256": "29446ec0cd88caf4686b07e61e43a94e759926abc2308679e12c45fbee90a912"
+    },
+    "textures/i_mtl_p7_zm_power_up_nuke_o.png": {
+      "bytes": 46242,
+      "sha256": "ea45216aa9ad4d3fc62d3018ae7cd33b0c64d4b48c1a3a8078c6d3d7935f7378"
+    }
+  },
+  "inputs": {
+    "models.json": {
+      "sha256": "618f20f8e6dd47f2b8d781ecdef2300fe028483a83e8fb41fa2254c41f4c8f2a"
+    },
+    "materials.json": {
+      "sha256": "866395f8a77a375758c29f8b6ca119df7f6ed712bade0f10b43355b75c4bb2d7"
+    },
+    "images.json": {
+      "sha256": "18b01e4c9143f4a20576513fbf34a08e571561ff350c3c28dddf54f14bd9e5ce"
+    },
+    "models/p7_zm_power_up_insta_kill.bin": {
+      "sha256": "257e6e0184b814ca3163202d2b969e5eec1ad876b56d12a53a1164c33765c569"
+    },
+    "images/i_mtl_p7_zm_power_up_insta_kill_n.dds": {
+      "sha256": "15acfb12baecf54ceaeef67fae20895f36c377f2331e06569920461ee8ad39ca"
+    },
+    "images/i_mtl_p7_zm_power_up_insta_kill_o.dds": {
+      "sha256": "c7f80657af60fb967e9cada4fb0b850450996613d5746c4621dd368e53ed8e5e"
+    },
+    "models/p7_zm_power_up_max_ammo.bin": {
+      "sha256": "3581cea8420f99cc45c215892bc58495d6fa4e93c00e1c815ef6451b2f15a757"
+    },
+    "images/i_mtl_p7_zm_power_up_max_ammo_n.dds": {
+      "sha256": "cf8d6a596512d0adefbf8dcfc58f91e775d89a649d7866e8fa8d8cd4e33536b2"
+    },
+    "images/i_mtl_p7_zm_power_up_max_ammo_o.dds": {
+      "sha256": "29674089e05940564148d4a87157bd56d2df4235a772b130f42f6e1faa76d984"
+    },
+    "models/p7_zm_power_up_double_points.bin": {
+      "sha256": "9e608ae97e6932450c2d5f47e575ea872250b898744d23924b6a0e45d5e07f6e"
+    },
+    "images/i_mtl_p7_zm_power_up_double_points_n.dds": {
+      "sha256": "4692b8db1eb15d71397a6e36c5b21986106b892ed6695cbba038e29087908008"
+    },
+    "images/i_mtl_p7_zm_power_up_double_points_o.dds": {
+      "sha256": "1dd8cdedcf6b6083994585453cde4a061e77499e5e91ee41d2942dd9761bded0"
+    },
+    "models/p7_zm_power_up_nuke.bin": {
+      "sha256": "d41c30fa02c2c853f7cc47acdbeda175f3e00a1659476bee68643d75acb83733"
+    },
+    "images/i_mtl_p7_zm_power_up_nuke_n.dds": {
+      "sha256": "39c6c90887888500fcc41832b9104bf37dfa0188c95582fa36fc69469019af7a"
+    },
+    "images/i_mtl_p7_zm_power_up_nuke_o.dds": {
+      "sha256": "c553e29c31dbf6a54a9f99afb31438e954af2d0bccf30352a2aea4dd04867d20"
+    }
+  },
+  "shading": "Original normal and occlusion maps; reconstructed gold PBR and green aura, not native shader parity."
+}

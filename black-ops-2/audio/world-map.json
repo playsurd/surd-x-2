@@ -1,0 +1,4818 @@
+{
+  "aliases": {
+    "amb_ac@mpl_nuketown_2020.all": "ac_00",
+    "amb_banner_flap@mpl_nuketown_2020.all": "flap1",
+    "amb_bird_call@mpl_nuketown_2020.all": "null",
+    "amb_boat_creak_wake_l@mpl_hijacked.all": "boat_side_creak_l",
+    "amb_boat_creak_wake_r@mpl_hijacked.all": "boat_side_creak_r",
+    "amb_changing_sign@mpl_nuketown_2020.all": "changing_tv",
+    "amb_comm_unit_hum_02@mpl_nuketown_2020.all": "comm_unit_hum",
+    "amb_comm_unit_hum@mpl_nuketown_2020.all": "comm_unit_hum",
+    "amb_comm_unit_ring@mpl_nuketown_2020.all": "comm_unit_ring_00",
+    "amb_comp_beeps@mpl_hijacked.all": "future_comp_beep_00",
+    "amb_comp_blip@mpl_nuketown_2020.all": "comp_blip_00",
+    "amb_cyber_screen@mpl_hijacked.all": "loop",
+    "amb_drip_sink@mpl_nuketown_2020.all": "amb_drip_sink_lp",
+    "amb_dryer@mpl_nuketown_2020.all": "ray_dryer",
+    "amb_end_nuke_2d@mpl_nuketown_2020.all": "nuke_build_tail_03",
+    "amb_end_nuke_aftmth@mpl_nuketown_2020.all": "nuke_2020_aftermath",
+    "amb_end_nuke_debris@mpl_nuketown_2020.all": "nuke_2020_debris_01",
+    "amb_end_nuke_lfe_explo@mpl_nuketown_2020.all": "nuke_int_explo_lfe_01",
+    "amb_end_nuke_lfe@mpl_nuketown_2020.all": "nuke_full_explo_lfe_01",
+    "amb_end_nuke_whoosh@mpl_nuketown_2020.all": "nuke_2020_whoosh_02",
+    "amb_end_nuke@mpl_nuketown_2020.all": "nuke_2020_explo_01",
+    "amb_engine_rm_dank@mpl_hijacked.all": "amb_wind_musky",
+    "amb_engine_rm_drips@mpl_hijacked.all": "dripping_01",
+    "amb_exhaust@mpl_nuketown_2020.all": "exhaust_short",
+    "amb_feedback@mpl_nuketown_2020.all": "null",
+    "amb_flies@mpl_nuketown_2020.all": "flies_01",
+    "amb_flourescent_light@mpl_hijacked.all": "flourescent",
+    "amb_fridge_hum@mpl_nuketown_2020.all": "null",
+    "amb_gas_fire_crack@mpl_nuketown_2020.all": "small",
+    "amb_gas_fire@mpl_nuketown_2020.all": "gas_pipe_fire_00",
+    "amb_grill_fire@mpl_nuketown_2020.all": "amb_grill_fire",
+    "amb_grill_gas@mpl_nuketown_2020.all": "gas_grill",
+    "amb_int_power_hum@mpl_nuketown_2020.all": "int_power_hum",
+    "amb_int_wind_2@mpl_nuketown_2020.all": "desert_int",
+    "amb_int_wind_lp@mpl_nuketown_2020.all": "desert_int_lopass",
+    "amb_int_wind@mpl_nuketown_2020.all": "desert_int",
+    "amb_intercom_static@mpl_nuketown_2020.all": "intercom_static",
+    "amb_kitchen_unit_buzz@mpl_nuketown_2020.all": "kitchen_unit_buzz",
+    "amb_main_bg_l@mpl_nuketown_2020.all": "amb_ext_nuketown_bg_l",
+    "amb_main_bg_r@mpl_nuketown_2020.all": "amb_ext_nuketown_bg_r",
+    "amb_main_engine_low_hall@mpl_hijacked.all": "amb_machine_run",
+    "amb_main_engine_low@mpl_hijacked.all": "amb_machine_run",
+    "amb_main_engine@mpl_hijacked.all": "big_machine",
+    "amb_mixing_tanks@mpl_nuketown_2020.all": "mixing_tanks",
+    "amb_nuketown_sign@mpl_nuketown_2020.all": "nuketown_sign",
+    "amb_ocean_l@mpl_hijacked.all": "water_ocean_open_l",
+    "amb_ocean_r@mpl_hijacked.all": "water_ocean_open_r",
+    "amb_outside_lights@mpl_hijacked.all": "light",
+    "amb_pa_notify_10@mpl_nuketown_2020.all": "null",
+    "amb_pa_notify_20@mpl_nuketown_2020.all": "null",
+    "amb_pa_notify_5@mpl_nuketown_2020.all": "null",
+    "amb_pool@mpl_hijacked.all": "lapping_00",
+    "amb_power_arc@mpl_nuketown_2020.all": "null",
+    "amb_power_line@mpl_nuketown_2020.all": "null",
+    "amb_radar_ping_lp@mpl_hijacked.all": "radar_ping_00",
+    "amb_radar_ping@mpl_hijacked.all": "radar_ping_00",
+    "amb_rubber_hose@mpl_nuketown_2020.all": "rubber_hose_squeak",
+    "amb_sandbox_gusts@mpl_nuketown_2020.all": "gust_00",
+    "amb_shower_drip@mpl_hijacked.all": "water_drip_lp",
+    "amb_shower_splash@mpl_hijacked.all": "amb_creek_rock_lp_01",
+    "amb_shuffle_board@mpl_nuketown_2020.all": "digital_shuffle_static",
+    "amb_sign_squeak@mpl_nuketown_2020.all": "sign_swing_00",
+    "amb_space_fan@mpl_hijacked.all": "space",
+    "amb_spark_small@mpl_hijacked.all": "small_00",
+    "amb_sprinkler_sml@mpl_nuketown_2020.all": "sprinkler_sml_sngle",
+    "amb_stove_fire@mpl_nuketown_2020.all": "amb_grill_fire",
+    "amb_stove_gas@mpl_nuketown_2020.all": "gas_grill",
+    "amb_track_sprinkler@mpl_nuketown_2020.all": "moving_sprinkler_lng",
+    "amb_tree_wind@mpl_nuketown_2020.all": "high",
+    "amb_tv_unit_hum_02@mpl_nuketown_2020.all": "tv_unit_hum",
+    "amb_tv_unit_hum@mpl_nuketown_2020.all": "tv_unit_hum",
+    "amb_vent@mpl_hijacked.all": "exhaust_short",
+    "amb_water_flow_2@mpl_hijacked.all": "flow_01",
+    "amb_water_pipe@mpl_nuketown_2020.all": "sink_00",
+    "amb_wind_extreior_2d@mpl_hijacked.all": "wind_whispy_st_lp",
+    "amb_wind_gust@mpl_nuketown_2020.all": "desert_00",
+    "amb_wind_left_2@mpl_nuketown_2020.all": "amb_wind_air_l",
+    "amb_wind_left@mpl_nuketown_2020.all": "amb_wind_calm_l",
+    "amb_wind_right_2@mpl_nuketown_2020.all": "amb_wind_air_r",
+    "amb_wind_right@mpl_nuketown_2020.all": "amb_wind_calm_r",
+    "amb_wind_short_2@mpl_nuketown_2020.all": "short_wind",
+    "amb_wind_short@mpl_nuketown_2020.all": "short_wind",
+    "amb_wind_tunnel@mpl_nuketown_2020.all": "short_wind",
+    "amb_wind_whistle@mpl_hijacked.all": "whistling_00",
+    "fly_bodyfall_generic_npc": "heavy_01",
+    "fly_bump_mannequin": "mannequin_00",
+    "fly_cloth_sprint_plr": "cloth_set_00",
+    "fly_gear_sprint_plr": "fly_gear_weight_00",
+    "fly_generic_ads_lower_plr": "wpn_generic_ads_down_00",
+    "fly_generic_ads_plr": "wpn_generic_ads_00",
+    "fly_generic_down_plr": "wpn_assault_away",
+    "fly_generic_first_raise_plr": "fly_heavy_cloth_long_00",
+    "fly_generic_raise_plr": "fly_heavy_cloth_long_00",
+    "fly_land_damage_npc": "fall_damage_00",
+    "fly_land_damage_plr": "fall_damage_00",
+    "fly_land_npc_asphalt": "concrete_run_00",
+    "fly_land_npc_bark": "concrete_run_00",
+    "fly_land_npc_brick": "concrete_run_00",
+    "fly_land_npc_carpet": "carpet_run_00",
+    "fly_land_npc_ceramic": "concrete_run_00",
+    "fly_land_npc_cloth": "carpet_run_00",
+    "fly_land_npc_concrete": "concrete_run_00",
+    "fly_land_npc_cushion": "carpet_run_00",
+    "fly_land_npc_default": "concrete_run_00",
+    "fly_land_npc_dirt": "dirt_run_00",
+    "fly_land_npc_flesh": "concrete_run_00",
+    "fly_land_npc_foliage": "grass_run_00",
+    "fly_land_npc_fruit": "concrete_run_00",
+    "fly_land_npc_glass": "grass_run_00",
+    "fly_land_npc_grass": "grass_run_00",
+    "fly_land_npc_gravel": "dirt_run_00",
+    "fly_land_npc_ice": "grass_run_00",
+    "fly_land_npc_metal": "metal_run_00",
+    "fly_land_npc_mud": "mud_run_00",
+    "fly_land_npc_paintedmetal": "metal_run_00",
+    "fly_land_npc_paper": "dirt_run_00",
+    "fly_land_npc_plaster": "concrete_run_00",
+    "fly_land_npc_plastic": "concrete_run_00",
+    "fly_land_npc_rock": "concrete_run_00",
+    "fly_land_npc_rubber": "dirt_run_00",
+    "fly_land_npc_sand": "sand_run_00",
+    "fly_land_npc_snow": "snow_run_00",
+    "fly_land_npc_water": "water_run_00",
+    "fly_land_npc_wood": "wood_run_00",
+    "fly_land_plr_asphalt": "concrete_run_00",
+    "fly_land_plr_bark": "concrete_run_00",
+    "fly_land_plr_brick": "concrete_run_00",
+    "fly_land_plr_carpet": "carpet_run_00",
+    "fly_land_plr_ceramic": "concrete_run_00",
+    "fly_land_plr_cloth": "carpet_run_00",
+    "fly_land_plr_concrete": "concrete_run_00",
+    "fly_land_plr_cushion": "carpet_run_00",
+    "fly_land_plr_damage": "fall_damage_00",
+    "fly_land_plr_default": "concrete_run_00",
+    "fly_land_plr_dirt": "dirt_run_00",
+    "fly_land_plr_flesh": "concrete_run_00",
+    "fly_land_plr_foliage": "grass_run_00",
+    "fly_land_plr_fruit": "concrete_run_00",
+    "fly_land_plr_glass": "grass_run_00",
+    "fly_land_plr_grass": "grass_run_00",
+    "fly_land_plr_gravel": "dirt_run_00",
+    "fly_land_plr_hard": "concrete_run_00",
+    "fly_land_plr_ice": "grass_run_00",
+    "fly_land_plr_metal": "metal_run_00",
+    "fly_land_plr_mud": "mud_run_00",
+    "fly_land_plr_paintedmetal": "metal_run_00",
+    "fly_land_plr_paper": "dirt_run_00",
+    "fly_land_plr_plaster": "concrete_run_00",
+    "fly_land_plr_plastic": "concrete_run_00",
+    "fly_land_plr_rock": "concrete_run_00",
+    "fly_land_plr_rubber": "dirt_run_00",
+    "fly_land_plr_sand": "sand_run_00",
+    "fly_land_plr_snow": "snow_run_00",
+    "fly_land_plr_water": "wade_00",
+    "fly_land_plr_wood": "wood_run_00",
+    "fly_lstep_crouch_run_asphalt": "concrete_run_00",
+    "fly_lstep_crouch_run_bark": "wood_run_00",
+    "fly_lstep_crouch_run_brick": "concrete_run_00",
+    "fly_lstep_crouch_run_carpet": "carpet_run_00",
+    "fly_lstep_crouch_run_ceramic": "concrete_run_00",
+    "fly_lstep_crouch_run_cloth": "carpet_run_00",
+    "fly_lstep_crouch_run_concrete": "concrete_run_00",
+    "fly_lstep_crouch_run_cushion": "carpet_run_00",
+    "fly_lstep_crouch_run_default": "dirt_run_00",
+    "fly_lstep_crouch_run_dirt": "dirt_run_00",
+    "fly_lstep_crouch_run_flesh": "concrete_run_00",
+    "fly_lstep_crouch_run_foliage": "grass_run_00",
+    "fly_lstep_crouch_run_fruit": "dirt_run_00",
+    "fly_lstep_crouch_run_glass": "grass_run_00",
+    "fly_lstep_crouch_run_grass": "grass_run_00",
+    "fly_lstep_crouch_run_gravel": "dirt_run_00",
+    "fly_lstep_crouch_run_metal": "metal_run_00",
+    "fly_lstep_crouch_run_mud": "mud_run_00",
+    "fly_lstep_crouch_run_npc_asphalt": "concrete_run_00",
+    "fly_lstep_crouch_run_npc_bark": "wood_run_00",
+    "fly_lstep_crouch_run_npc_brick": "concrete_run_00",
+    "fly_lstep_crouch_run_npc_carpet": "carpet_run_00",
+    "fly_lstep_crouch_run_npc_ceramic": "concrete_run_00",
+    "fly_lstep_crouch_run_npc_cloth": "carpet_run_00",
+    "fly_lstep_crouch_run_npc_concrete": "concrete_run_00",
+    "fly_lstep_crouch_run_npc_cushion": "carpet_run_00",
+    "fly_lstep_crouch_run_npc_default": "dirt_run_00",
+    "fly_lstep_crouch_run_npc_dirt": "dirt_run_00",
+    "fly_lstep_crouch_run_npc_flesh": "concrete_run_00",
+    "fly_lstep_crouch_run_npc_foliage": "grass_run_00",
+    "fly_lstep_crouch_run_npc_fruit": "dirt_run_00",
+    "fly_lstep_crouch_run_npc_glass": "grass_run_00",
+    "fly_lstep_crouch_run_npc_grass": "grass_run_00",
+    "fly_lstep_crouch_run_npc_gravel": "dirt_run_00",
+    "fly_lstep_crouch_run_npc_ice": "grass_run_00",
+    "fly_lstep_crouch_run_npc_metal": "metal_run_00",
+    "fly_lstep_crouch_run_npc_mud": "mud_run_00",
+    "fly_lstep_crouch_run_npc_paintedmetal": "metal_run_00",
+    "fly_lstep_crouch_run_npc_paper": "concrete_run_00",
+    "fly_lstep_crouch_run_npc_plaster": "concrete_run_00",
+    "fly_lstep_crouch_run_npc_plastic": "carpet_run_00",
+    "fly_lstep_crouch_run_npc_rock": "concrete_run_00",
+    "fly_lstep_crouch_run_npc_rubber": "carpet_run_00",
+    "fly_lstep_crouch_run_npc_sand": "sand_run_00",
+    "fly_lstep_crouch_run_npc_water": "water_run_00",
+    "fly_lstep_crouch_run_npc_wood": "wood_run_00",
+    "fly_lstep_crouch_run_paintedmetal": "metal_run_00",
+    "fly_lstep_crouch_run_paper": "concrete_run_00",
+    "fly_lstep_crouch_run_plaster": "concrete_run_00",
+    "fly_lstep_crouch_run_plastic": "carpet_run_00",
+    "fly_lstep_crouch_run_rock": "concrete_run_00",
+    "fly_lstep_crouch_run_rubber": "carpet_run_00",
+    "fly_lstep_crouch_run_sand": "sand_run_00",
+    "fly_lstep_crouch_run_water": "water_run_00",
+    "fly_lstep_crouch_run_wood": "wood_run_00",
+    "fly_lstep_crouch_walk_asphalt": "concrete_run_00",
+    "fly_lstep_crouch_walk_bark": "wood_run_00",
+    "fly_lstep_crouch_walk_brick": "concrete_run_00",
+    "fly_lstep_crouch_walk_carpet": "carpet_run_00",
+    "fly_lstep_crouch_walk_ceramic": "concrete_run_00",
+    "fly_lstep_crouch_walk_cloth": "carpet_run_00",
+    "fly_lstep_crouch_walk_concrete": "concrete_run_00",
+    "fly_lstep_crouch_walk_cushion": "carpet_run_00",
+    "fly_lstep_crouch_walk_default": "dirt_run_00",
+    "fly_lstep_crouch_walk_dirt": "dirt_run_00",
+    "fly_lstep_crouch_walk_flesh": "concrete_run_00",
+    "fly_lstep_crouch_walk_foliage": "grass_run_00",
+    "fly_lstep_crouch_walk_fruit": "dirt_run_00",
+    "fly_lstep_crouch_walk_glass": "grass_run_00",
+    "fly_lstep_crouch_walk_grass": "grass_run_00",
+    "fly_lstep_crouch_walk_gravel": "dirt_run_00",
+    "fly_lstep_crouch_walk_metal": "metal_run_00",
+    "fly_lstep_crouch_walk_mud": "mud_run_00",
+    "fly_lstep_crouch_walk_npc_asphalt": "concrete_run_00",
+    "fly_lstep_crouch_walk_npc_bark": "wood_run_00",
+    "fly_lstep_crouch_walk_npc_brick": "concrete_run_00",
+    "fly_lstep_crouch_walk_npc_carpet": "carpet_run_00",
+    "fly_lstep_crouch_walk_npc_ceramic": "concrete_run_00",
+    "fly_lstep_crouch_walk_npc_cloth": "carpet_run_00",
+    "fly_lstep_crouch_walk_npc_concrete": "concrete_run_00",
+    "fly_lstep_crouch_walk_npc_cushion": "carpet_run_00",
+    "fly_lstep_crouch_walk_npc_default": "dirt_run_00",
+    "fly_lstep_crouch_walk_npc_dirt": "dirt_run_00",
+    "fly_lstep_crouch_walk_npc_flesh": "concrete_run_00",
+    "fly_lstep_crouch_walk_npc_foliage": "grass_run_00",
+    "fly_lstep_crouch_walk_npc_fruit": "dirt_run_00",
+    "fly_lstep_crouch_walk_npc_glass": "grass_run_00",
+    "fly_lstep_crouch_walk_npc_grass": "grass_run_00",
+    "fly_lstep_crouch_walk_npc_gravel": "dirt_run_00",
+    "fly_lstep_crouch_walk_npc_ice": "grass_run_00",
+    "fly_lstep_crouch_walk_npc_metal": "metal_run_00",
+    "fly_lstep_crouch_walk_npc_mud": "mud_run_00",
+    "fly_lstep_crouch_walk_npc_paintedmetal": "metal_run_00",
+    "fly_lstep_crouch_walk_npc_paper": "concrete_run_00",
+    "fly_lstep_crouch_walk_npc_plaster": "concrete_run_00",
+    "fly_lstep_crouch_walk_npc_plastic": "carpet_run_00",
+    "fly_lstep_crouch_walk_npc_rock": "concrete_run_00",
+    "fly_lstep_crouch_walk_npc_rubber": "carpet_run_00",
+    "fly_lstep_crouch_walk_npc_sand": "sand_run_00",
+    "fly_lstep_crouch_walk_npc_water": "water_run_00",
+    "fly_lstep_crouch_walk_npc_wood": "wood_run_00",
+    "fly_lstep_crouch_walk_paintedmetal": "metal_run_00",
+    "fly_lstep_crouch_walk_paper": "concrete_run_00",
+    "fly_lstep_crouch_walk_plaster": "concrete_run_00",
+    "fly_lstep_crouch_walk_plastic": "carpet_run_00",
+    "fly_lstep_crouch_walk_rock": "concrete_run_00",
+    "fly_lstep_crouch_walk_rubber": "carpet_run_00",
+    "fly_lstep_crouch_walk_sand": "sand_run_00",
+    "fly_lstep_crouch_walk_water": "water_run_00",
+    "fly_lstep_crouch_walk_wood": "wood_run_00",
+    "fly_lstep_run_asphalt": "concrete_run_00",
+    "fly_lstep_run_bark": "wood_run_00",
+    "fly_lstep_run_brick": "concrete_run_00",
+    "fly_lstep_run_carpet": "carpet_run_00",
+    "fly_lstep_run_ceramic": "concrete_run_00",
+    "fly_lstep_run_cloth": "carpet_run_00",
+    "fly_lstep_run_concrete": "concrete_run_00",
+    "fly_lstep_run_cushion": "carpet_run_00",
+    "fly_lstep_run_default": "dirt_run_00",
+    "fly_lstep_run_dirt": "dirt_run_00",
+    "fly_lstep_run_flesh": "concrete_run_00",
+    "fly_lstep_run_foliage": "grass_run_00",
+    "fly_lstep_run_fruit": "dirt_run_00",
+    "fly_lstep_run_glass": "grass_run_00",
+    "fly_lstep_run_grass": "grass_run_00",
+    "fly_lstep_run_gravel": "dirt_run_00",
+    "fly_lstep_run_metal": "metal_run_00",
+    "fly_lstep_run_mud": "mud_run_00",
+    "fly_lstep_run_npc_asphalt": "concrete_run_00",
+    "fly_lstep_run_npc_bark": "wood_run_00",
+    "fly_lstep_run_npc_brick": "concrete_run_00",
+    "fly_lstep_run_npc_carpet": "carpet_run_00",
+    "fly_lstep_run_npc_ceramic": "concrete_run_00",
+    "fly_lstep_run_npc_cloth": "carpet_run_00",
+    "fly_lstep_run_npc_concrete": "concrete_run_00",
+    "fly_lstep_run_npc_cushion": "carpet_run_00",
+    "fly_lstep_run_npc_default": "dirt_run_00",
+    "fly_lstep_run_npc_dirt": "dirt_run_00",
+    "fly_lstep_run_npc_flesh": "concrete_run_00",
+    "fly_lstep_run_npc_foliage": "grass_run_00",
+    "fly_lstep_run_npc_fruit": "dirt_run_00",
+    "fly_lstep_run_npc_glass": "grass_run_00",
+    "fly_lstep_run_npc_grass": "grass_run_00",
+    "fly_lstep_run_npc_gravel": "dirt_run_00",
+    "fly_lstep_run_npc_ice": "grass_run_00",
+    "fly_lstep_run_npc_metal": "metal_run_00",
+    "fly_lstep_run_npc_mud": "mud_run_00",
+    "fly_lstep_run_npc_paintedmetal": "metal_run_00",
+    "fly_lstep_run_npc_paper": "concrete_run_00",
+    "fly_lstep_run_npc_plaster": "concrete_run_00",
+    "fly_lstep_run_npc_plastic": "carpet_run_00",
+    "fly_lstep_run_npc_rock": "concrete_run_00",
+    "fly_lstep_run_npc_rubber": "carpet_run_00",
+    "fly_lstep_run_npc_sand": "sand_run_00",
+    "fly_lstep_run_npc_water": "water_run_00",
+    "fly_lstep_run_npc_wood": "wood_run_00",
+    "fly_lstep_run_paintedmetal": "metal_run_00",
+    "fly_lstep_run_paper": "concrete_run_00",
+    "fly_lstep_run_plaster": "concrete_run_00",
+    "fly_lstep_run_plastic": "carpet_run_00",
+    "fly_lstep_run_rock": "concrete_run_00",
+    "fly_lstep_run_rubber": "carpet_run_00",
+    "fly_lstep_run_sand": "sand_run_00",
+    "fly_lstep_run_water": "water_run_00",
+    "fly_lstep_run_wood": "wood_run_00",
+    "fly_lstep_sprint_asphalt": "concrete_sprint_00",
+    "fly_lstep_sprint_bark": "wood_sprint_00",
+    "fly_lstep_sprint_brick": "concrete_sprint_00",
+    "fly_lstep_sprint_carpet": "carpet_sprint_00",
+    "fly_lstep_sprint_ceramic": "concrete_sprint_00",
+    "fly_lstep_sprint_cloth": "carpet_sprint_00",
+    "fly_lstep_sprint_concrete": "concrete_sprint_00",
+    "fly_lstep_sprint_cushion": "carpet_sprint_00",
+    "fly_lstep_sprint_default": "dirt_sprint_00",
+    "fly_lstep_sprint_dirt": "dirt_sprint_00",
+    "fly_lstep_sprint_flesh": "concrete_run_00",
+    "fly_lstep_sprint_foliage": "grass_sprint_00",
+    "fly_lstep_sprint_fruit": "dirt_sprint_00",
+    "fly_lstep_sprint_glass": "grass_sprint_00",
+    "fly_lstep_sprint_grass": "grass_sprint_00",
+    "fly_lstep_sprint_gravel": "dirt_sprint_00",
+    "fly_lstep_sprint_metal": "metal_sprint_00",
+    "fly_lstep_sprint_mud": "mud_run_00",
+    "fly_lstep_sprint_npc_asphalt": "concrete_sprint_00",
+    "fly_lstep_sprint_npc_bark": "wood_sprint_00",
+    "fly_lstep_sprint_npc_brick": "concrete_sprint_00",
+    "fly_lstep_sprint_npc_carpet": "carpet_sprint_00",
+    "fly_lstep_sprint_npc_ceramic": "concrete_sprint_00",
+    "fly_lstep_sprint_npc_cloth": "carpet_sprint_00",
+    "fly_lstep_sprint_npc_concrete": "concrete_sprint_00",
+    "fly_lstep_sprint_npc_cushion": "carpet_sprint_00",
+    "fly_lstep_sprint_npc_default": "dirt_sprint_00",
+    "fly_lstep_sprint_npc_dirt": "dirt_sprint_00",
+    "fly_lstep_sprint_npc_flesh": "concrete_run_00",
+    "fly_lstep_sprint_npc_foliage": "grass_sprint_00",
+    "fly_lstep_sprint_npc_fruit": "dirt_sprint_00",
+    "fly_lstep_sprint_npc_glass": "grass_sprint_00",
+    "fly_lstep_sprint_npc_grass": "grass_sprint_00",
+    "fly_lstep_sprint_npc_gravel": "dirt_sprint_00",
+    "fly_lstep_sprint_npc_ice": "grass_sprint_00",
+    "fly_lstep_sprint_npc_metal": "metal_sprint_00",
+    "fly_lstep_sprint_npc_mud": "mud_run_00",
+    "fly_lstep_sprint_npc_paintedmetal": "dirt_sprint_00",
+    "fly_lstep_sprint_npc_paper": "concrete_sprint_00",
+    "fly_lstep_sprint_npc_plaster": "concrete_sprint_00",
+    "fly_lstep_sprint_npc_plastic": "carpet_sprint_00",
+    "fly_lstep_sprint_npc_rock": "concrete_sprint_00",
+    "fly_lstep_sprint_npc_rubber": "carpet_sprint_00",
+    "fly_lstep_sprint_npc_sand": "sand_sprint_00",
+    "fly_lstep_sprint_npc_water": "water_run_00",
+    "fly_lstep_sprint_npc_wood": "wood_sprint_00",
+    "fly_lstep_sprint_paintedmetal": "dirt_sprint_00",
+    "fly_lstep_sprint_paper": "concrete_sprint_00",
+    "fly_lstep_sprint_plaster": "concrete_sprint_00",
+    "fly_lstep_sprint_plastic": "carpet_sprint_00",
+    "fly_lstep_sprint_rock": "concrete_sprint_00",
+    "fly_lstep_sprint_rubber": "carpet_sprint_00",
+    "fly_lstep_sprint_sand": "sand_sprint_00",
+    "fly_lstep_sprint_water": "water_run_00",
+    "fly_lstep_sprint_wood": "wood_sprint_00",
+    "fly_lstep_walk_asphalt": "concrete_run_00",
+    "fly_lstep_walk_bark": "wood_run_00",
+    "fly_lstep_walk_brick": "concrete_run_00",
+    "fly_lstep_walk_carpet": "carpet_run_00",
+    "fly_lstep_walk_ceramic": "concrete_run_00",
+    "fly_lstep_walk_cloth": "carpet_run_00",
+    "fly_lstep_walk_concrete": "concrete_run_00",
+    "fly_lstep_walk_cushion": "carpet_run_00",
+    "fly_lstep_walk_default": "dirt_run_00",
+    "fly_lstep_walk_dirt": "dirt_run_00",
+    "fly_lstep_walk_flesh": "concrete_run_00",
+    "fly_lstep_walk_foliage": "grass_run_00",
+    "fly_lstep_walk_fruit": "dirt_run_00",
+    "fly_lstep_walk_glass": "grass_run_00",
+    "fly_lstep_walk_grass": "grass_run_00",
+    "fly_lstep_walk_gravel": "dirt_run_00",
+    "fly_lstep_walk_metal": "metal_run_00",
+    "fly_lstep_walk_mud": "mud_run_00",
+    "fly_lstep_walk_npc_asphalt": "concrete_run_00",
+    "fly_lstep_walk_npc_bark": "wood_run_00",
+    "fly_lstep_walk_npc_brick": "concrete_run_00",
+    "fly_lstep_walk_npc_carpet": "carpet_run_00",
+    "fly_lstep_walk_npc_ceramic": "concrete_run_00",
+    "fly_lstep_walk_npc_cloth": "carpet_run_00",
+    "fly_lstep_walk_npc_concrete": "concrete_run_00",
+    "fly_lstep_walk_npc_cushion": "carpet_run_00",
+    "fly_lstep_walk_npc_default": "dirt_run_00",
+    "fly_lstep_walk_npc_dirt": "dirt_run_00",
+    "fly_lstep_walk_npc_flesh": "concrete_run_00",
+    "fly_lstep_walk_npc_foliage": "grass_run_00",
+    "fly_lstep_walk_npc_fruit": "dirt_run_00",
+    "fly_lstep_walk_npc_glass": "grass_run_00",
+    "fly_lstep_walk_npc_grass": "grass_run_00",
+    "fly_lstep_walk_npc_gravel": "dirt_run_00",
+    "fly_lstep_walk_npc_ice": "grass_run_00",
+    "fly_lstep_walk_npc_metal": "metal_run_00",
+    "fly_lstep_walk_npc_mud": "mud_run_00",
+    "fly_lstep_walk_npc_paintedmetal": "metal_run_00",
+    "fly_lstep_walk_npc_paper": "concrete_run_00",
+    "fly_lstep_walk_npc_plaster": "concrete_run_00",
+    "fly_lstep_walk_npc_plastic": "carpet_run_00",
+    "fly_lstep_walk_npc_rock": "concrete_run_00",
+    "fly_lstep_walk_npc_rubber": "carpet_run_00",
+    "fly_lstep_walk_npc_sand": "sand_run_00",
+    "fly_lstep_walk_npc_water": "water_run_00",
+    "fly_lstep_walk_npc_wood": "wood_run_00",
+    "fly_lstep_walk_paintedmetal": "metal_run_00",
+    "fly_lstep_walk_paper": "concrete_run_00",
+    "fly_lstep_walk_plaster": "concrete_run_00",
+    "fly_lstep_walk_plastic": "carpet_run_00",
+    "fly_lstep_walk_rock": "concrete_run_00",
+    "fly_lstep_walk_rubber": "carpet_run_00",
+    "fly_lstep_walk_sand": "sand_run_00",
+    "fly_lstep_walk_water": "water_run_00",
+    "fly_lstep_walk_wood": "wood_run_00",
+    "fly_melee_get_hit_plr": "imp_rifle_butt_00",
+    "fly_scope_zoom": "wpn_scope_zoom",
+    "mpl_hit_alert": "alert_00",
+    "mpl_ui_timer_countdown": "evt_mpl_clock_beep",
+    "mus_draw": "06_wm_01_v1_stg",
+    "mus_loss": "mus_loss_00",
+    "mus_spawn_short_fbi": "mus_mp_spawn_06_short",
+    "mus_time_running_out": "mus_mp_timer_00",
+    "mus_victory": "mus_draw_00",
+    "phy_impact_flesh_flesh": "bodyfall_dirt_00",
+    "prj_bolt_impact_flesh": "flesh_02",
+    "prj_bullet_ap_ricochet": "ricochet_00",
+    "prj_bullet_debris_large_dirt": "dirt_debris_00",
+    "prj_bullet_debris_large_metal": "metal_debris_00",
+    "prj_bullet_debris_large_mud": "mud_debris_00",
+    "prj_bullet_debris_large_plaster": "plaster_debris_00",
+    "prj_bullet_debris_large_rock": "rock_debris_00",
+    "prj_bullet_debris_large_sand": "sand_debris_00",
+    "prj_bullet_debris_large_wood": "wood_debris_00",
+    "prj_bullet_debris_small_dirt": "dirt_debris_00",
+    "prj_bullet_debris_small_metal": "metal_debris_00",
+    "prj_bullet_debris_small_mud": "mud_debris_00",
+    "prj_bullet_debris_small_plaster": "plaster_debris_00",
+    "prj_bullet_debris_small_rock": "rock_debris_00",
+    "prj_bullet_debris_small_sand": "sand_debris_00",
+    "prj_bullet_debris_small_wood": "wood_debris_00",
+    "prj_bullet_impact_headshot": "head_00",
+    "prj_crack": "crack_00",
+    "prj_whizby": "prj_whizby_00",
+    "uin_cmn_backout": "cac_cmn_backout",
+    "uin_main_enter": "cac_enter",
+    "uin_main_exit": "cac_exit",
+    "uin_main_nav": "cac_main_nav",
+    "uin_main_pause": "ui_equip",
+    "uin_start_count_down": "mpl_count_in_beep",
+    "uin_timer": "timer_00",
+    "vox_melee_exert_plr": "exert_plr_00",
+    "vox_moto_death": "vox_us_death_00",
+    "wpn_an94_dryfire_plr": "dry_fire_00",
+    "wpn_an94_fire_npc": "wpn_an94_shot_plr",
+    "wpn_an94_fire_npc_decay": "wpn_assault_decay_ext",
+    "wpn_an94_fire_npc_dist": "wpn_assault_dist_00",
+    "wpn_as50_dryfire_plr": "dry_fire_00",
+    "wpn_as50_fire_npc": "wpn_as50_fire_plr",
+    "wpn_as50_fire_npc_decay": "wpn_rifle_decay_int",
+    "wpn_ballista_dryfire_plr": "dry_fire_00",
+    "wpn_ballista_fire_npc": "wpn_ballista_fire_plr",
+    "wpn_ballista_fire_npc_decay": "wpn_rifle_decay_int",
+    "wpn_beretta93r_dryfire_plr": "dry_fire_plr",
+    "wpn_beretta93r_fire_npc": "wpn_beretta_fire_plr",
+    "wpn_beretta93r_fire_npc_decay": "wpn_pistol_decay_ext",
+    "wpn_beretta93r_fire_npc_dist": "wpn_pistol_dist_00",
+    "wpn_dsr50_dryfire_plr": "dry_fire_00",
+    "wpn_dsr50_fire_npc": "wpn_dsr_fire_plr",
+    "wpn_dsr50_fire_npc_decay": "wpn_rifle_decay_int",
+    "wpn_fiveseven_dryfire_plr": "dry_fire_plr",
+    "wpn_fiveseven_fire_npc": "wpn_fiveseven_shot_plr",
+    "wpn_fiveseven_fire_npc_decay": "wpn_pistol_decay_ext",
+    "wpn_fiveseven_fire_npc_dist": "wpn_pistol_dist_00",
+    "wpn_fnp45_dryfire_plr": "dry_fire_plr",
+    "wpn_fnp45_fire_npc": "wpn_fnp45_fire_plr",
+    "wpn_fnp45_fire_npc_decay": "wpn_pistol_decay_ext",
+    "wpn_fnp45_fire_npc_dist": "wpn_pistol_dist_00",
+    "wpn_grenade_bounce_asphalt": "earth_00",
+    "wpn_grenade_bounce_bark": "wood_00",
+    "wpn_grenade_bounce_brick": "earth_00",
+    "wpn_grenade_bounce_carpet": "earth_00",
+    "wpn_grenade_bounce_ceramic": "earth_00",
+    "wpn_grenade_bounce_cloth": "earth_00",
+    "wpn_grenade_bounce_concrete": "metal_00",
+    "wpn_grenade_bounce_default": "earth_00",
+    "wpn_grenade_bounce_dirt": "earth_00",
+    "wpn_grenade_bounce_flesh": "earth_00",
+    "wpn_grenade_bounce_foliage": "earth_00",
+    "wpn_grenade_bounce_fruit": "earth_00",
+    "wpn_grenade_bounce_glass": "earth_00",
+    "wpn_grenade_bounce_grass": "earth_00",
+    "wpn_grenade_bounce_gravel": "metal_00",
+    "wpn_grenade_bounce_ice": "earth_00",
+    "wpn_grenade_bounce_metal": "metal_00",
+    "wpn_grenade_bounce_mud": "earth_00",
+    "wpn_grenade_bounce_paintedmetal": "metal_00",
+    "wpn_grenade_bounce_paper": "earth_00",
+    "wpn_grenade_bounce_plaster": "metal_00",
+    "wpn_grenade_bounce_plastic": "earth_00",
+    "wpn_grenade_bounce_rock": "metal_00",
+    "wpn_grenade_bounce_sand": "earth_00",
+    "wpn_grenade_bounce_snow": "earth_00",
+    "wpn_grenade_bounce_water": "water_00",
+    "wpn_grenade_bounce_wood": "wood_00",
+    "wpn_grenade_explode": "explode_00",
+    "wpn_grenade_explode_dist": "exp_explosion_decay",
+    "wpn_grenade_explode_lfe": "exp_grenade_lfe",
+    "wpn_grenade_pull_pin": "pin",
+    "wpn_grenade_throw": "gren_throw",
+    "wpn_hk416_dryfire_plr": "dry_fire_00",
+    "wpn_hk416_fire_npc": "wpn_m27_shot_plr",
+    "wpn_hk416_fire_npc_decay": "wpn_assault_decay_ext",
+    "wpn_hk416_fire_npc_dist": "wpn_assault_dist_00",
+    "wpn_kard_dryfire_plr": "dry_fire_plr",
+    "wpn_kard_fire_npc": "wpn_kard_shot_plr",
+    "wpn_kard_fire_npc_decay": "wpn_pistol_decay_ext",
+    "wpn_kard_fire_npc_dist": "wpn_pistol_dist_00",
+    "wpn_knife_melee_stab": "knife_stab_00",
+    "wpn_melee_hit_other": "hit_rock",
+    "wpn_melee_hit_plr": "imp_rifle_butt_00",
+    "wpn_melee_hit_plr_lfe": "fast_lfe",
+    "wpn_melee_knife_draw_plr": "wpn_knife_draw_00",
+    "wpn_melee_knife_hit_body": "hit_flesh_swing",
+    "wpn_melee_knife_hit_lfe": "lfe_00",
+    "wpn_melee_knife_hit_other": "hit_object_00",
+    "wpn_melee_knife_sheath_plr": "wpn_knife_sheath_00",
+    "wpn_melee_whoosh_plr": "swing_00",
+    "wpn_sa58_dryfire_plr": "dry_fire_00",
+    "wpn_sa58_fire_npc": "wpn_sa58_shot_plr",
+    "wpn_sa58_fire_npc_decay": "wpn_assault_decay_ext",
+    "wpn_sa58_fire_npc_dist": "wpn_assault_dist_00",
+    "wpn_saritch_dryfire_plr": "dry_fire_00",
+    "wpn_saritch_fire_npc": "wpn_saritch_shot_plr",
+    "wpn_saritch_fire_npc_decay": "wpn_assault_decay_ext",
+    "wpn_saritch_fire_npc_dist": "wpn_assault_dist_00",
+    "wpn_scar_dryfire_plr": "dry_fire_00",
+    "wpn_scar_fire_npc": "wpn_scar_shot_plr",
+    "wpn_scar_fire_npc_decay": "wpn_assault_decay_ext",
+    "wpn_scar_fire_npc_dist": "wpn_assault_dist_00",
+    "wpn_sig556_dryfire_plr": "dry_fire_00",
+    "wpn_sig556_fire_npc": "wpn_sig556_shot_plr",
+    "wpn_sig556_fire_npc_decay": "wpn_assault_decay_ext",
+    "wpn_sig556_fire_npc_dist": "wpn_assault_dist_00",
+    "wpn_smoke_bounce_asphalt": "generic_00",
+    "wpn_smoke_bounce_bark": "generic_00",
+    "wpn_smoke_bounce_brick": "generic_00",
+    "wpn_smoke_bounce_carpet": "generic_00",
+    "wpn_smoke_bounce_ceramic": "generic_00",
+    "wpn_smoke_bounce_cloth": "generic_00",
+    "wpn_smoke_bounce_concrete": "generic_00",
+    "wpn_smoke_bounce_default": "generic_00",
+    "wpn_smoke_bounce_dirt": "generic_00",
+    "wpn_smoke_bounce_flesh": "generic_00",
+    "wpn_smoke_bounce_foliage": "generic_00",
+    "wpn_smoke_bounce_glass": "generic_00",
+    "wpn_smoke_bounce_grass": "generic_00",
+    "wpn_smoke_bounce_gravel": "generic_00",
+    "wpn_smoke_bounce_ice": "generic_00",
+    "wpn_smoke_bounce_metal": "generic_00",
+    "wpn_smoke_bounce_mud": "generic_00",
+    "wpn_smoke_bounce_paper": "generic_00",
+    "wpn_smoke_bounce_plaster": "generic_00",
+    "wpn_smoke_bounce_rock": "generic_00",
+    "wpn_smoke_bounce_sand": "generic_00",
+    "wpn_smoke_bounce_snow": "generic_00",
+    "wpn_smoke_bounce_water": "water_00",
+    "wpn_smoke_bounce_wood": "generic_00",
+    "wpn_smoke_grenade_explode": "explo_00",
+    "wpn_smoke_hiss_end": "smoke_hiss_end",
+    "wpn_smoke_hiss_lp": "smoke_hiss_lp",
+    "wpn_smoke_hiss_start": "smoke_hiss_start",
+    "wpn_smoke_pull_pin_plyr": "pin",
+    "wpn_svu_dryfire_plr": "dry_fire_00",
+    "wpn_svu_fire_npc": "wpn_svt_fire_plr",
+    "wpn_svu_fire_npc_decay": "wpn_rifle_decay_int",
+    "wpn_tar21_dryfire_plr": "dry_fire_00",
+    "wpn_tar21_fire_npc": "wpn_tar21_shot_plr",
+    "wpn_tar21_fire_npc_decay": "wpn_assault_decay_ext",
+    "wpn_tar21_fire_npc_dist": "wpn_assault_dist_00",
+    "wpn_type95_dryfire_plr": "dry_fire_00",
+    "wpn_type95_fire_npc": "wpn_type95_shot_plr",
+    "wpn_type95_fire_npc_decay": "wpn_assault_decay_ext",
+    "wpn_type95_fire_npc_dist": "wpn_assault_dist_00",
+    "wpn_xm8_dryfire_plr": "dry_fire_00",
+    "wpn_xm8_fire_npc": "wpn_xm8_shot_plr",
+    "wpn_xm8_fire_npc_decay": "wpn_assault_decay_ext",
+    "wpn_xm8_fire_npc_dist": "wpn_assault_dist_00"
+  },
+  "samples": {
+    "06_wm_01_v1_stg": "./audio/world/06_wm_01_v1_stg.flac",
+    "ac_00": "./audio/world/ac_00.wav",
+    "alert_00": "./audio/world/alert_00.wav",
+    "amb_creek_rock_lp_01": "./audio/world/amb_creek_rock_lp_01.wav",
+    "amb_drip_sink_lp": "./audio/world/amb_drip_sink_lp.wav",
+    "amb_ext_nuketown_bg_l": "./audio/world/amb_ext_nuketown_bg_l.flac",
+    "amb_ext_nuketown_bg_r": "./audio/world/amb_ext_nuketown_bg_r.flac",
+    "amb_grill_fire": "./audio/world/amb_grill_fire.wav",
+    "amb_machine_run": "./audio/world/amb_machine_run.wav",
+    "amb_wind_air_l": "./audio/world/amb_wind_air_l.flac",
+    "amb_wind_air_r": "./audio/world/amb_wind_air_r.flac",
+    "amb_wind_calm_l": "./audio/world/amb_wind_calm_l.flac",
+    "amb_wind_calm_r": "./audio/world/amb_wind_calm_r.flac",
+    "amb_wind_musky": "./audio/world/amb_wind_musky.wav",
+    "big_machine": "./audio/world/big_machine.wav",
+    "boat_side_creak_l": "./audio/world/boat_side_creak_l.flac",
+    "boat_side_creak_r": "./audio/world/boat_side_creak_r.flac",
+    "bodyfall_dirt_00": [
+      "./audio/world/bodyfall_dirt_00.wav",
+      "./audio/world/bodyfall_dirt_01.wav",
+      "./audio/world/bodyfall_dirt_02.wav",
+      "./audio/world/bodyfall_dirt_03.wav"
+    ],
+    "cac_cmn_backout": "./audio/world/cac_cmn_backout.wav",
+    "cac_enter": "./audio/world/cac_enter.wav",
+    "cac_exit": "./audio/world/cac_exit.wav",
+    "cac_main_nav": "./audio/world/cac_main_nav.wav",
+    "carpet_run_00": [
+      "./audio/world/carpet_run_00.wav",
+      "./audio/world/carpet_run_01.wav",
+      "./audio/world/carpet_run_02.wav",
+      "./audio/world/carpet_run_03.wav",
+      "./audio/world/carpet_run_04.wav",
+      "./audio/world/carpet_run_05.wav",
+      "./audio/world/carpet_run_06.wav"
+    ],
+    "carpet_sprint_00": [
+      "./audio/world/carpet_sprint_00.wav",
+      "./audio/world/carpet_sprint_01.wav",
+      "./audio/world/carpet_sprint_02.wav",
+      "./audio/world/carpet_sprint_03.wav",
+      "./audio/world/carpet_sprint_04.wav"
+    ],
+    "changing_tv": "./audio/world/changing_tv.wav",
+    "cloth_set_00": [
+      "./audio/world/cloth_set_00.wav",
+      "./audio/world/cloth_set_01.wav",
+      "./audio/world/cloth_set_02.wav",
+      "./audio/world/cloth_set_03.wav",
+      "./audio/world/cloth_set_04.wav",
+      "./audio/world/cloth_set_05.wav",
+      "./audio/world/cloth_set_06.wav"
+    ],
+    "comm_unit_hum": "./audio/world/comm_unit_hum.wav",
+    "comm_unit_ring_00": [
+      "./audio/world/comm_unit_ring_00.wav",
+      "./audio/world/comm_unit_ring_01.wav",
+      "./audio/world/comm_unit_ring_02.wav"
+    ],
+    "comp_blip_00": [
+      "./audio/world/comp_blip_00.wav",
+      "./audio/world/comp_blip_01.wav",
+      "./audio/world/comp_blip_02.wav",
+      "./audio/world/comp_blip_03.wav",
+      "./audio/world/comp_blip_04.wav",
+      "./audio/world/comp_blip_05.wav"
+    ],
+    "concrete_run_00": [
+      "./audio/world/concrete_run_00.wav",
+      "./audio/world/concrete_run_01.wav",
+      "./audio/world/concrete_run_02.wav",
+      "./audio/world/concrete_run_03.wav",
+      "./audio/world/concrete_run_04.wav",
+      "./audio/world/concrete_run_05.wav"
+    ],
+    "concrete_sprint_00": [
+      "./audio/world/concrete_sprint_00.wav",
+      "./audio/world/concrete_sprint_01.wav",
+      "./audio/world/concrete_sprint_02.wav",
+      "./audio/world/concrete_sprint_03.wav",
+      "./audio/world/concrete_sprint_04.wav"
+    ],
+    "crack_00": [
+      "./audio/world/crack_00.wav",
+      "./audio/world/crack_01.wav",
+      "./audio/world/crack_02.wav"
+    ],
+    "desert_00": [
+      "./audio/world/desert_00.wav",
+      "./audio/world/desert_01.wav",
+      "./audio/world/desert_02.wav"
+    ],
+    "desert_int": "./audio/world/desert_int.wav",
+    "desert_int_lopass": "./audio/world/desert_int_lopass.wav",
+    "digital_shuffle_static": "./audio/world/digital_shuffle_static.wav",
+    "dirt_debris_00": [
+      "./audio/world/dirt_debris_00.wav",
+      "./audio/world/dirt_debris_01.wav",
+      "./audio/world/dirt_debris_02.wav",
+      "./audio/world/dirt_debris_03.wav",
+      "./audio/world/dirt_debris_04.wav",
+      "./audio/world/dirt_debris_05.wav"
+    ],
+    "dirt_run_00": [
+      "./audio/world/dirt_run_00.wav",
+      "./audio/world/dirt_run_01.wav",
+      "./audio/world/dirt_run_02.wav",
+      "./audio/world/dirt_run_03.wav",
+      "./audio/world/dirt_run_04.wav"
+    ],
+    "dirt_sprint_00": [
+      "./audio/world/dirt_sprint_00.wav",
+      "./audio/world/dirt_sprint_01.wav",
+      "./audio/world/dirt_sprint_02.wav",
+      "./audio/world/dirt_sprint_03.wav"
+    ],
+    "dripping_01": "./audio/world/dripping_01.wav",
+    "dry_fire_00": "./audio/world/dry_fire_00.wav",
+    "dry_fire_plr": "./audio/world/dry_fire_plr.wav",
+    "earth_00": [
+      "./audio/world/earth_00.wav",
+      "./audio/world/earth_01.wav",
+      "./audio/world/earth_02.wav",
+      "./audio/world/earth_03.wav",
+      "./audio/world/earth_04.wav",
+      "./audio/world/metal_00.wav",
+      "./audio/world/metal_01.wav",
+      "./audio/world/metal_02.wav",
+      "./audio/world/metal_03.wav",
+      "./audio/world/metal_04.wav"
+    ],
+    "evt_mpl_clock_beep": "./audio/world/evt_mpl_clock_beep.wav",
+    "exert_plr_00": [
+      "./audio/world/exert_plr_00.flac",
+      "./audio/world/exert_plr_01.flac",
+      "./audio/world/exert_plr_02.flac"
+    ],
+    "exhaust_short": "./audio/world/exhaust_short.wav",
+    "exp_explosion_decay": "./audio/world/exp_explosion_decay.wav",
+    "exp_grenade_lfe": "./audio/world/exp_grenade_lfe.wav",
+    "explo_00": [
+      "./audio/world/explo_00.wav",
+      "./audio/world/explo_01.wav"
+    ],
+    "explode_00": "./audio/world/explode_00.wav",
+    "fall_damage_00": "./audio/world/fall_damage_00.wav",
+    "fast_lfe": "./audio/world/fast_lfe.wav",
+    "flap1": [
+      "./audio/world/flap1.wav",
+      "./audio/world/flap2.wav",
+      "./audio/world/flap3.wav"
+    ],
+    "flesh_02": [
+      "./audio/world/flesh_02.wav",
+      "./audio/world/flesh_03.wav"
+    ],
+    "flies_01": "./audio/world/flies_01.wav",
+    "flourescent": "./audio/world/flourescent.wav",
+    "flow_01": "./audio/world/flow_01.wav",
+    "fly_gear_weight_00": [
+      "./audio/world/fly_gear_weight_00.wav",
+      "./audio/world/fly_gear_weight_01.wav"
+    ],
+    "fly_heavy_cloth_long_00": "./audio/world/fly_heavy_cloth_long_00.wav",
+    "future_comp_beep_00": [
+      "./audio/world/future_comp_beep_00.wav",
+      "./audio/world/future_comp_beep_01.wav",
+      "./audio/world/future_comp_beep_02.wav",
+      "./audio/world/future_comp_beep_03.wav",
+      "./audio/world/future_comp_beep_04.wav",
+      "./audio/world/future_comp_beep_05.wav"
+    ],
+    "gas_grill": "./audio/world/gas_grill.wav",
+    "gas_pipe_fire_00": "./audio/world/gas_pipe_fire_00.wav",
+    "generic_00": [
+      "./audio/world/generic_00.wav",
+      "./audio/world/generic_01.wav",
+      "./audio/world/generic_02.wav"
+    ],
+    "grass_run_00": [
+      "./audio/world/grass_run_00.wav",
+      "./audio/world/grass_run_01.wav",
+      "./audio/world/grass_run_02.wav",
+      "./audio/world/grass_run_03.wav",
+      "./audio/world/grass_run_04.wav",
+      "./audio/world/window_00.wav",
+      "./audio/world/window_01.wav",
+      "./audio/world/window_02.wav",
+      "./audio/world/window_03.wav",
+      "./audio/world/window_04.wav"
+    ],
+    "grass_sprint_00": [
+      "./audio/world/grass_sprint_00.wav",
+      "./audio/world/grass_sprint_01.wav",
+      "./audio/world/grass_sprint_02.wav",
+      "./audio/world/grass_sprint_03.wav",
+      "./audio/world/grass_sprint_04.wav",
+      "./audio/world/window_00.wav",
+      "./audio/world/window_01.wav",
+      "./audio/world/window_02.wav",
+      "./audio/world/window_03.wav",
+      "./audio/world/window_04.wav"
+    ],
+    "gren_throw": "./audio/world/gren_throw.wav",
+    "gust_00": [
+      "./audio/world/gust_00.wav",
+      "./audio/world/gust_03.wav",
+      "./audio/world/gust_04.wav",
+      "./audio/world/gust_06.wav"
+    ],
+    "head_00": [
+      "./audio/world/head_00.wav",
+      "./audio/world/head_01.wav"
+    ],
+    "heavy_01": "./audio/world/heavy_01.wav",
+    "high": "./audio/world/high.wav",
+    "hit_flesh_swing": "./audio/world/hit_flesh_swing.wav",
+    "hit_object_00": [
+      "./audio/world/hit_object_00.wav",
+      "./audio/world/hit_object_01.wav",
+      "./audio/world/hit_object_02.wav",
+      "./audio/world/hit_object_03.wav"
+    ],
+    "hit_rock": "./audio/world/hit_rock.wav",
+    "imp_rifle_butt_00": [
+      "./audio/world/imp_rifle_butt_00.wav",
+      "./audio/world/imp_rifle_butt_01.wav",
+      "./audio/world/imp_rifle_butt_02.wav"
+    ],
+    "int_power_hum": "./audio/world/int_power_hum.wav",
+    "intercom_static": "./audio/world/intercom_static.wav",
+    "kitchen_unit_buzz": "./audio/world/kitchen_unit_buzz.wav",
+    "knife_stab_00": [
+      "./audio/world/knife_stab_00.wav",
+      "./audio/world/knife_stab_01.wav",
+      "./audio/world/knife_stab_02.wav",
+      "./audio/world/knife_stab_03.wav"
+    ],
+    "lapping_00": [
+      "./audio/world/lapping_00.wav",
+      "./audio/world/lapping_01.wav",
+      "./audio/world/lapping_02.wav",
+      "./audio/world/lapping_03.wav",
+      "./audio/world/lapping_04.wav"
+    ],
+    "lfe_00": "./audio/world/lfe_00.wav",
+    "light": "./audio/world/light.wav",
+    "loop": "./audio/world/loop.wav",
+    "mannequin_00": [
+      "./audio/world/mannequin_00.wav",
+      "./audio/world/mannequin_01.wav",
+      "./audio/world/mannequin_02.wav"
+    ],
+    "metal_00": [
+      "./audio/world/metal_00.wav",
+      "./audio/world/metal_01.wav",
+      "./audio/world/metal_02.wav",
+      "./audio/world/metal_03.wav",
+      "./audio/world/metal_04.wav"
+    ],
+    "metal_debris_00": [
+      "./audio/world/metal_debris_00.wav",
+      "./audio/world/metal_debris_01.wav",
+      "./audio/world/metal_debris_02.wav",
+      "./audio/world/metal_debris_03.wav",
+      "./audio/world/metal_debris_04.wav",
+      "./audio/world/metal_debris_05.wav",
+      "./audio/world/metal_debris_06.wav",
+      "./audio/world/metal_debris_07.wav"
+    ],
+    "metal_run_00": [
+      "./audio/world/metal_run_00.wav",
+      "./audio/world/metal_run_01.wav",
+      "./audio/world/metal_run_02.wav",
+      "./audio/world/metal_run_03.wav",
+      "./audio/world/metal_run_04.wav"
+    ],
+    "metal_sprint_00": [
+      "./audio/world/metal_sprint_00.wav",
+      "./audio/world/metal_sprint_01.wav",
+      "./audio/world/metal_sprint_02.wav",
+      "./audio/world/metal_sprint_03.wav",
+      "./audio/world/metal_sprint_04.wav"
+    ],
+    "mixing_tanks": "./audio/world/mixing_tanks.wav",
+    "moving_sprinkler_lng": "./audio/world/moving_sprinkler_lng.flac",
+    "mpl_count_in_beep": "./audio/world/mpl_count_in_beep.wav",
+    "mud_debris_00": [
+      "./audio/world/mud_debris_00.wav",
+      "./audio/world/mud_debris_01.wav",
+      "./audio/world/mud_debris_02.wav"
+    ],
+    "mud_run_00": [
+      "./audio/world/mud_run_00.wav",
+      "./audio/world/mud_run_01.wav",
+      "./audio/world/mud_run_02.wav",
+      "./audio/world/mud_run_03.wav"
+    ],
+    "mus_draw_00": "./audio/world/mus_draw_00.flac",
+    "mus_loss_00": "./audio/world/mus_loss_00.flac",
+    "mus_mp_spawn_06_short": "./audio/world/mus_mp_spawn_06_short.flac",
+    "mus_mp_timer_00": [
+      "./audio/world/mus_mp_timer_00.flac",
+      "./audio/world/mus_mp_timer_01.flac"
+    ],
+    "nuke_2020_aftermath": "./audio/world/nuke_2020_aftermath.flac",
+    "nuke_2020_debris_01": "./audio/world/nuke_2020_debris_01.wav",
+    "nuke_2020_explo_01": "./audio/world/nuke_2020_explo_01.flac",
+    "nuke_2020_whoosh_02": "./audio/world/nuke_2020_whoosh_02.wav",
+    "nuke_build_tail_03": "./audio/world/nuke_build_tail_03.wav",
+    "nuke_full_explo_lfe_01": "./audio/world/nuke_full_explo_lfe_01.wav",
+    "nuke_int_explo_lfe_01": "./audio/world/nuke_int_explo_lfe_01.wav",
+    "nuketown_sign": "./audio/world/nuketown_sign.wav",
+    "null": "./audio/world/null.wav",
+    "pin": "./audio/world/pin.wav",
+    "plaster_debris_00": [
+      "./audio/world/plaster_debris_00.wav",
+      "./audio/world/plaster_debris_01.wav",
+      "./audio/world/plaster_debris_02.wav",
+      "./audio/world/plaster_debris_03.wav",
+      "./audio/world/plaster_debris_04.wav"
+    ],
+    "prj_whizby_00": [
+      "./audio/world/prj_whizby_00.wav",
+      "./audio/world/prj_whizby_01.wav",
+      "./audio/world/prj_whizby_02.wav",
+      "./audio/world/prj_whizby_03.wav"
+    ],
+    "radar_ping_00": "./audio/world/radar_ping_00.wav",
+    "ray_dryer": "./audio/world/ray_dryer.wav",
+    "ricochet_00": [
+      "./audio/world/ricochet_00.wav",
+      "./audio/world/ricochet_01.wav",
+      "./audio/world/ricochet_02.wav",
+      "./audio/world/ricochet_03.wav",
+      "./audio/world/ricochet_04.wav"
+    ],
+    "rock_debris_00": [
+      "./audio/world/rock_debris_00.wav",
+      "./audio/world/rock_debris_01.wav",
+      "./audio/world/rock_debris_02.wav",
+      "./audio/world/rock_debris_03.wav",
+      "./audio/world/rock_debris_04.wav",
+      "./audio/world/rock_debris_05.wav"
+    ],
+    "rubber_hose_squeak": "./audio/world/rubber_hose_squeak.wav",
+    "sand_debris_00": [
+      "./audio/world/sand_debris_00.wav",
+      "./audio/world/sand_debris_01.wav",
+      "./audio/world/sand_debris_02.wav"
+    ],
+    "sand_run_00": [
+      "./audio/world/sand_run_00.wav",
+      "./audio/world/sand_run_01.wav",
+      "./audio/world/sand_run_02.wav"
+    ],
+    "sand_sprint_00": [
+      "./audio/world/sand_sprint_00.wav",
+      "./audio/world/sand_sprint_01.wav",
+      "./audio/world/sand_sprint_02.wav",
+      "./audio/world/sand_sprint_03.wav",
+      "./audio/world/sand_sprint_04.wav",
+      "./audio/world/sand_sprint_05.wav"
+    ],
+    "short_wind": "./audio/world/short_wind.wav",
+    "sign_swing_00": [
+      "./audio/world/sign_swing_00.wav",
+      "./audio/world/sign_swing_01.wav",
+      "./audio/world/sign_swing_02.wav",
+      "./audio/world/sign_swing_03.wav"
+    ],
+    "sink_00": "./audio/world/sink_00.flac",
+    "small": "./audio/world/small.wav",
+    "small_00": [
+      "./audio/world/small_00.wav",
+      "./audio/world/small_01.wav",
+      "./audio/world/small_02.wav",
+      "./audio/world/small_03.wav",
+      "./audio/world/small_04.wav"
+    ],
+    "smoke_hiss_end": "./audio/world/smoke_hiss_end.wav",
+    "smoke_hiss_lp": "./audio/world/smoke_hiss_lp.wav",
+    "smoke_hiss_start": "./audio/world/smoke_hiss_start.wav",
+    "snow_run_00": [
+      "./audio/world/snow_run_00.wav",
+      "./audio/world/snow_run_01.wav",
+      "./audio/world/snow_run_02.wav",
+      "./audio/world/snow_run_03.wav",
+      "./audio/world/snow_run_04.wav"
+    ],
+    "space": "./audio/world/space.wav",
+    "sprinkler_sml_sngle": "./audio/world/sprinkler_sml_sngle.wav",
+    "swing_00": [
+      "./audio/world/swing_00.wav",
+      "./audio/world/swing_01.wav",
+      "./audio/world/swing_02.wav",
+      "./audio/world/swing_03.wav",
+      "./audio/world/swing_04.wav",
+      "./audio/world/swing_05.wav"
+    ],
+    "timer_00": "./audio/world/timer_00.wav",
+    "tv_unit_hum": "./audio/world/tv_unit_hum.wav",
+    "ui_equip": "./audio/world/ui_equip.wav",
+    "vox_us_death_00": [
+      "./audio/world/vox_us_death_00.flac",
+      "./audio/world/vox_us_death_01.flac",
+      "./audio/world/vox_us_death_02.flac",
+      "./audio/world/vox_us_death_03.flac",
+      "./audio/world/vox_us_death_04.flac",
+      "./audio/world/vox_us_death_05.flac"
+    ],
+    "wade_00": [
+      "./audio/world/wade_00.wav",
+      "./audio/world/wade_01.wav",
+      "./audio/world/wade_02.wav",
+      "./audio/world/wade_03.wav"
+    ],
+    "water_00": [
+      "./audio/world/water_00.wav",
+      "./audio/world/water_01.wav",
+      "./audio/world/water_02.wav",
+      "./audio/world/water_03.wav"
+    ],
+    "water_drip_lp": "./audio/world/water_drip_lp.wav",
+    "water_ocean_open_l": "./audio/world/water_ocean_open_l.flac",
+    "water_ocean_open_r": "./audio/world/water_ocean_open_r.flac",
+    "water_run_00": [
+      "./audio/world/water_run_00.wav",
+      "./audio/world/water_run_01.wav",
+      "./audio/world/water_run_02.wav",
+      "./audio/world/water_run_03.wav",
+      "./audio/world/water_run_04.wav"
+    ],
+    "whistling_00": [
+      "./audio/world/whistling_00.wav",
+      "./audio/world/whistling_01.wav",
+      "./audio/world/whistling_02.wav",
+      "./audio/world/whistling_03.wav"
+    ],
+    "wind_whispy_st_lp": "./audio/world/wind_whispy_st_lp.flac",
+    "wood_00": [
+      "./audio/world/wood_00.wav",
+      "./audio/world/wood_01.wav",
+      "./audio/world/wood_02.wav",
+      "./audio/world/wood_03.wav",
+      "./audio/world/wood_04.wav"
+    ],
+    "wood_debris_00": [
+      "./audio/world/wood_debris_00.wav",
+      "./audio/world/wood_debris_01.wav",
+      "./audio/world/wood_debris_02.wav",
+      "./audio/world/wood_debris_03.wav",
+      "./audio/world/wood_debris_04.wav",
+      "./audio/world/wood_debris_05.wav",
+      "./audio/world/wood_debris_06.wav",
+      "./audio/world/wood_debris_07.wav",
+      "./audio/world/wood_debris_08.wav",
+      "./audio/world/wood_debris_09.wav",
+      "./audio/world/wood_debris_10.wav"
+    ],
+    "wood_run_00": [
+      "./audio/world/wood_run_00.wav",
+      "./audio/world/wood_run_01.wav",
+      "./audio/world/wood_run_02.wav",
+      "./audio/world/wood_run_03.wav",
+      "./audio/world/wood_run_04.wav",
+      "./audio/world/wood_run_05.wav"
+    ],
+    "wood_sprint_00": [
+      "./audio/world/wood_sprint_00.wav",
+      "./audio/world/wood_sprint_01.wav",
+      "./audio/world/wood_sprint_02.wav",
+      "./audio/world/wood_sprint_03.wav",
+      "./audio/world/wood_sprint_04.wav"
+    ],
+    "wpn_an94_shot_plr": "./audio/world/wpn_an94_shot_plr.wav",
+    "wpn_as50_fire_plr": "./audio/world/wpn_as50_fire_plr.wav",
+    "wpn_assault_away": "./audio/world/wpn_assault_away.wav",
+    "wpn_assault_decay_ext": [
+      "./audio/world/wpn_assault_decay_ext.wav",
+      "./audio/world/wpn_assault_decay_int.wav"
+    ],
+    "wpn_assault_dist_00": [
+      "./audio/world/wpn_assault_dist_00.wav",
+      "./audio/world/wpn_assault_dist_01.wav",
+      "./audio/world/wpn_assault_dist_02.wav",
+      "./audio/world/wpn_assault_dist_03.wav"
+    ],
+    "wpn_ballista_fire_plr": "./audio/world/wpn_ballista_fire_plr.wav",
+    "wpn_beretta_fire_plr": "./audio/world/wpn_beretta_fire_plr.wav",
+    "wpn_dsr_fire_plr": "./audio/world/wpn_dsr_fire_plr.wav",
+    "wpn_fiveseven_shot_plr": "./audio/world/wpn_fiveseven_shot_plr.wav",
+    "wpn_fnp45_fire_plr": "./audio/world/wpn_fnp45_fire_plr.wav",
+    "wpn_generic_ads_00": "./audio/world/wpn_generic_ads_00.wav",
+    "wpn_generic_ads_down_00": "./audio/world/wpn_generic_ads_down_00.wav",
+    "wpn_kard_shot_plr": "./audio/world/wpn_kard_shot_plr.wav",
+    "wpn_knife_draw_00": [
+      "./audio/world/wpn_knife_draw_00.wav",
+      "./audio/world/wpn_knife_draw_01.wav"
+    ],
+    "wpn_knife_sheath_00": [
+      "./audio/world/wpn_knife_sheath_00.wav",
+      "./audio/world/wpn_knife_sheath_01.wav"
+    ],
+    "wpn_m27_shot_plr": "./audio/world/wpn_m27_shot_plr.wav",
+    "wpn_pistol_decay_ext": [
+      "./audio/world/wpn_pistol_decay_ext.wav",
+      "./audio/world/wpn_pistol_decay_int.wav"
+    ],
+    "wpn_pistol_dist_00": [
+      "./audio/world/wpn_pistol_dist_00.wav",
+      "./audio/world/wpn_pistol_dist_01.wav",
+      "./audio/world/wpn_pistol_dist_02.wav"
+    ],
+    "wpn_rifle_decay_int": [
+      "./audio/world/wpn_rifle_decay_int.wav",
+      "./audio/world/wpn_sniper_decay_ext.wav"
+    ],
+    "wpn_sa58_shot_plr": "./audio/world/wpn_sa58_shot_plr.wav",
+    "wpn_saritch_shot_plr": "./audio/world/wpn_saritch_shot_plr.wav",
+    "wpn_scar_shot_plr": "./audio/world/wpn_scar_shot_plr.wav",
+    "wpn_scope_zoom": "./audio/world/wpn_scope_zoom.wav",
+    "wpn_sig556_shot_plr": "./audio/world/wpn_sig556_shot_plr.wav",
+    "wpn_svt_fire_plr": "./audio/world/wpn_svt_fire_plr.wav",
+    "wpn_tar21_shot_plr": "./audio/world/wpn_tar21_shot_plr.wav",
+    "wpn_type95_shot_plr": "./audio/world/wpn_type95_shot_plr.wav",
+    "wpn_xm8_shot_plr": "./audio/world/wpn_xm8_shot_plr.wav"
+  },
+  "looping": [
+    "amb_ac@mpl_nuketown_2020.all",
+    "amb_boat_creak_wake_l@mpl_hijacked.all",
+    "amb_boat_creak_wake_r@mpl_hijacked.all",
+    "amb_changing_sign@mpl_nuketown_2020.all",
+    "amb_comm_unit_hum@mpl_nuketown_2020.all",
+    "amb_comm_unit_hum_02@mpl_nuketown_2020.all",
+    "amb_cyber_screen@mpl_hijacked.all",
+    "amb_drip_sink@mpl_nuketown_2020.all",
+    "amb_dryer@mpl_nuketown_2020.all",
+    "amb_engine_rm_dank@mpl_hijacked.all",
+    "amb_engine_rm_drips@mpl_hijacked.all",
+    "amb_exhaust@mpl_nuketown_2020.all",
+    "amb_flies@mpl_nuketown_2020.all",
+    "amb_flourescent_light@mpl_hijacked.all",
+    "amb_fridge_hum@mpl_nuketown_2020.all",
+    "amb_gas_fire@mpl_nuketown_2020.all",
+    "amb_gas_fire_crack@mpl_nuketown_2020.all",
+    "amb_grill_fire@mpl_nuketown_2020.all",
+    "amb_grill_gas@mpl_nuketown_2020.all",
+    "amb_int_power_hum@mpl_nuketown_2020.all",
+    "amb_int_wind@mpl_nuketown_2020.all",
+    "amb_int_wind_2@mpl_nuketown_2020.all",
+    "amb_int_wind_lp@mpl_nuketown_2020.all",
+    "amb_intercom_static@mpl_nuketown_2020.all",
+    "amb_kitchen_unit_buzz@mpl_nuketown_2020.all",
+    "amb_main_bg_l@mpl_nuketown_2020.all",
+    "amb_main_bg_r@mpl_nuketown_2020.all",
+    "amb_main_engine@mpl_hijacked.all",
+    "amb_main_engine_low@mpl_hijacked.all",
+    "amb_main_engine_low_hall@mpl_hijacked.all",
+    "amb_mixing_tanks@mpl_nuketown_2020.all",
+    "amb_nuketown_sign@mpl_nuketown_2020.all",
+    "amb_ocean_l@mpl_hijacked.all",
+    "amb_ocean_r@mpl_hijacked.all",
+    "amb_outside_lights@mpl_hijacked.all",
+    "amb_power_line@mpl_nuketown_2020.all",
+    "amb_radar_ping_lp@mpl_hijacked.all",
+    "amb_rubber_hose@mpl_nuketown_2020.all",
+    "amb_shower_drip@mpl_hijacked.all",
+    "amb_shower_splash@mpl_hijacked.all",
+    "amb_shuffle_board@mpl_nuketown_2020.all",
+    "amb_space_fan@mpl_hijacked.all",
+    "amb_sprinkler_sml@mpl_nuketown_2020.all",
+    "amb_stove_fire@mpl_nuketown_2020.all",
+    "amb_stove_gas@mpl_nuketown_2020.all",
+    "amb_track_sprinkler@mpl_nuketown_2020.all",
+    "amb_tree_wind@mpl_nuketown_2020.all",
+    "amb_tv_unit_hum@mpl_nuketown_2020.all",
+    "amb_tv_unit_hum_02@mpl_nuketown_2020.all",
+    "amb_vent@mpl_hijacked.all",
+    "amb_water_flow_2@mpl_hijacked.all",
+    "amb_water_pipe@mpl_nuketown_2020.all",
+    "amb_wind_extreior_2d@mpl_hijacked.all",
+    "amb_wind_left@mpl_nuketown_2020.all",
+    "amb_wind_left_2@mpl_nuketown_2020.all",
+    "amb_wind_right@mpl_nuketown_2020.all",
+    "amb_wind_right_2@mpl_nuketown_2020.all",
+    "amb_wind_short@mpl_nuketown_2020.all",
+    "amb_wind_short_2@mpl_nuketown_2020.all",
+    "amb_wind_tunnel@mpl_nuketown_2020.all"
+  ],
+  "mix": {
+    "amb_ac@mpl_nuketown_2020.all": {
+      "volume": 72,
+      "distMin": 75,
+      "distMax": 225,
+      "bus": "fx"
+    },
+    "amb_banner_flap@mpl_nuketown_2020.all": {
+      "volume": 57,
+      "distMin": 75,
+      "distMax": 225,
+      "bus": "fx"
+    },
+    "amb_bird_call@mpl_nuketown_2020.all": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "amb_boat_creak_wake_l@mpl_hijacked.all": {
+      "volume": 72,
+      "distMin": 375,
+      "distMax": 875,
+      "bus": "fx"
+    },
+    "amb_boat_creak_wake_r@mpl_hijacked.all": {
+      "volume": 72,
+      "distMin": 375,
+      "distMax": 875,
+      "bus": "fx"
+    },
+    "amb_changing_sign@mpl_nuketown_2020.all": {
+      "volume": 63,
+      "distMin": 40,
+      "distMax": 100,
+      "bus": "fx"
+    },
+    "amb_comm_unit_hum@mpl_nuketown_2020.all": {
+      "volume": 64,
+      "distMin": 25,
+      "distMax": 100,
+      "bus": "fx"
+    },
+    "amb_comm_unit_hum_02@mpl_nuketown_2020.all": {
+      "volume": 64,
+      "distMin": 25,
+      "distMax": 100,
+      "bus": "fx"
+    },
+    "amb_comm_unit_ring@mpl_nuketown_2020.all": {
+      "volume": 65,
+      "distMin": 47,
+      "distMax": 100,
+      "bus": "fx"
+    },
+    "amb_comp_beeps@mpl_hijacked.all": {
+      "volume": 61,
+      "distMin": 37,
+      "distMax": 125,
+      "bus": "fx"
+    },
+    "amb_comp_blip@mpl_nuketown_2020.all": {
+      "volume": 58,
+      "distMin": 47,
+      "distMax": 100,
+      "bus": "fx"
+    },
+    "amb_cyber_screen@mpl_hijacked.all": {
+      "volume": 65,
+      "distMin": 150,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "amb_drip_sink@mpl_nuketown_2020.all": {
+      "volume": 62,
+      "distMin": 25,
+      "distMax": 150,
+      "bus": "fx"
+    },
+    "amb_dryer@mpl_nuketown_2020.all": {
+      "volume": 72,
+      "distMin": 75,
+      "distMax": 225,
+      "bus": "fx"
+    },
+    "amb_end_nuke@mpl_nuketown_2020.all": {
+      "volume": 98,
+      "distMin": 2500,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "amb_end_nuke_2d@mpl_nuketown_2020.all": {
+      "volume": 95,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "hdrfx"
+    },
+    "amb_end_nuke_aftmth@mpl_nuketown_2020.all": {
+      "volume": 95,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "hdrfx"
+    },
+    "amb_end_nuke_debris@mpl_nuketown_2020.all": {
+      "volume": 95,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "hdrfx"
+    },
+    "amb_end_nuke_lfe@mpl_nuketown_2020.all": {
+      "volume": 95,
+      "distMin": 375,
+      "distMax": 700,
+      "bus": "hdrfx"
+    },
+    "amb_end_nuke_lfe_explo@mpl_nuketown_2020.all": {
+      "volume": 95,
+      "distMin": 375,
+      "distMax": 700,
+      "bus": "hdrfx"
+    },
+    "amb_end_nuke_whoosh@mpl_nuketown_2020.all": {
+      "volume": 95,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "hdrfx"
+    },
+    "amb_engine_rm_dank@mpl_hijacked.all": {
+      "volume": 79,
+      "distMin": 100,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "amb_engine_rm_drips@mpl_hijacked.all": {
+      "volume": 80,
+      "distMin": 50,
+      "distMax": 250,
+      "bus": "fx"
+    },
+    "amb_exhaust@mpl_nuketown_2020.all": {
+      "volume": 69,
+      "distMin": 75,
+      "distMax": 212,
+      "bus": "fx"
+    },
+    "amb_feedback@mpl_nuketown_2020.all": {
+      "volume": 74,
+      "distMin": 1150,
+      "distMax": 7500,
+      "bus": "fx"
+    },
+    "amb_flies@mpl_nuketown_2020.all": {
+      "volume": 63,
+      "distMin": 50,
+      "distMax": 175,
+      "bus": "fx"
+    },
+    "amb_flourescent_light@mpl_hijacked.all": {
+      "volume": 48,
+      "distMin": 75,
+      "distMax": 250,
+      "bus": "fx"
+    },
+    "amb_fridge_hum@mpl_nuketown_2020.all": {
+      "volume": 71,
+      "distMin": 75,
+      "distMax": 200,
+      "bus": "fx"
+    },
+    "amb_gas_fire@mpl_nuketown_2020.all": {
+      "volume": 54,
+      "distMin": 75,
+      "distMax": 200,
+      "bus": "fx"
+    },
+    "amb_gas_fire_crack@mpl_nuketown_2020.all": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 200,
+      "bus": "fx"
+    },
+    "amb_grill_fire@mpl_nuketown_2020.all": {
+      "volume": 75,
+      "distMin": 75,
+      "distMax": 237,
+      "bus": "fx"
+    },
+    "amb_grill_gas@mpl_nuketown_2020.all": {
+      "volume": 68,
+      "distMin": 75,
+      "distMax": 237,
+      "bus": "fx"
+    },
+    "amb_int_power_hum@mpl_nuketown_2020.all": {
+      "volume": 72,
+      "distMin": 100,
+      "distMax": 200,
+      "bus": "fx"
+    },
+    "amb_int_wind@mpl_nuketown_2020.all": {
+      "volume": 70,
+      "distMin": 65,
+      "distMax": 125,
+      "bus": "fx"
+    },
+    "amb_int_wind_2@mpl_nuketown_2020.all": {
+      "volume": 70,
+      "distMin": 40,
+      "distMax": 80,
+      "bus": "fx"
+    },
+    "amb_int_wind_lp@mpl_nuketown_2020.all": {
+      "volume": 75,
+      "distMin": 40,
+      "distMax": 80,
+      "bus": "fx"
+    },
+    "amb_intercom_static@mpl_nuketown_2020.all": {
+      "volume": 62,
+      "distMin": 12,
+      "distMax": 87,
+      "bus": "fx"
+    },
+    "amb_kitchen_unit_buzz@mpl_nuketown_2020.all": {
+      "volume": 59,
+      "distMin": 25,
+      "distMax": 100,
+      "bus": "fx"
+    },
+    "amb_main_bg_l@mpl_nuketown_2020.all": {
+      "volume": 75,
+      "distMin": 750,
+      "distMax": 1500,
+      "bus": "fx"
+    },
+    "amb_main_bg_r@mpl_nuketown_2020.all": {
+      "volume": 72,
+      "distMin": 550,
+      "distMax": 1500,
+      "bus": "fx"
+    },
+    "amb_main_engine@mpl_hijacked.all": {
+      "volume": 72,
+      "distMin": 150,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "amb_main_engine_low@mpl_hijacked.all": {
+      "volume": 80,
+      "distMin": 150,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "amb_main_engine_low_hall@mpl_hijacked.all": {
+      "volume": 76,
+      "distMin": 100,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "amb_mixing_tanks@mpl_nuketown_2020.all": {
+      "volume": 67,
+      "distMin": 75,
+      "distMax": 212,
+      "bus": "fx"
+    },
+    "amb_nuketown_sign@mpl_nuketown_2020.all": {
+      "volume": 68,
+      "distMin": 475,
+      "distMax": 700,
+      "bus": "fx"
+    },
+    "amb_ocean_l@mpl_hijacked.all": {
+      "volume": 78,
+      "distMin": 450,
+      "distMax": 1500,
+      "bus": "fx"
+    },
+    "amb_ocean_r@mpl_hijacked.all": {
+      "volume": 75,
+      "distMin": 450,
+      "distMax": 1500,
+      "bus": "fx"
+    },
+    "amb_outside_lights@mpl_hijacked.all": {
+      "volume": 50,
+      "distMin": 25,
+      "distMax": 75,
+      "bus": "fx"
+    },
+    "amb_pa_notify_10@mpl_nuketown_2020.all": {
+      "volume": 77,
+      "distMin": 950,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "amb_pa_notify_20@mpl_nuketown_2020.all": {
+      "volume": 77,
+      "distMin": 950,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "amb_pa_notify_5@mpl_nuketown_2020.all": {
+      "volume": 77,
+      "distMin": 950,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "amb_pool@mpl_hijacked.all": {
+      "volume": 65,
+      "distMin": 50,
+      "distMax": 250,
+      "bus": "fx"
+    },
+    "amb_power_arc@mpl_nuketown_2020.all": {
+      "volume": 70,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "amb_power_line@mpl_nuketown_2020.all": {
+      "volume": 71,
+      "distMin": 150,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "amb_radar_ping@mpl_hijacked.all": {
+      "volume": 65,
+      "distMin": 62,
+      "distMax": 200,
+      "bus": "fx"
+    },
+    "amb_radar_ping_lp@mpl_hijacked.all": {
+      "volume": 65,
+      "distMin": 25,
+      "distMax": 150,
+      "bus": "fx"
+    },
+    "amb_rubber_hose@mpl_nuketown_2020.all": {
+      "volume": 74,
+      "distMin": 75,
+      "distMax": 200,
+      "bus": "fx"
+    },
+    "amb_sandbox_gusts@mpl_nuketown_2020.all": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 150,
+      "bus": "fx"
+    },
+    "amb_shower_drip@mpl_hijacked.all": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 200,
+      "bus": "fx"
+    },
+    "amb_shower_splash@mpl_hijacked.all": {
+      "volume": 60,
+      "distMin": 75,
+      "distMax": 200,
+      "bus": "fx"
+    },
+    "amb_shuffle_board@mpl_nuketown_2020.all": {
+      "volume": 47,
+      "distMin": 50,
+      "distMax": 125,
+      "bus": "fx"
+    },
+    "amb_sign_squeak@mpl_nuketown_2020.all": {
+      "volume": 65,
+      "distMin": 25,
+      "distMax": 75,
+      "bus": "fx"
+    },
+    "amb_space_fan@mpl_hijacked.all": {
+      "volume": 73,
+      "distMin": 50,
+      "distMax": 150,
+      "bus": "fx"
+    },
+    "amb_spark_small@mpl_hijacked.all": {
+      "volume": 77,
+      "distMin": 25,
+      "distMax": 375,
+      "bus": "fx"
+    },
+    "amb_sprinkler_sml@mpl_nuketown_2020.all": {
+      "volume": 75,
+      "distMin": 75,
+      "distMax": 212,
+      "bus": "fx"
+    },
+    "amb_stove_fire@mpl_nuketown_2020.all": {
+      "volume": 85,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "fx"
+    },
+    "amb_stove_gas@mpl_nuketown_2020.all": {
+      "volume": 67,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "fx"
+    },
+    "amb_track_sprinkler@mpl_nuketown_2020.all": {
+      "volume": 75,
+      "distMin": 125,
+      "distMax": 375,
+      "bus": "fx"
+    },
+    "amb_tree_wind@mpl_nuketown_2020.all": {
+      "volume": 70,
+      "distMin": 200,
+      "distMax": 375,
+      "bus": "fx"
+    },
+    "amb_tv_unit_hum@mpl_nuketown_2020.all": {
+      "volume": 64,
+      "distMin": 37,
+      "distMax": 150,
+      "bus": "fx"
+    },
+    "amb_tv_unit_hum_02@mpl_nuketown_2020.all": {
+      "volume": 64,
+      "distMin": 37,
+      "distMax": 150,
+      "bus": "fx"
+    },
+    "amb_vent@mpl_hijacked.all": {
+      "volume": 70,
+      "distMin": 100,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "amb_water_flow_2@mpl_hijacked.all": {
+      "volume": 75,
+      "distMin": 150,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "amb_water_pipe@mpl_nuketown_2020.all": {
+      "volume": 70,
+      "distMin": 50,
+      "distMax": 175,
+      "bus": "fx"
+    },
+    "amb_wind_extreior_2d@mpl_hijacked.all": {
+      "volume": 52,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "amb_wind_gust@mpl_nuketown_2020.all": {
+      "volume": 67,
+      "distMin": 125,
+      "distMax": 425,
+      "bus": "fx"
+    },
+    "amb_wind_left@mpl_nuketown_2020.all": {
+      "volume": 66,
+      "distMin": 300,
+      "distMax": 1500,
+      "bus": "fx"
+    },
+    "amb_wind_left_2@mpl_nuketown_2020.all": {
+      "volume": 68,
+      "distMin": 300,
+      "distMax": 1100,
+      "bus": "fx"
+    },
+    "amb_wind_right@mpl_nuketown_2020.all": {
+      "volume": 66,
+      "distMin": 300,
+      "distMax": 1100,
+      "bus": "fx"
+    },
+    "amb_wind_right_2@mpl_nuketown_2020.all": {
+      "volume": 68,
+      "distMin": 300,
+      "distMax": 1100,
+      "bus": "fx"
+    },
+    "amb_wind_short@mpl_nuketown_2020.all": {
+      "volume": 70,
+      "distMin": 40,
+      "distMax": 110,
+      "bus": "fx"
+    },
+    "amb_wind_short_2@mpl_nuketown_2020.all": {
+      "volume": 70,
+      "distMin": 25,
+      "distMax": 70,
+      "bus": "fx"
+    },
+    "amb_wind_tunnel@mpl_nuketown_2020.all": {
+      "volume": 90,
+      "distMin": 12,
+      "distMax": 50,
+      "bus": "fx"
+    },
+    "amb_wind_whistle@mpl_hijacked.all": {
+      "volume": 70,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_bodyfall_generic_npc": {
+      "volume": 85,
+      "distMin": 50,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_bump_mannequin": {
+      "volume": 71,
+      "distMin": 200,
+      "distMax": 500,
+      "bus": "fx"
+    },
+    "fly_cloth_sprint_plr": {
+      "volume": 78,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_gear_sprint_plr": {
+      "volume": 69,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_generic_ads_lower_plr": {
+      "volume": 50,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_generic_ads_plr": {
+      "volume": 50,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_generic_down_plr": {
+      "volume": 69,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_generic_first_raise_plr": {
+      "volume": 69,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_generic_raise_plr": {
+      "volume": 69,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_damage_npc": {
+      "volume": 65,
+      "distMin": 100,
+      "distMax": 825,
+      "bus": "fx"
+    },
+    "fly_land_damage_plr": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_npc_asphalt": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_bark": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_brick": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_carpet": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_ceramic": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_cloth": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_concrete": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_cushion": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_default": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_dirt": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_flesh": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_foliage": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_fruit": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_glass": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_grass": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_gravel": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_ice": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_metal": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_mud": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_paintedmetal": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_paper": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_plaster": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_plastic": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_rock": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_rubber": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_sand": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_snow": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_water": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_npc_wood": {
+      "volume": 65,
+      "distMin": 75,
+      "distMax": 550,
+      "bus": "fx"
+    },
+    "fly_land_plr_asphalt": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_bark": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_brick": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_carpet": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_ceramic": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_cloth": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_concrete": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_cushion": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_damage": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_default": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_dirt": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_flesh": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_foliage": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_fruit": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_glass": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_grass": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_gravel": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_hard": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_ice": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_metal": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_mud": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_paintedmetal": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_paper": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_plaster": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_plastic": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_rock": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_rubber": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_sand": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_snow": {
+      "volume": 59,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_water": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_land_plr_wood": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_asphalt": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_bark": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_brick": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_carpet": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_ceramic": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_cloth": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_concrete": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_cushion": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_default": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_dirt": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_flesh": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_foliage": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_fruit": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_glass": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_grass": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_gravel": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_metal": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_mud": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_asphalt": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_bark": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_brick": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_carpet": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_ceramic": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_cloth": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_concrete": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_cushion": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_default": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_dirt": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_flesh": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_foliage": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_fruit": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_glass": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_grass": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_gravel": {
+      "volume": 55,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_ice": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_metal": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_mud": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_paintedmetal": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_paper": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_plaster": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_plastic": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_rock": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_rubber": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_sand": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_water": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_npc_wood": {
+      "volume": 58,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_paintedmetal": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_paper": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_plaster": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_plastic": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_rock": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_rubber": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_sand": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_water": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_run_wood": {
+      "volume": 58,
+      "distMin": 150,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_asphalt": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_bark": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_brick": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_carpet": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_ceramic": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_cloth": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_concrete": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_cushion": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_default": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_dirt": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_flesh": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_foliage": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_fruit": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_glass": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_grass": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_gravel": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_metal": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_mud": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_asphalt": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_bark": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_brick": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_carpet": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_ceramic": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_cloth": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_concrete": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_cushion": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_default": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_dirt": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_flesh": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_foliage": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_fruit": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_glass": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_grass": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_gravel": {
+      "volume": 45,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_ice": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_metal": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_mud": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_paintedmetal": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_paper": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_plaster": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_plastic": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_rock": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_rubber": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_sand": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_water": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_npc_wood": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_paintedmetal": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_paper": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_plaster": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_plastic": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_rock": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_rubber": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_sand": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_water": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_crouch_walk_wood": {
+      "volume": 47,
+      "distMin": 30,
+      "distMax": 300,
+      "bus": "fx"
+    },
+    "fly_lstep_run_asphalt": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_bark": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_brick": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_carpet": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_ceramic": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_cloth": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_concrete": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_cushion": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_default": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_dirt": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_flesh": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_foliage": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_fruit": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_glass": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_grass": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_gravel": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_metal": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_mud": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_asphalt": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_bark": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_brick": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_carpet": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_ceramic": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_cloth": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_concrete": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_cushion": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_default": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_dirt": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_flesh": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_foliage": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_fruit": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_glass": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_grass": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_gravel": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_ice": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_metal": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_mud": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_paintedmetal": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_paper": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_plaster": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_plastic": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_rock": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_rubber": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_sand": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_water": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_npc_wood": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_run_paintedmetal": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_paper": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_plaster": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_plastic": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_rock": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_rubber": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_sand": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_water": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_run_wood": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_asphalt": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_bark": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_brick": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_carpet": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_ceramic": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_cloth": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_concrete": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_cushion": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_default": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_dirt": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_flesh": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_foliage": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_fruit": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_glass": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_grass": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_gravel": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_metal": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_mud": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_asphalt": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_bark": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_brick": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_carpet": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_ceramic": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_cloth": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_concrete": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_cushion": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_default": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_dirt": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_flesh": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_foliage": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_fruit": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_glass": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_grass": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_gravel": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_ice": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_metal": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_mud": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_paintedmetal": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_paper": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_plaster": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_plastic": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_rock": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_rubber": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_sand": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_water": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_npc_wood": {
+      "volume": 78,
+      "distMin": 62,
+      "distMax": 1050,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_paintedmetal": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_paper": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_plaster": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_plastic": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_rock": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_rubber": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_sand": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_water": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_sprint_wood": {
+      "volume": 73,
+      "distMin": 150,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_asphalt": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_bark": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_brick": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_carpet": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_ceramic": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_cloth": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_concrete": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_cushion": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_default": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_dirt": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_flesh": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_foliage": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_fruit": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_glass": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_grass": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_gravel": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_metal": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_mud": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_asphalt": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_bark": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_brick": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_carpet": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_ceramic": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_cloth": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_concrete": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_cushion": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_default": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_dirt": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_flesh": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_foliage": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_fruit": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_glass": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_grass": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_gravel": {
+      "volume": 73,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_ice": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_metal": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_mud": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_paintedmetal": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_paper": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_plaster": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_plastic": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_rock": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_rubber": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_sand": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_water": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_npc_wood": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 1000,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_paintedmetal": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_paper": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_plaster": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_plastic": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_rock": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_rubber": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_sand": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_water": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_lstep_walk_wood": {
+      "volume": 73,
+      "distMin": 100,
+      "distMax": 1200,
+      "bus": "fx"
+    },
+    "fly_melee_get_hit_plr": {
+      "volume": 95,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "fly_scope_zoom": {
+      "volume": 85,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "mpl_hit_alert": {
+      "volume": 83,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "mpl_ui_timer_countdown": {
+      "volume": 77,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "ui"
+    },
+    "mus_draw": {
+      "volume": 82,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "music"
+    },
+    "mus_loss": {
+      "volume": 82,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "music"
+    },
+    "mus_spawn_short_fbi": {
+      "volume": 77,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "music"
+    },
+    "mus_time_running_out": {
+      "volume": 75,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "music"
+    },
+    "mus_victory": {
+      "volume": 82,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "music"
+    },
+    "phy_impact_flesh_flesh": {
+      "volume": 83,
+      "distMin": 75,
+      "distMax": 250,
+      "bus": "fx"
+    },
+    "prj_bolt_impact_flesh": {
+      "volume": 88,
+      "distMin": 50,
+      "distMax": 600,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_ap_ricochet": {
+      "volume": 66,
+      "distMin": 50,
+      "distMax": 350,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_large_dirt": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_large_metal": {
+      "volume": 93,
+      "distMin": 50,
+      "distMax": 150,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_large_mud": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_large_plaster": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_large_rock": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_large_sand": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_large_wood": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_small_dirt": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_small_metal": {
+      "volume": 93,
+      "distMin": 50,
+      "distMax": 150,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_small_mud": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_small_plaster": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_small_rock": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_small_sand": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_debris_small_wood": {
+      "volume": 93,
+      "distMin": 25,
+      "distMax": 125,
+      "bus": "hdrfx"
+    },
+    "prj_bullet_impact_headshot": {
+      "volume": 94,
+      "distMin": 125,
+      "distMax": 1625,
+      "bus": "hdrfx"
+    },
+    "prj_crack": {
+      "volume": 76,
+      "distMin": 1000,
+      "distMax": 1500,
+      "bus": "fx"
+    },
+    "prj_whizby": {
+      "volume": 98,
+      "distMin": 40,
+      "distMax": 230,
+      "bus": "fx"
+    },
+    "uin_cmn_backout": {
+      "volume": 78,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "ui"
+    },
+    "uin_main_enter": {
+      "volume": 86,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "ui"
+    },
+    "uin_main_exit": {
+      "volume": 86,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "ui"
+    },
+    "uin_main_nav": {
+      "volume": 86,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "ui"
+    },
+    "uin_main_pause": {
+      "volume": 80,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "ui"
+    },
+    "uin_start_count_down": {
+      "volume": 57,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "uin_timer": {
+      "volume": 55,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "ui"
+    },
+    "vox_melee_exert_plr": {
+      "volume": 76,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "voice"
+    },
+    "vox_moto_death": {
+      "volume": 69,
+      "distMin": 600,
+      "distMax": 2400,
+      "bus": "fx"
+    },
+    "wpn_an94_dryfire_plr": {
+      "volume": 93,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_an94_fire_npc": {
+      "volume": 82,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_an94_fire_npc_decay": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_an94_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_as50_dryfire_plr": {
+      "volume": 88,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_as50_fire_npc": {
+      "volume": 90,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_as50_fire_npc_decay": {
+      "volume": 80,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_ballista_dryfire_plr": {
+      "volume": 88,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_ballista_fire_npc": {
+      "volume": 92,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_ballista_fire_npc_decay": {
+      "volume": 80,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_beretta93r_dryfire_plr": {
+      "volume": 90,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_beretta93r_fire_npc": {
+      "volume": 85,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_beretta93r_fire_npc_decay": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_beretta93r_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_dsr50_dryfire_plr": {
+      "volume": 88,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_dsr50_fire_npc": {
+      "volume": 92,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_dsr50_fire_npc_decay": {
+      "volume": 80,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_fiveseven_dryfire_plr": {
+      "volume": 90,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_fiveseven_fire_npc": {
+      "volume": 85,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_fiveseven_fire_npc_decay": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_fiveseven_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_fnp45_dryfire_plr": {
+      "volume": 90,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_fnp45_fire_npc": {
+      "volume": 85,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_fnp45_fire_npc_decay": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_fnp45_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_asphalt": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_bark": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_brick": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_carpet": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_ceramic": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_cloth": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_concrete": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_default": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_dirt": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_flesh": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_foliage": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_fruit": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_glass": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_grass": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_gravel": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_ice": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_metal": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_mud": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_paintedmetal": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_paper": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_plaster": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_plastic": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_rock": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_sand": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_snow": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_water": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_bounce_wood": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_grenade_explode": {
+      "volume": 95,
+      "distMin": 750,
+      "distMax": 4500,
+      "bus": "fx"
+    },
+    "wpn_grenade_explode_dist": {
+      "volume": 90,
+      "distMin": 500,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_grenade_explode_lfe": {
+      "volume": 90,
+      "distMin": 250,
+      "distMax": 750,
+      "bus": "hdrfx"
+    },
+    "wpn_grenade_pull_pin": {
+      "volume": 65,
+      "distMin": 100,
+      "distMax": 500,
+      "bus": "fx"
+    },
+    "wpn_grenade_throw": {
+      "volume": 69,
+      "distMin": 100,
+      "distMax": 150,
+      "bus": "fx"
+    },
+    "wpn_hk416_dryfire_plr": {
+      "volume": 93,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_hk416_fire_npc": {
+      "volume": 82,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_hk416_fire_npc_decay": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_hk416_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_kard_dryfire_plr": {
+      "volume": 90,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_kard_fire_npc": {
+      "volume": 85,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_kard_fire_npc_decay": {
+      "volume": 75,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_kard_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_knife_melee_stab": {
+      "volume": 75,
+      "distMin": 150,
+      "distMax": 500,
+      "bus": "hdrfx"
+    },
+    "wpn_melee_hit_other": {
+      "volume": 90,
+      "distMin": 150,
+      "distMax": 500,
+      "bus": "hdrfx"
+    },
+    "wpn_melee_hit_plr": {
+      "volume": 95,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_melee_hit_plr_lfe": {
+      "volume": 90,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_melee_knife_draw_plr": {
+      "volume": 67,
+      "distMin": 200,
+      "distMax": 500,
+      "bus": "fx"
+    },
+    "wpn_melee_knife_hit_body": {
+      "volume": 90,
+      "distMin": 150,
+      "distMax": 500,
+      "bus": "hdrfx"
+    },
+    "wpn_melee_knife_hit_lfe": {
+      "volume": 88,
+      "distMin": 65,
+      "distMax": 75,
+      "bus": "hdrfx"
+    },
+    "wpn_melee_knife_hit_other": {
+      "volume": 75,
+      "distMin": 150,
+      "distMax": 500,
+      "bus": "hdrfx"
+    },
+    "wpn_melee_knife_sheath_plr": {
+      "volume": 67,
+      "distMin": 200,
+      "distMax": 500,
+      "bus": "fx"
+    },
+    "wpn_melee_whoosh_plr": {
+      "volume": 89,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "hdrfx"
+    },
+    "wpn_sa58_dryfire_plr": {
+      "volume": 93,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_sa58_fire_npc": {
+      "volume": 82,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_sa58_fire_npc_decay": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_sa58_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_saritch_dryfire_plr": {
+      "volume": 93,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_saritch_fire_npc": {
+      "volume": 82,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_saritch_fire_npc_decay": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_saritch_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_scar_dryfire_plr": {
+      "volume": 93,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_scar_fire_npc": {
+      "volume": 82,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_scar_fire_npc_decay": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_scar_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_sig556_dryfire_plr": {
+      "volume": 93,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_sig556_fire_npc": {
+      "volume": 82,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_sig556_fire_npc_decay": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_sig556_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_asphalt": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_bark": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_brick": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_carpet": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_ceramic": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_cloth": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_concrete": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_default": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_dirt": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_flesh": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_foliage": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_glass": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_grass": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_gravel": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_ice": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_metal": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_mud": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_paper": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_plaster": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_rock": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_sand": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_snow": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_water": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_bounce_wood": {
+      "volume": 82,
+      "distMin": 200,
+      "distMax": 575,
+      "bus": "fx"
+    },
+    "wpn_smoke_grenade_explode": {
+      "volume": 95,
+      "distMin": 750,
+      "distMax": 4500,
+      "bus": "fx"
+    },
+    "wpn_smoke_hiss_end": {
+      "volume": 66,
+      "distMin": 125,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "wpn_smoke_hiss_lp": {
+      "volume": 66,
+      "distMin": 125,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "wpn_smoke_hiss_start": {
+      "volume": 66,
+      "distMin": 125,
+      "distMax": 1250,
+      "bus": "fx"
+    },
+    "wpn_smoke_pull_pin_plyr": {
+      "volume": 75,
+      "distMin": 100,
+      "distMax": 500,
+      "bus": "fx"
+    },
+    "wpn_svu_dryfire_plr": {
+      "volume": 88,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_svu_fire_npc": {
+      "volume": 88,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_svu_fire_npc_decay": {
+      "volume": 80,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_tar21_dryfire_plr": {
+      "volume": 93,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_tar21_fire_npc": {
+      "volume": 82,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_tar21_fire_npc_decay": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_tar21_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_type95_dryfire_plr": {
+      "volume": 93,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_type95_fire_npc": {
+      "volume": 82,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_type95_fire_npc_decay": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_type95_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    },
+    "wpn_xm8_dryfire_plr": {
+      "volume": 93,
+      "distMin": 0,
+      "distMax": 5000,
+      "bus": "fx"
+    },
+    "wpn_xm8_fire_npc": {
+      "volume": 82,
+      "distMin": 900,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_xm8_fire_npc_decay": {
+      "volume": 77,
+      "distMin": 50,
+      "distMax": 900,
+      "bus": "fx"
+    },
+    "wpn_xm8_fire_npc_dist": {
+      "volume": 81,
+      "distMin": 900,
+      "distMax": 6000,
+      "bus": "fx"
+    }
+  }
+}

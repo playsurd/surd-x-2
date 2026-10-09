@@ -1,0 +1,4136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="stylesheet" href="touch-controls.css">
+<link rel="icon" href="social/icon-512.png" type="image/png">
+<link rel="apple-touch-icon" href="social/icon-512.png">
+<title>Claude of Duty: Vibe Slops II</title>
+<meta name="description" content="A browser-based first-person shooter running on a Black Ops II map export. No install — click to play.">
+<!-- Social cards. og:image must be absolute: several scrapers still refuse to
+     resolve a relative one, and a card with no image renders as a bare URL. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Claude of Duty: Vibe Slops II">
+<meta property="og:url" content="https://vibeslops.luckeysystems.com/">
+<meta property="og:title" content="Claude of Duty: Vibe Slops II">
+<meta property="og:description" content="A browser-based first-person shooter running on a Black Ops II map export. No install — click to play.">
+<meta property="og:image" content="https://vibeslops.luckeysystems.com/social/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Claude of Duty: Vibe Slops II cover art — a hooded figure holding a pistol, lit by a single shaft of light.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Claude of Duty: Vibe Slops II">
+<meta name="twitter:description" content="A browser-based first-person shooter running on a Black Ops II map export. No install — click to play.">
+<meta name="twitter:image" content="https://vibeslops.luckeysystems.com/social/og-cover.png">
+<style>
+  :root {
+    color-scheme: dark;
+    /* The frontend plates ship white-on-alpha because the game tints them at
+       runtime. The menu does the same through mask-image, so this one value
+       recolours every panel, button and glow. It matches the HUD. */
+    --fe-accent: #7fffc4;
+    --fe-ui: 'Bahnschrift', 'DIN Alternate', 'Oswald', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #05090d; }
+  canvas { display: block; }
+
+  /* ---------- frontend shell (loading / title / pause / class) ---------- */
+  #blocker {
+    position: fixed; inset: 0; z-index: 3; display: flex; align-items: center;
+    justify-content: center; padding: 24px; overflow: hidden;
+    color: #dfe9f2; font: 500 15px/1.5 var(--fe-ui); text-align: center;
+    cursor: default; font-stretch: condensed;
+  }
+  #blocker.ready { cursor: pointer; }
+  #blocker > .fe-layer { position: absolute; inset: 0; pointer-events: none; }
+
+  /* The four layers of the original `menu,main`, in the order ui_mp.zone links
+     them: backdrop, scrolling fog, glow, then the content plate. The authored
+     backdrop is hazy and light -- it was drawn to sit behind the game's own
+     dark panels -- so it needs pulling down before the menu text goes over it. */
+  .fe-backdrop {
+    background: #05090d url('ui/menu_mp_background_main2.png') center/cover no-repeat;
+    filter: brightness(.78) contrast(1.14) saturate(.82);
+    animation: fe-drift 54s ease-in-out infinite alternate;
+  }
+  .fe-fog {
+    background: url('ui/bg_fogscrollthin.png') repeat-x 0 50% / auto 72%;
+    mix-blend-mode: screen; opacity: .09;
+    animation: fe-fog-scroll 110s linear infinite;
+  }
+  .fe-fog.slow {
+    background-size: auto 132%; opacity: .05;
+    animation-duration: 190s; animation-direction: reverse;
+  }
+  .fe-glow {
+    -webkit-mask: url('ui/menu_mp_background_glow.png') center/118% 118% no-repeat;
+    mask: url('ui/menu_mp_background_glow.png') center/118% 118% no-repeat;
+    background: var(--fe-accent); opacity: .1; mix-blend-mode: screen;
+  }
+  .fe-vignette {
+    background:
+      radial-gradient(82% 66% at 50% 46%, rgba(4, 10, 15, .12) 0%, rgba(2, 6, 10, .84) 100%),
+      linear-gradient(180deg, rgba(2, 6, 10, .5) 0%, transparent 22%, transparent 72%, rgba(2, 6, 10, .66) 100%);
+  }
+  @keyframes fe-drift {
+    from { transform: scale(1.06) translate3d(-1%, .4%, 0); }
+    to { transform: scale(1.13) translate3d(1%, -1%, 0); }
+  }
+  @keyframes fe-fog-scroll { to { background-position: -2048px 50%; } }
+
+  .fe-content {
+    position: relative; z-index: 1; isolation: isolate;
+    width: min(720px, 92vw); display: flex; flex-direction: column;
+    align-items: center; gap: 28px;
+  }
+  .fe-wordmark {
+    margin: 0; font-size: clamp(26px, 4.6vw, 56px); line-height: 1; font-weight: 600;
+    letter-spacing: .32em; text-indent: .32em; color: #f2f8ff;
+    text-shadow: 0 3px 26px rgba(0, 0, 0, .9);
+  }
+  .fe-wordmark::after {
+    content: ''; display: block; width: 64%; height: 2px; margin: 20px auto 0;
+    background: linear-gradient(90deg, transparent, var(--fe-accent), transparent);
+    opacity: .8;
+  }
+  /* Second title line, sized off the wordmark so the pause screen shrinks both. */
+  .fe-subtitle {
+    display: block; margin-top: .2em; font-size: .53em;
+    letter-spacing: .3em; text-indent: .3em; color: #dce8f4;
+  }
+  .fe-subtitle b { font-weight: 600; color: #f0531c; }
+  .fe-sub {
+    margin: 16px 0 0; font-size: 11px; letter-spacing: .34em;
+    text-transform: uppercase; color: rgba(206, 224, 240, .62);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .9);
+  }
+
+  .fe-track {
+    width: min(430px, 80vw); height: 6px; background: rgba(255, 255, 255, .1);
+    border: 1px solid rgba(255, 255, 255, .18); overflow: hidden;
+  }
+  .fe-bar {
+    height: 100%; width: 0; background: var(--fe-accent);
+    box-shadow: 0 0 14px var(--fe-accent); transition: width .25s ease-out;
+  }
+  /* No Content-Length anywhere means no percentage to draw, so sweep instead
+     of sitting at zero for the whole load. */
+  #blocker[data-determinate="false"] .fe-bar {
+    width: 32%; transition: none; animation: fe-sweep 1.6s ease-in-out infinite;
+  }
+  @keyframes fe-sweep { from { margin-left: -32%; } to { margin-left: 100%; } }
+  .fe-status {
+    display: flex; justify-content: space-between; width: min(430px, 80vw);
+    margin-top: 10px; font-size: 11px; letter-spacing: .2em;
+    text-transform: uppercase; color: rgba(206, 224, 240, .68);
+  }
+
+  .fe-card { margin: 0; position: relative; padding: 9px; }
+  .fe-card::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    -webkit-mask: url('ui/menu_mp_lobby_frame_outer.png') center/100% 100% no-repeat;
+    mask: url('ui/menu_mp_lobby_frame_outer.png') center/100% 100% no-repeat;
+    background: rgba(9, 19, 27, .72);
+  }
+  .fe-card img { display: block; width: 256px; max-width: 62vw; height: auto; }
+  .fe-card figcaption {
+    margin-top: 8px; font-size: 10px; letter-spacing: .3em;
+    text-transform: uppercase; color: rgba(206, 224, 240, .6);
+  }
+  /* Map picker: the loaded map sits at full strength, the others wait dimmed.
+     Picking one reloads with ?map=, since the map is fixed before boot. */
+  .fe-maps { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+  .fe-map { cursor: pointer; opacity: .55; transition: opacity .15s ease; }
+  .fe-map.active { opacity: 1; }
+  .fe-map.active figcaption { color: var(--fe-accent); }
+  .fe-map:hover:not(.unavailable) { opacity: 1; }
+  .fe-map.unavailable { opacity: .28; cursor: not-allowed; }
+  .fe-map.no-art img { visibility: hidden; }
+  .fe-map.no-art::after {
+    content: attr(data-name); position: absolute; left: 0; right: 0; top: 50%;
+    transform: translateY(-100%); text-align: center; font-size: 13px;
+    letter-spacing: .3em; text-transform: uppercase; color: rgba(206, 224, 240, .7);
+  }
+  .fe-prompt {
+    margin: 0; font-size: 13px; letter-spacing: .36em; text-indent: .36em;
+    text-transform: uppercase; color: var(--fe-accent);
+    animation: fe-pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes fe-pulse { 0%, 100% { opacity: .4; } 50% { opacity: 1; } }
+  /* The play counter is a footnote to the prompt, not a second call to
+     action: it shares the tracking but drops the pulse and the accent. No
+     display rule here, so `hidden` still hides it before the totals land. */
+  .fe-count {
+    margin: 0; font-size: 11px; letter-spacing: .22em; text-indent: .22em;
+    text-transform: uppercase; color: rgba(206, 224, 240, .55);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .9);
+  }
+  .fe-start-foot {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+  }
+
+  .fe-heading {
+    margin: 0; font-size: 20px; font-weight: 600; letter-spacing: .38em;
+    text-indent: .38em; text-transform: uppercase; color: #eef6ff;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, .9);
+  }
+  /* Pause shares the chrome but should not re-announce the game over the top
+     of it, so the wordmark drops back to a header rather than a title. */
+  #blocker[data-screen="pause"] .fe-wordmark { font-size: clamp(20px, 3vw, 30px); }
+  #blocker[data-screen="pause"] .fe-wordmark::after { margin-top: 14px; }
+  #blocker[data-screen="pause"] .fe-sub { display: none; }
+  .fe-buttons { display: flex; flex-direction: column; gap: 7px; }
+  .fe-btn {
+    position: relative; appearance: none; border: 0; background: none;
+    width: 258px; height: 34px; cursor: pointer; color: #e6f2ff;
+    font: 600 12px/34px var(--fe-ui); font-stretch: condensed;
+    letter-spacing: .24em; text-indent: .24em; text-transform: uppercase;
+    transition: color .12s ease-out;
+  }
+  .fe-btn::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    -webkit-mask: url('ui/menu_button_backing.png') center/100% 100% no-repeat;
+    mask: url('ui/menu_button_backing.png') center/100% 100% no-repeat;
+    background: rgba(139, 173, 198, .26); transition: background .12s ease-out;
+  }
+  .fe-btn:hover, .fe-btn:focus-visible { color: #04140d; outline: none; }
+  .fe-btn:hover::before, .fe-btn:focus-visible::before {
+    -webkit-mask-image: url('ui/menu_button_backing_highlight.png');
+    mask-image: url('ui/menu_button_backing_highlight.png');
+    background: var(--fe-accent);
+  }
+  .fe-btn[data-on="true"]::before { background: rgba(127, 255, 196, .42); }
+
+  .fe-class {
+    width: min(1120px, 94vw); max-height: calc(100vh - 34px);
+    display: flex; flex-direction: column; gap: 12px; text-align: left;
+  }
+  .fe-class-head {
+    display: flex; align-items: end; justify-content: space-between; gap: 24px;
+    padding: 0 8px;
+  }
+  .fe-class-head .fe-heading { font-size: clamp(18px, 2.2vw, 27px); }
+  .fe-class-sub {
+    margin: 6px 0 0; color: rgba(206, 224, 240, .6); font-size: 11px;
+    letter-spacing: .2em; text-transform: uppercase;
+  }
+  .fe-class-selection {
+    margin: 0; color: var(--fe-accent); font-size: 11px; letter-spacing: .2em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  /* Create-a-class tabs: Primary, Secondary, Lethal, Tactical, as the game
+     lays its class editor out. The equipped pick sits under each label. */
+  .fe-class-tabs { display: flex; gap: 6px; padding: 0 8px; }
+  .fe-class-tab {
+    position: relative; appearance: none; border: 0; background: none; cursor: pointer;
+    min-width: 150px; padding: 7px 14px 8px; text-align: left; color: #dfe9f2;
+    font: 600 11px/1.3 var(--fe-ui); font-stretch: condensed; letter-spacing: .22em;
+    text-transform: uppercase; transition: color .12s ease-out;
+  }
+  .fe-class-tab::before {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    -webkit-mask: url('ui/menu_button_backing.png') center/100% 100% no-repeat;
+    mask: url('ui/menu_button_backing.png') center/100% 100% no-repeat;
+    background: rgba(139, 173, 198, .2); transition: background .12s ease-out;
+  }
+  .fe-class-tab:hover::before, .fe-class-tab:focus-visible::before { background: rgba(127, 255, 196, .3); }
+  .fe-class-tab[data-on="true"] { color: #04140d; }
+  .fe-class-tab[data-on="true"]::before {
+    -webkit-mask-image: url('ui/menu_button_backing_highlight.png');
+    mask-image: url('ui/menu_button_backing_highlight.png');
+    background: var(--fe-accent);
+  }
+  .fe-class-tab small {
+    display: block; margin-top: 2px; font-size: 9px; letter-spacing: .16em; opacity: .75;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px;
+  }
+  .fe-class-card[hidden] { display: none; }
+  .fe-class-card.no-art .fe-class-art {
+    color: rgba(206, 224, 240, .55); font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+  }
+  .fe-class-grid {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px; min-height: 0;
+  }
+  .fe-class-card {
+    position: relative; min-width: 0; min-height: 116px; padding: 7px;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(116px, .86fr);
+    align-items: center; gap: 8px; appearance: none; border: 0;
+    color: #e6f2ff; background: rgba(7, 18, 26, .72); cursor: pointer;
+    font: inherit; text-align: left; overflow: hidden;
+  }
+  .fe-class-card::before, .fe-class-card::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    -webkit-mask: url('ui/menu_mp_lobby_frame_outer.png') center/100% 100% no-repeat;
+    mask: url('ui/menu_mp_lobby_frame_outer.png') center/100% 100% no-repeat;
+  }
+  .fe-class-card::before { background: rgba(139, 173, 198, .22); }
+  .fe-class-card::after {
+    -webkit-mask-image: url('ui/menu_select_highlight.png');
+    mask-image: url('ui/menu_select_highlight.png');
+    background: var(--fe-accent); opacity: 0; transition: opacity .12s ease-out;
+  }
+  .fe-class-card:hover, .fe-class-card:focus-visible { outline: none; }
+  .fe-class-card:hover::before, .fe-class-card:focus-visible::before { background: rgba(127, 255, 196, .34); }
+  .fe-class-card[data-selected="true"]::after { opacity: .7; }
+  .fe-class-card[data-ready="false"] { cursor: wait; filter: grayscale(.75); opacity: .58; }
+  .fe-class-card:disabled { color: #e6f2ff; }
+  .fe-class-art {
+    display: flex; align-items: center; justify-content: center; min-width: 0;
+    height: 94px; padding: 2px;
+  }
+  .fe-class-art img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .fe-class-info { position: relative; z-index: 1; min-width: 0; }
+  .fe-class-name {
+    display: block; overflow: hidden; color: #f1f7ff; font-size: 16px; font-weight: 600;
+    letter-spacing: .12em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap;
+  }
+  .fe-class-role {
+    display: block; margin-top: 3px; color: rgba(206, 224, 240, .54); font-size: 9px;
+    letter-spacing: .2em; text-transform: uppercase;
+  }
+  .fe-class-stats {
+    display: flex; flex-wrap: wrap; gap: 5px 10px; margin-top: 10px;
+    color: rgba(230, 242, 255, .82); font-size: 10px; letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .fe-class-stat { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .fe-class-stat b { color: var(--fe-accent); font-weight: 600; }
+  .fe-class-fire { width: 17px; height: 17px; object-fit: contain; opacity: .86; }
+  .fe-class-state {
+    display: block; margin-top: 7px; color: rgba(206, 224, 240, .5); font-size: 9px;
+    letter-spacing: .2em; text-transform: uppercase;
+  }
+  .fe-class-card[data-selected="true"] .fe-class-state { color: var(--fe-accent); }
+  .fe-class-actions { display: flex; justify-content: center; gap: 8px; margin-top: 1px; }
+  .fe-class-actions .fe-btn { width: 180px; }
+  .fe-class-actions .fe-btn:disabled { cursor: wait; color: rgba(206, 224, 240, .4); }
+  .fe-class-actions .fe-btn:disabled::before { background: rgba(139, 173, 198, .12); }
+
+  .fe-controls {
+    margin: 0; font: 12px/1.75 ui-monospace, SFMono-Regular, Consolas, monospace;
+    color: rgba(205, 224, 240, .72); white-space: pre-line;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .95);
+  }
+  .fe-message { margin: 0; max-width: 46ch; color: #ff9b90; white-space: pre-line; }
+
+  /* One screen at a time; `render()` sets data-screen on the root. */
+  .fe-welcome, .fe-load, .fe-start, .fe-pause, .fe-class, .fe-controls, .fe-message { display: none; }
+  #blocker[data-screen="welcome"] .fe-welcome { display: block; }
+  #fe-load-game { min-height: 48px; height: auto; line-height: 48px; touch-action: manipulation; }
+  #blocker[data-screen="loading"] .fe-load { display: block; }
+  #blocker[data-screen="title"] .fe-start,
+  #blocker[data-screen="pause"] .fe-pause { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  #blocker[data-screen="title"] .fe-controls,
+  #blocker[data-screen="pause"] .fe-controls { display: block; }
+  #blocker[data-screen="class"] .fe-class { display: flex; }
+  #blocker[data-screen="class"] .fe-content { width: min(1120px, 94vw); gap: 12px; }
+  #blocker[data-screen="class"] .fe-wordmark { font-size: clamp(20px, 3vw, 30px); }
+  #blocker[data-screen="class"] .fe-wordmark::after { margin-top: 14px; }
+  #blocker[data-screen="class"] .fe-sub { display: none; }
+  /* Reserve space for the title and actions; only the desktop roster scrolls. */
+  body:not(.touch-mode) #blocker[data-screen="class"] .fe-content { max-height: 100%; }
+  body:not(.touch-mode) #blocker[data-screen="class"] .fe-content > header { flex-shrink: 0; }
+  body:not(.touch-mode) .fe-class { width: 100%; min-height: 0; max-height: none; }
+  body:not(.touch-mode) .fe-class-head,
+  body:not(.touch-mode) .fe-class-tabs,
+  body:not(.touch-mode) .fe-class-actions { flex-shrink: 0; }
+  body:not(.touch-mode) .fe-class-tabs { flex-wrap: wrap; }
+  body:not(.touch-mode) .fe-class-tab { min-width: 0; flex: 1 1 120px; }
+  body:not(.touch-mode) .fe-class-grid {
+    overflow-y: auto; overscroll-behavior: contain;
+    scrollbar-width: thin; scrollbar-color: #7fffc480 #07121ab8;
+  }
+  #blocker[data-screen="error"] .fe-message { display: block; }
+  #blocker[data-screen="error"] .fe-wordmark::after { background: #ff6a5c; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fe-backdrop, .fe-fog, .fe-prompt { animation: none; }
+    .fe-bar { transition: none; }
+  }
+  @media (max-width: 860px) {
+    .fe-class-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .fe-class-head { align-items: start; flex-direction: column; gap: 4px; }
+    .fe-class-selection { white-space: normal; }
+    .fe-class-grid { grid-template-columns: 1fr; overflow-y: auto; }
+    .fe-class-card { min-height: 104px; }
+    .fe-class-art { height: 80px; }
+  }
+  /* Kept as the automation-visible text snapshot (getState().hud) but hidden;
+     the visible HUD below is drawn with the game's own art. */
+  #hud {
+    position: fixed; top: 12px; left: 12px; z-index: 2; min-width: 260px;
+    padding: 9px 11px; border: 1px solid rgba(127, 255, 196, .26);
+    border-radius: 5px; background: rgba(0, 8, 10, .64); color: #9fffc4;
+    font: 12px/1.45 ui-monospace, SFMono-Regular, Consolas, monospace;
+    white-space: pre; pointer-events: none; display: none;
+  }
+  /* ---------- HUD (original art, rebuilt layout) ---------- */
+  #hud-minimap {
+    position: fixed; top: 14px; left: 14px; z-index: 2; width: 176px; height: 176px;
+    overflow: hidden; background: #000 url('ui/hud/mp_minimap_overlay.png') center/cover no-repeat;
+    opacity: 0; transition: opacity .2s ease-out; pointer-events: none;
+  }
+  .hud-minimap-rot { position: absolute; inset: 0; }
+  .hud-minimap-map { position: absolute; background-repeat: no-repeat; }
+  .hud-minimap-arrow {
+    position: absolute; left: 50%; top: 50%; width: 32px; height: 32px; margin: -16px;
+    background-size: contain; background-repeat: no-repeat; background-position: center;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, .8));
+  }
+  .hud-minimap-ping {
+    position: absolute; width: var(--ping-size); height: var(--ping-size);
+    background: url('ui/hud/compassping_enemyfiring.png') center/contain no-repeat;
+  }
+  #hud-compass {
+    position: fixed; top: 196px; left: 14px; z-index: 2; width: 264px; height: 40px;
+    overflow: hidden; opacity: 0; transition: opacity .2s ease-out; pointer-events: none;
+  }
+  .hud-compass-tape {
+    position: absolute; left: 0; top: 0; height: 100%;
+    overflow: hidden; background-repeat: no-repeat;
+  }
+  #hud-ammo {
+    position: fixed; right: 22px; bottom: 18px; z-index: 2; display: flex;
+    flex-direction: column; align-items: flex-end; gap: 2px; opacity: 0;
+    transition: opacity .2s ease-out; pointer-events: none;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .9));
+  }
+  #hud-weapon-name {
+    color: #e8f4ee; font: 600 13px/1 var(--fe-ui); font-stretch: condensed;
+    letter-spacing: .22em; text-transform: uppercase; min-height: 13px;
+  }
+  #hud-ammo-row { display: flex; align-items: flex-end; }
+  .hud-digit {
+    width: 24px; height: 48px; background-size: contain;
+    background-repeat: no-repeat; background-position: center bottom;
+  }
+  .hud-digit-reserve { width: 17px; height: 34px; }
+  .hud-digit-divider { margin: 0 3px; }
+  body.locked #hud-minimap, body.locked #hud-compass, body.locked #hud-ammo { opacity: 1; }
+  /* Sniper scope: the game's full-screen lens image, square, sized to the
+     shorter screen side, with the sides blacked out like the original. */
+  #scope {
+    position: fixed; inset: 0; z-index: 2; display: none; background: #000;
+    pointer-events: none;
+  }
+  #scope img {
+    position: absolute; left: 50%; top: 50%; width: min(100vw, 100vh); height: min(100vw, 100vh);
+    transform: translate(-50%, -50%); image-rendering: auto;
+  }
+  #scope[data-on="true"] { display: block; }
+  #scope::before, #scope::after {
+    content: ''; position: absolute; left: 50%; top: 50%; background: rgba(0, 0, 0, .9);
+    transform: translate(-50%, -50%);
+  }
+  #scope::before { width: 2px; height: min(100vw, 100vh); }
+  #scope::after { height: 2px; width: min(100vw, 100vh); }
+  /* The lens holds the whole picture; the background under it stays visible
+     through the transparent glass of the overlay art. */
+  #scope { background: transparent; }
+  #scope .scope-side { position: absolute; top: 0; bottom: 0; background: #000; width: calc((100vw - min(100vw, 100vh)) / 2); }
+  #scope .scope-side.left { left: 0; }
+  #scope .scope-side.right { right: 0; }
+  #scope .scope-cap { position: absolute; left: 0; right: 0; background: #000; height: calc((100vh - min(100vw, 100vh)) / 2); }
+  #scope .scope-cap.top { top: 0; }
+  #scope .scope-cap.bottom { bottom: 0; }
+  body.locked.scoped #crosshair { opacity: 0; }
+  #crosshair {
+    position: fixed; left: 50%; top: 50%; z-index: 2; width: 5px; height: 5px;
+    margin: -2px; border-radius: 50%; background: rgba(255,255,255,.9);
+    box-shadow: 0 0 4px #000; opacity: 0; pointer-events: none;
+  }
+  body.locked #crosshair { opacity: 1; }
+  body.locked #crosshair.ads { opacity: 0; }
+  #hitmarker {
+    position: fixed; left: 50%; top: 50%; z-index: 2; width: 26px; height: 26px;
+    margin: -13px; opacity: 0; pointer-events: none;
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, .9));
+  }
+  #hitmarker line { stroke: #fff; stroke-width: 2.4; stroke-linecap: round; }
+  #hitmarker[data-kind="head"] line { stroke: #ffd76a; }
+  #hitmarker[data-kind="kill"] line { stroke: #ff4a3d; }
+  #damage {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0;
+    background: url('ui/hud/overlay_low_health.png') center/cover no-repeat;
+  }
+  #match-status {
+    position: fixed; z-index: 2; top: 18px; left: 50%; transform: translateX(-50%);
+    min-width: 210px; padding: 7px 16px; text-align: center; opacity: 0;
+    color: #eef8ff; background: rgba(3, 10, 14, .68); border-bottom: 2px solid var(--fe-accent);
+    font: 600 14px/1.25 var(--fe-ui); letter-spacing: .12em; pointer-events: none;
+  }
+  #match-status small { color: rgba(220, 235, 245, .72); letter-spacing: .18em; }
+  #killfeed {
+    position: fixed; z-index: 2; top: 20px; right: 18px; width: 300px;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    color: #edf6ff; font: 600 12px/1.3 var(--fe-ui); pointer-events: none;
+    text-shadow: 0 1px 4px #000;
+  }
+  .killfeed-entry { padding: 3px 7px; background: rgba(2, 8, 12, .58); }
+  .killfeed-entry .killer { color: var(--fe-accent); }
+  .killfeed-entry .range { color: #ffd76a; margin-left: 6px; font-size: 11px; }
+  /* Equipment: the grenade icons and counts under the ammo, in HUD art. */
+  #hud-equipment {
+    position: fixed; right: 22px; bottom: 84px; z-index: 2; display: flex; gap: 14px;
+    opacity: 0; transition: opacity .2s ease-out; pointer-events: none;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, .9));
+  }
+  .hud-equip { display: flex; align-items: center; gap: 5px; color: #e8f4ee; font: 600 13px/1 var(--fe-ui); }
+  .hud-equip img { width: 26px; height: 26px; object-fit: contain; }
+  .hud-equip[data-empty="true"] { opacity: .35; }
+  .hud-equip small { font-size: 9px; letter-spacing: .18em; color: rgba(206, 224, 240, .6); }
+  body.locked #hud-equipment { opacity: 1; }
+  body.locked.player-dead #hud-equipment { opacity: 0; transition: none; }
+  /* Medal popups -- the game's own `hud_medal_burst_orange` flash behind the
+     `hud_medals_*` icon from ui/medals/, name and +XP in HUD type. They stack
+     downwards under the crosshair line, newest on top. */
+  #medals {
+    position: fixed; z-index: 2; right: 9%; top: 40%;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+    pointer-events: none;
+  }
+  .medal-popup {
+    position: relative; display: flex; align-items: center; gap: 11px;
+    padding: 5px 12px 5px 7px; background: rgba(2, 8, 12, .55);
+    border-left: 2px solid rgba(255, 176, 66, .8);
+    opacity: 0; transform: translateX(26px);
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, .85));
+    transition: opacity .12s ease-out, transform .2s cubic-bezier(.18, 1.2, .35, 1);
+  }
+  .medal-popup.show { opacity: 1; transform: translateX(0); }
+  .medal-popup.hide {
+    opacity: 0; transform: translateX(14px) scale(.96);
+    transition: opacity .45s ease-in, transform .45s ease-in;
+  }
+  .medal-icon {
+    width: 58px; height: 58px; flex: none;
+    background: center/contain no-repeat;
+  }
+  .medal-burst {
+    position: absolute; left: -18px; top: 50%; width: 104px; height: 104px;
+    margin-top: -52px; background: url('ui/hud/hud_medal_burst_orange.png') center/contain no-repeat;
+    opacity: 0; transform: scale(.4) rotate(-30deg); pointer-events: none;
+  }
+  .medal-popup.show .medal-burst { animation: medal-burst .6s ease-out .04s; }
+  @keyframes medal-burst {
+    0% { opacity: 0; transform: scale(.4) rotate(-30deg); }
+    35% { opacity: .95; }
+    100% { opacity: 0; transform: scale(1.25) rotate(10deg); }
+  }
+  .medal-text { display: flex; flex-direction: column; gap: 1px; min-width: 96px; }
+  .medal-text b {
+    color: #ffe3b0; font: 700 16px/1.1 var(--fe-ui); font-stretch: condensed;
+    letter-spacing: .14em; text-transform: uppercase; text-shadow: 0 1px 3px #000;
+    white-space: nowrap;
+  }
+  .medal-text small {
+    color: #ffb042; font: 600 13px/1 var(--fe-ui); letter-spacing: .1em;
+    text-shadow: 0 1px 3px #000;
+  }
+  #death-card {
+    position: fixed; z-index: 4; left: 50%; bottom: 14%; transform: translateX(-50%);
+    min-width: 330px; padding: 14px 24px; display: none; text-align: center;
+    color: #f3f8fc; background: rgba(3, 8, 12, .84); border-top: 2px solid #ff5b4d;
+    font: 600 15px/1.5 var(--fe-ui); letter-spacing: .12em; pointer-events: none;
+  }
+  #death-card strong { display: block; color: #ff8b80; font-size: 19px; text-transform: uppercase; }
+  #scoreboard {
+    position: fixed; z-index: 5; inset: 0; display: none; align-items: center; justify-content: center;
+    background: rgba(1, 5, 8, .78); color: #edf7ff; font-family: var(--fe-ui);
+  }
+  #scoreboard.visible { display: flex; }
+  .scoreboard-panel { width: min(650px, 90vw); padding: 24px; background: rgba(7, 17, 24, .96); border-top: 3px solid var(--fe-accent); }
+  .scoreboard-panel h2 { margin: 0 0 4px; letter-spacing: .25em; text-transform: uppercase; }
+  .scoreboard-panel p { margin: 0 0 18px; color: rgba(220, 235, 245, .7); }
+  .scoreboard-row { display: grid; grid-template-columns: 44px 1fr 70px 70px; gap: 12px; padding: 7px 10px; border-top: 1px solid rgba(160, 200, 220, .16); }
+  .scoreboard-row.player { color: var(--fe-accent); background: rgba(127, 255, 196, .08); }
+  .scoreboard-row.head { color: rgba(220, 235, 245, .58); font-size: 11px; letter-spacing: .15em; text-transform: uppercase; }
+  #match-result { color: var(--fe-accent); font-size: 18px; }
+  body.locked #match-status { opacity: 1; }
+  body.locked.player-dead #crosshair, body.locked.player-dead #hud-ammo { opacity: 0; transition: none; }
+
+  /* ---------- play with friends (multiplayer.js) ---------- */
+  .fe-lobby { display: none; flex-direction: column; align-items: center; gap: 10px; width: min(420px, 92vw); }
+  #blocker[data-screen="lobby"] .fe-lobby { display: flex; }
+  /* A full room is taller than a short window: the room screen scrolls, as the touch shell does. */
+  #blocker[data-screen="lobby"] { overflow-y: auto; overscroll-behavior: contain; }
+  #blocker[data-screen="lobby"] > .fe-layer { position: fixed; }
+  #blocker[data-screen="lobby"] .fe-content { margin: auto; flex-shrink: 0; gap: 18px; }
+  body.touch-mode #blocker[data-screen="lobby"] .touch-settings { display: none; }
+  #blocker[data-screen="lobby"] .fe-wordmark { font-size: clamp(20px, 3vw, 30px); }
+  #blocker[data-screen="lobby"] .fe-wordmark::after { margin-top: 14px; }
+  #blocker[data-screen="lobby"] .fe-sub { display: none; }
+  .fe-lobby-form, .fe-lobby-room { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+  .fe-lobby-form[hidden], .fe-lobby-room[hidden], .fe-lobby-bots[hidden], .fe-lobby .fe-btn[hidden] { display: none; }
+  .fe-field {
+    display: flex; flex-direction: column; gap: 5px; width: 258px; text-align: left;
+    font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: rgba(206, 224, 240, .62);
+  }
+  .fe-field input {
+    height: 34px; padding: 0 10px; border: 1px solid rgba(139, 173, 198, .4); border-radius: 0;
+    background: rgba(5, 12, 18, .78); color: #eef6ff; outline: none;
+    font: 600 14px/34px var(--fe-ui); letter-spacing: .14em;
+  }
+  .fe-field input:focus { border-color: var(--fe-accent); }
+  #mp-code { text-transform: uppercase; letter-spacing: .42em; text-align: center; }
+  .fe-lobby-or { margin: 2px 0 0; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: rgba(206, 224, 240, .5); }
+  .fe-lobby-code { margin: 0; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: rgba(206, 224, 240, .62); }
+  .fe-lobby-code b {
+    display: block; margin-top: 4px; font-size: 32px; font-weight: 600; letter-spacing: .32em; text-indent: .32em;
+    color: var(--fe-accent); text-shadow: 0 0 18px rgba(127, 255, 196, .35);
+  }
+  #mp-roster { list-style: none; margin: 0; padding: 0; width: 100%; display: flex; flex-direction: column; gap: 4px; }
+  #mp-roster li {
+    display: flex; justify-content: space-between; gap: 12px; padding: 6px 12px;
+    background: rgba(7, 17, 24, .8); border-left: 3px solid; text-align: left;
+    font-size: 13px; letter-spacing: .1em;
+  }
+  #mp-roster li span { color: rgba(206, 224, 240, .5); font-size: 10px; letter-spacing: .24em; text-transform: uppercase; }
+  #mp-roster li.ready span { color: var(--fe-accent); }
+  .fe-lobby-bots {
+    display: flex; align-items: center; gap: 8px; cursor: pointer;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(206, 224, 240, .78);
+  }
+  .fe-lobby-bots input { accent-color: var(--fe-accent); }
+  .fe-lobby-status { margin: 0; min-height: 1.5em; max-width: 40ch; font-size: 12px; letter-spacing: .06em; color: rgba(220, 235, 245, .82); }
+  .fe-lobby .fe-btn:disabled { opacity: .38; cursor: default; }
+  .fe-lobby .fe-btn:disabled:hover { color: #e6f2ff; }
+  .fe-lobby .fe-btn:disabled:hover::before {
+    -webkit-mask-image: url('ui/menu_button_backing.png'); mask-image: url('ui/menu_button_backing.png');
+    background: rgba(139, 173, 198, .26);
+  }
+  .fe-online { display: none; margin: 0; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--fe-accent); }
+  body.mp-running .fe-online { display: block; }
+  body.mp-running [data-action="friends"], body:not(.mp-running) [data-action="leave-match"],
+  body.mp-running [data-action="respawn"], body.mp-connected .fe-maps { display: none; }
+  #mp-notice, #mp-toast {
+    position: fixed; z-index: 2; left: 50%; transform: translateX(-50%); padding: 6px 14px;
+    color: #eef8ff; background: rgba(3, 10, 14, .74); border-bottom: 2px solid #ffd76a;
+    font: 600 13px/1.3 var(--fe-ui); letter-spacing: .12em; pointer-events: none;
+  }
+  #mp-notice { top: 64px; }
+  #mp-toast { top: 100px; border-bottom-color: var(--fe-accent); }
+  #mp-notice[hidden], #mp-toast[hidden] { display: none; }
+  .scoreboard-row.friend { color: #cfe3ff; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/",
+  "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.9.14/src/index.js",
+  "@recast-navigation/core": "https://cdn.jsdelivr.net/npm/@recast-navigation/core@0.43.1/dist/index.mjs",
+  "@recast-navigation/generators": "https://cdn.jsdelivr.net/npm/@recast-navigation/generators@0.43.1/dist/index.mjs",
+  "@recast-navigation/wasm": "https://cdn.jsdelivr.net/npm/@recast-navigation/wasm@0.43.1/dist/recast-navigation.wasm-compat.js",
+  "@recast-navigation/three": "https://cdn.jsdelivr.net/npm/@recast-navigation/three@0.43.1/dist/index.mjs"
+} }
+</script>
+</head>
+<body>
+<div id="blocker" data-screen="welcome">
+  <div class="fe-layer fe-backdrop"></div>
+  <div class="fe-layer fe-fog"></div>
+  <div class="fe-layer fe-fog slow"></div>
+  <div class="fe-layer fe-glow"></div>
+  <div class="fe-layer fe-vignette"></div>
+  <div class="fe-content">
+    <header>
+      <h1 class="fe-wordmark">CLAUDE OF DUTY<span class="fe-subtitle">VIBE SLOPS <b>II</b></span></h1>
+      <p class="fe-sub">Browser reconstruction</p>
+    </header>
+    <p class="fe-online" id="mp-banner"></p>
+    <div class="fe-welcome">
+      <button type="button" class="fe-btn" id="fe-load-game">Tap or click to load</button>
+    </div>
+    <div class="fe-load">
+      <div class="fe-track"><div class="fe-bar" id="fe-bar"></div></div>
+      <div class="fe-status"><span id="fe-caption">Preparing game…</span><span id="fe-percent"></span></div>
+    </div>
+    <div class="fe-start">
+      <div class="fe-maps" id="fe-maps"></div>
+      <div class="fe-start-foot">
+        <p class="fe-prompt">Click to play</p>
+        <button type="button" class="fe-btn" data-action="class">Create a class</button>
+        <button type="button" class="fe-btn" data-action="friends">Play with friends</button>
+        <button type="button" class="fe-btn" data-action="leave-match">Leave match</button>
+        <p class="fe-count" id="fe-count" hidden></p>
+      </div>
+    </div>
+    <div class="fe-pause">
+      <h2 class="fe-heading">Paused</h2>
+      <div class="fe-buttons">
+        <button type="button" class="fe-btn" data-action="resume">Resume</button>
+        <button type="button" class="fe-btn" data-action="class">Create a class</button>
+        <button type="button" class="fe-btn" data-action="friends">Play with friends</button>
+        <button type="button" class="fe-btn" data-action="leave-match">Leave match</button>
+        <button type="button" class="fe-btn" data-action="respawn">Respawn</button>
+        <button type="button" class="fe-btn" data-action="navmesh">Navmesh overlay</button>
+        <button type="button" class="fe-btn" data-action="collision">Collision overlay</button>
+      </div>
+    </div>
+    <section class="fe-class" aria-label="Create a class">
+      <div class="fe-class-head">
+        <div>
+          <h2 class="fe-heading">Create a class</h2>
+          <p class="fe-class-sub" id="fe-class-sub">Choose your primary</p>
+        </div>
+        <p class="fe-class-selection" id="fe-class-selection">Select a weapon</p>
+      </div>
+      <!-- Tabs and cards are built from weapons.js at start-up. -->
+      <div class="fe-class-tabs" id="fe-class-tabs"></div>
+      <div class="fe-class-grid" id="fe-class-grid"></div>
+      <div class="fe-class-actions">
+        <button type="button" class="fe-btn" data-action="class-confirm">Equip class</button>
+        <button type="button" class="fe-btn" data-action="class-back">Back</button>
+      </div>
+    </section>
+    <!-- Play with friends: multiplayer.js fills this in. -->
+    <section class="fe-lobby" id="mp-lobby" aria-label="Play with friends">
+      <h2 class="fe-heading">Play with friends</h2>
+      <div class="fe-lobby-form" id="mp-connect">
+        <label class="fe-field" for="mp-name">Your name<input id="mp-name" maxlength="16" autocomplete="nickname" spellcheck="false"></label>
+        <button type="button" class="fe-btn" id="mp-host">Create room</button>
+        <p class="fe-lobby-or">or join a friend</p>
+        <label class="fe-field" for="mp-code">Room code<input id="mp-code" maxlength="6" autocomplete="off" spellcheck="false" autocapitalize="characters"></label>
+        <button type="button" class="fe-btn" id="mp-join">Join room</button>
+      </div>
+      <div class="fe-lobby-room" id="mp-room" hidden>
+        <p class="fe-lobby-code">Room code<b id="mp-room-code"></b></p>
+        <button type="button" class="fe-btn" id="mp-copy">Copy invite</button>
+        <p class="fe-lobby-or">Players <span id="mp-count"></span></p>
+        <ol id="mp-roster"></ol>
+        <label class="fe-lobby-bots" id="mp-bots-row"><input type="checkbox" id="mp-bots" checked> Fill with bots</label>
+        <button type="button" class="fe-btn" id="mp-ready">Ready</button>
+        <button type="button" class="fe-btn" id="mp-start" hidden>Start match</button>
+      </div>
+      <p class="fe-lobby-status" id="mp-status" role="status"></p>
+      <button type="button" class="fe-btn" id="mp-back">Back</button>
+    </section>
+    <pre class="fe-controls" id="fe-controls"></pre>
+    <div class="touch-only touch-settings" id="touch-settings">
+      <label for="touch-graphics">Graphics <select id="touch-graphics"><option value="auto">Auto</option><option value="performance">Performance</option><option value="quality">Quality</option></select></label>
+      <p id="touch-graphics-hint">Balances sharpness and smooth play.</p>
+      <label for="touch-sensitivity">Look sensitivity <input id="touch-sensitivity" type="range" min="0.4" max="2" step="0.1" value="1"><output id="touch-sensitivity-value" for="touch-sensitivity">1.0×</output></label>
+      <p>Push the stick forward to sprint. Tap aim and crouch to toggle.</p>
+      <p>Landscape gives you more room to aim.</p>
+      <button type="button" class="fe-btn" id="touch-fullscreen" hidden>Full screen</button>
+    </div>
+    <p class="fe-message" id="fe-message"></p>
+  </div>
+</div>
+<div id="hud">loading…</div>
+<div id="hud-minimap"></div>
+<div id="hud-compass"></div>
+<div id="hud-equipment"></div>
+<div id="hud-ammo">
+  <div id="hud-weapon-name"></div>
+  <div id="hud-ammo-row"></div>
+</div>
+<div id="match-status"></div>
+<div id="mp-notice" hidden></div>
+<div id="mp-toast" hidden></div>
+<div id="killfeed"></div>
+<div id="medals"></div>
+<div id="death-card"><strong id="death-killer"></strong><span id="respawn-copy"></span></div>
+<div id="scoreboard">
+  <div class="scoreboard-panel">
+    <h2>Free for all</h2>
+    <p id="match-result"></p>
+    <div class="scoreboard-row head"><span>#</span><span>Player</span><span>Kills</span><span>Deaths</span></div>
+    <div id="scoreboard-rows"></div>
+    <button type="button" class="fe-btn touch-only" id="touch-score-close">Back to game</button>
+    <button type="button" class="fe-btn touch-only" id="touch-restart" hidden>Play again</button>
+  </div>
+</div>
+<div id="scope" data-on="false"><div class="scope-side left"></div><div class="scope-side right"></div><div class="scope-cap top"></div><div class="scope-cap bottom"></div><img id="scope-lens" alt=""></div>
+<div id="crosshair"></div>
+<svg id="hitmarker" viewBox="0 0 26 26" data-kind="torso" aria-hidden="true">
+  <line x1="3" y1="3" x2="9" y2="9"></line>
+  <line x1="23" y1="3" x2="17" y2="9"></line>
+  <line x1="3" y1="23" x2="9" y2="17"></line>
+  <line x1="23" y1="23" x2="17" y2="17"></line>
+</svg>
+<div id="damage"></div>
+<div id="touch-controls" hidden aria-label="Touch controls">
+  <div class="touch-look" data-touch="look" aria-label="Swipe to look"></div>
+  <div class="touch-move" data-touch="move" aria-label="Drag to move; push forward to sprint">
+    <div class="touch-stick"><div class="touch-knob"></div><span>MOVE</span></div>
+  </div>
+  <span class="touch-hint">SWIPE TO LOOK · DRAG FIRE TO AIM</span>
+  <button type="button" class="touch-button touch-fire" data-touch="fire" aria-label="Hold to fire; drag to aim"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 1v5m0 12v5M1 12h5m12 0h5"/></svg><span>FIRE</span></button>
+  <button type="button" class="touch-button touch-aim" data-touch="aim" aria-label="Toggle aim down sights" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M12 7v10M7 12h10"/></svg><span>AIM</span></button>
+  <button type="button" class="touch-button touch-jump" data-touch="jump" aria-label="Jump"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 10 6-6 6 6M12 4v14M4 21h16"/></svg><span>JUMP</span></button>
+  <button type="button" class="touch-button touch-crouch" data-touch="crouch" aria-label="Toggle crouch" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="14" cy="4" r="2"/><path d="m12 8-3 5 7 2-2 6m-3-11 5 2h4M9 13l-5 5h6"/></svg><span>CROUCH</span></button>
+  <button type="button" class="touch-button touch-reload" data-touch="reload" aria-label="Reload"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10a8 8 0 1 0-2 8M20 4v6h-6"/></svg><span>RELOAD</span></button>
+  <button type="button" class="touch-button touch-equipment touch-switch" data-touch="switch" aria-label="Switch weapon"><span>SWITCH</span></button>
+  <button type="button" class="touch-button touch-equipment touch-melee" data-touch="melee" aria-label="Melee attack"><span>MELEE</span></button>
+  <button type="button" class="touch-button touch-equipment touch-frag" data-touch="frag" aria-label="Hold to cook frag; release to throw"><span>FRAG</span><span data-equipment-count="frag">1</span></button>
+  <button id="touch-breath" type="button" class="touch-button touch-breath" data-touch="breath" aria-label="Hold breath" hidden><span>STEADY</span></button>
+  <button type="button" class="touch-button touch-equipment touch-smoke" data-touch="smoke" aria-label="Throw smoke grenade"><span>SMOKE</span><span data-equipment-count="smoke">1</span></button>
+  <button type="button" class="touch-button touch-scores" id="touch-scores" aria-label="Show scoreboard"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10h4v10m2 0V4h4v16m2 0V7h4v13"/></svg></button>
+  <button type="button" class="touch-button touch-pause" id="touch-pause" aria-label="Pause game"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg></button>
+</div>
+<script>
+// Capture the first gesture before module downloads finish. On a phone there
+// may be no second gesture, so an early tap must not disappear during startup.
+globalThis.hijackedStartup = new Promise((resolve) => {
+  const events = ['pointermove', 'pointerdown', 'keydown', 'wheel', 'touchstart', 'click'];
+  function requestLoad() {
+    for (const type of events) removeEventListener(type, requestLoad, true);
+    const shell = document.getElementById('blocker');
+    shell.dataset.screen = 'loading';
+    shell.dataset.determinate = 'false';
+    resolve();
+  }
+  if (new URLSearchParams(location.search).has('autostart')) requestLoad();
+  else for (const type of events) addEventListener(type, requestLoad, { capture: true, passive: true });
+});
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { PlayerController } from './player-controller.js';
+import { loadNavigation } from './navigation.js';
+import { Viewmodel } from './viewmodel.js';
+import { ViewBob } from './view-bob.js';
+import { WeaponController } from './weapon-controller.js';
+import { WeaponEffects } from './weapon-effects.js';
+import { EnemyManager } from './enemy-system.js';
+import { PlayerHealth } from './player-health.js';
+import { FreeForAllMatch } from './free-for-all-match.js';
+import { MedalTracker } from './medals.js';
+import { Hud, calibrationFromCorners } from './hud.js';
+import { Frontend } from './frontend.js';
+import { TouchControls } from './touch-controls.js';
+import { loadGltf as loadGltfAsset } from './load-gltf.js';
+import { GraphicsSettings, filterTextures } from './graphics-settings.js';
+import { GraphicsRenderer } from './graphics-renderer.js';
+import { PlayCounter } from './play-counter.js';
+import { loadCollisionWorld } from './collision-world.js';
+import { optimizeStaticScene } from './scene-optimizer.js';
+import { applyEnvironmentLighting, loadGradeLut, POST_SHADER, HAZE, applyMaterialClasses } from './lighting.js';
+import { loadProbeVolume, attachObjectProbe } from './light-probes.js';
+import { MAPS, MAP_IDS, mapFiles, resolveMapId, rememberMap, hideMapNodes } from './maps.js';
+import {
+  SpreadModel, ViewKick, SprintGate, damageAtDistance, locationMultiplier, selectMeleeTarget,
+  LONGSHOT_DISTANCE, metresFromUnits,
+  adsFieldOfView, zoomLookScale,
+} from './gunplay.js';
+import { WEAPON_BALLISTICS } from './weapon-ballistics.js';
+import { AmbienceManager, MusicPlayer, StrideTracker, SurfaceProbe, WorldAudio } from './world-audio.js';
+import { Destructibles } from './destructibles.js';
+import {
+  WEAPONS, WEAPON_CLASSES, WEAPON_CLASS_IDS, weaponsOfClass, findWeapon, weaponCue,
+  EQUIPMENT, equipmentOfClass, MELEE, THROW_CLIPS, DEFAULT_LOADOUT, nextHeldWeapon, SCOPE,
+} from './weapons.js';
+import { WEAPON_CAMO_IDS, randomPick } from './skins.js';
+import { GrenadeManager, throwOrigin, throwVelocity } from './grenades.js';
+import { animateWater } from './lighting.js';
+import { MultiplayerSession } from './multiplayer.js';
+import { SoldierAvatar, RemoteCombatant, LocalHitProxy, CROUCH_SCALE } from './remote-players.js';
+import {
+  PoseHistory, MAX_REWIND, packPlayer, unpackPlayer, packBot, unpackBot, blendPose, round1, round3,
+} from './multiplayer-sync.js';
+
+// Which map this page load plays. `?map=` wins, then the remembered choice.
+// Reading `localStorage` throws in a sandboxed frame, hence the guard.
+const mapStorage = (() => { try { return window.localStorage; } catch { return null; } })();
+const activeMap = MAPS[resolveMapId({ search: location.search, storage: mapStorage })];
+const activeMapFiles = mapFiles(activeMap);
+rememberMap(mapStorage, activeMap.id);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x87a8c8);
+scene.fog = new THREE.Fog(0x87a8c8, HAZE.near, HAZE.far);
+
+const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 1, 20000);
+camera.rotation.order = 'YXZ';
+
+let savedGraphics = 'auto';
+try { savedGraphics = localStorage.getItem('hijacked.graphics') ?? 'auto'; } catch {}
+const graphics = new GraphicsSettings({ mobile: matchMedia('(pointer: coarse)').matches, preset: savedGraphics });
+const renderer = new THREE.WebGLRenderer({
+  antialias: false,
+  powerPreference: 'high-performance',
+});
+renderer.setSize(innerWidth, innerHeight);
+const gl = renderer.getContext();
+const maxRenderSize = Math.min(renderer.capabilities.maxTextureSize,
+  gl.getParameter(gl.MAX_RENDERBUFFER_SIZE), ...gl.getParameter(gl.MAX_VIEWPORT_DIMS));
+graphics.setViewport(innerWidth, innerHeight, devicePixelRatio, maxRenderSize);
+renderer.setPixelRatio(graphics.pixelRatio);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.autoClear = false;
+const graphicsRenderer = new GraphicsRenderer(renderer);
+document.body.appendChild(renderer.domElement);
+
+const VIEWMODEL_HANDS = 'viewmodel/c_usa_mp_fbi_shortsleeve_viewhands_lod0.glb';
+// Every weapon the class screen offers lives in weapons.js; see that file to
+// add one. The name is kept for the debug surface and the smoke tests.
+const WEAPON_DEFINITIONS = WEAPONS;
+// The camo the player spawns with is drawn once per page load and kept until
+// K cycles it. Every weapon slot wears the same one, so a switch keeps it.
+let currentCamo = randomPick(WEAPON_CAMO_IDS) ?? WEAPON_CAMO_IDS[0];
+const weaponSlots = new Map(Object.values(WEAPON_DEFINITIONS).map((definition) => {
+  // Range falloff, spread, kick and timing from the weapon file, see gunplay.js.
+  const ballistics = WEAPON_BALLISTICS[definition.id] ?? {};
+  const slotViewmodel = new Viewmodel({
+    adsFov: definition.adsFov ?? 55,
+    adsSightAnchors: definition.adsSightAnchors ?? null,
+    adsTransInTime: ballistics.adsTransInTime,
+    adsTransOutTime: ballistics.adsTransOutTime,
+    camo: currentCamo,
+    scope: definition.scope ?? null,
+    boltAction: Boolean(definition.boltAction),
+    torsoBind: definition.torsoBind ?? null,
+  });
+  slotViewmodel.setSize(innerWidth, innerHeight);
+  const gunplay = {
+    ballistics,
+    spread: new SpreadModel(ballistics),
+    kick: new ViewKick(ballistics),
+    sprint: new SprintGate(ballistics),
+  };
+  return [definition.id, { definition, viewmodel: slotViewmodel, controller: null, gunplay }];
+}));
+// The equipped class: a primary, a secondary, a lethal and a tactical. The
+// wheel and the number keys move between the two guns; G and Q throw.
+const loadout = { ...DEFAULT_LOADOUT };
+let activeWeaponId = loadout.primary;
+let activeWeaponSlot = weaponSlots.get(activeWeaponId);
+let viewmodel = activeWeaponSlot.viewmodel;
+let gunplay = activeWeaponSlot.gunplay;
+// Grenades in hand this life, by kind; a life restores the class's counts.
+const equipmentAmmo = {};
+function resetEquipment() {
+  for (const cls of ['lethal', 'tactical']) {
+    const item = EQUIPMENT[loadout[cls]];
+    if (item) equipmentAmmo[item.kind] = item.count;
+  }
+}
+resetEquipment();
+let grenades = null;
+let knifeScene = null;
+const grenadeScenes = new Map();
+// A throw in progress: which kind, and when its fuse started if it cooks.
+let throwState = null;
+let waterClock = null;
+// The sniper scope: the world zooms toward the weapon's zoomFov with the
+// raise, the overlay lands at the top of it, and the glass sways by the
+// file's adsIdleAmount until a held breath (Shift) steadies it.
+const scopeElement = document.getElementById('scope');
+const scopeLens = document.getElementById('scope-lens');
+const scopeState = { blend: 0, fov: SCOPE.hipFov, swayTime: 0, breath: 0, holding: false, tired: 0 };
+// World cues: footsteps, landings, impacts, whiz-bys. Samples come from the
+// map's own soundbank when extracted; without them every cue is silent.
+let worldAudio = null;
+let surfaceProbe = null;
+let destructibles = null;
+let ambience = null;
+let music = null;
+let matchStartCued = false;
+let timerMusicCued = false;
+let lastTimerBeep = -1;
+let breathTimer = 0;
+const playerStride = new StrideTracker();
+const enemyStrides = new Map();
+// What the sprint gate decided this frame; the viewmodel and fire gate read it.
+let sprintState = { sprinting: false, canFire: true };
+const viewBob = new ViewBob();
+let weapon = null;
+
+// The prefiltered reflection probe supplies ambient and specular, so the
+// analytic lights only need to carve out direction. Both are turned down from
+// the flat-lit values they had before the environment existed; if the env
+// assets fail to load these still light the scene on their own.
+const hemi = new THREE.HemisphereLight(0xbfd8ff, 0x3a4a55, 0.35);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xfff2d8, 1.1);
+sun.position.set(-800, 1200, 600);
+scene.add(sun);
+
+// Baked SH probe volume: ambient that varies with where you are, rather than
+// one constant hemisphere everywhere. It supersedes `hemi`, which stays only
+// as the fallback if the volume fails to load. See .tools/bake_probes.mjs.
+// The bake integrates raw sky radiance, which is strongly blue; at full
+// strength it overwhelms the warm sunset grade. This scales it back to an
+// ambient term that shapes the scene without recolouring it.
+const PROBE_INTENSITY = 0.55;
+const lightProbe = new THREE.LightProbe();
+scene.add(lightProbe);
+const viewmodelProbe = new THREE.LightProbe();
+viewmodel.scene.add(viewmodelProbe);
+let probeVolume = null;
+let lightingApplied = null;
+// Started from loadEnvironment(), not on load: the volume is 1.1 MB and at
+// module scope it sat outside the boot gate, so every crawler bought the map's
+// ambient lighting. Nothing awaits it -- probes apply whenever they land.
+let probeVolumeStarted = false;
+function beginProbeVolume() {
+  if (probeVolumeStarted) return;
+  probeVolumeStarted = true;
+  loadProbeVolume({ layoutUrl: activeMapFiles.probesMeta, dataUrl: activeMapFiles.probes })
+    .then((volume) => {
+      probeVolume = volume;
+      hemi.intensity = 0;
+      for (const slot of weaponSlots.values()) slot.viewmodel.hemi.intensity = 0;
+      console.info('probe volume:', volume.layout.dims.join('x'), 'cells');
+    })
+    .catch((error) => console.warn('probe volume unavailable:', error));
+}
+
+// Sampling is cheap but not free, and ambient changes slowly relative to the
+// camera, so refresh on movement rather than every frame.
+const probeAt = new THREE.Vector3(Infinity, Infinity, Infinity);
+// The SH currently loaded into the scene probe. Per-object probes store their
+// difference against this, so they need the same numbers.
+const sceneSH = new Float32Array(12);
+const enemyProbes = new Map();
+const enemyProbePosition = new THREE.Vector3();
+
+function updateLightProbes(position) {
+  if (!probeVolume) return;
+
+  if (position.distanceToSquared(probeAt) >= 24 * 24) {
+    probeAt.copy(position);
+    probeVolume.sample(position.x, position.y, position.z, sceneSH);
+    for (let i = 0; i < 12; i++) sceneSH[i] *= PROBE_INTENSITY;
+    probeVolume.applyTo(lightProbe, position.x, position.y, position.z, PROBE_INTENSITY);
+    // The weapon sits in the player's own light, slightly lifted so it never
+    // silhouettes to black in an unlit interior.
+    probeVolume.applyTo(viewmodelProbe, position.x, position.y, position.z, PROBE_INTENSITY * 1.15);
+  }
+
+  // Enemies move independently of the camera, so each samples at its own feet.
+  // Six trilinear lookups per frame is not worth throttling.
+  for (const [enemy, probe] of enemyProbes) {
+    if (enemy.dead) continue;
+    enemy.root.getWorldPosition(enemyProbePosition);
+    // Sample at torso height rather than the feet, which sit in floor contact
+    // shadow and read darker than the body actually is.
+    enemyProbePosition.y += 36;
+    probe.update(probeVolume, enemyProbePosition, sceneSH, PROBE_INTENSITY);
+  }
+}
+
+// Output chain. THREE disables tone mapping when a scene is drawn into a render
+// target, so the target holds raw linear HDR and the post pass does exposure,
+// ACES, the sRGB encode and the vision-set LUT in that order. A half-float
+// target is required: an 8-bit one would clip highlights before they were ever
+// tone mapped, which is exactly what blows out the sky.
+let gradeTarget = null;
+let gradeMaterial = null;
+let gradeScene = null;
+let gradeCamera = null;
+let visionTone = null;
+
+// Tuned against a capture of the real game, which is markedly more muted than
+// ACES + the warm tint + the LUT produce on their own.
+const SATURATION = 0.78;
+
+function applyVisionTone(material, tone) {
+  material.uniforms.lift.value.fromArray(tone.lift);
+  material.uniforms.highlightTint.value.fromArray(tone.highlightTint);
+  material.uniforms.saturation.value = SATURATION;
+}
+
+function sizeGradeTarget() {
+  if (!gradeTarget) return;
+  const ratio = renderer.getPixelRatio();
+  gradeTarget.setSize(Math.floor(innerWidth * ratio), Math.floor(innerHeight * ratio));
+  graphicsRenderer.setSize(gradeTarget.width, gradeTarget.height);
+}
+
+function resizeGraphicsBuffer() {
+  // Change only the drawing buffer, preserving CSS touch coordinates and
+  // pointer capture while Auto adjusts resolution during a thumb gesture.
+  renderer.setDrawingBufferSize(innerWidth, innerHeight, graphics.pixelRatio);
+  sizeGradeTarget();
+}
+
+function refreshTextureFiltering() {
+  const maximum = renderer.capabilities.getMaxAnisotropy();
+  graphicsRenderer.filteredTextures = filterTextures(scene, graphics.anisotropy, maximum);
+  for (const slot of weaponSlots.values()) {
+    graphicsRenderer.filteredTextures += filterTextures(slot.viewmodel.scene, graphics.anisotropy, maximum);
+  }
+}
+
+function applyGraphicsSettings() {
+  resizeGraphicsBuffer();
+  if (gradeTarget) graphicsRenderer.configure(graphics.antialias, gradeTarget);
+  refreshTextureFiltering();
+}
+
+function setGraphicsPreset(preset) {
+  if (!graphics.setPreset(preset)) return false;
+  try { localStorage.setItem('hijacked.graphics', graphics.preset); } catch {}
+  applyGraphicsSettings();
+  renderGraphicsSettings();
+  return graphics.preset;
+}
+
+loadGradeLut(activeMap.lut).then((lut) => {
+  gradeTarget = new THREE.WebGLRenderTarget(1, 1, {
+    type: THREE.HalfFloatType,
+    depthBuffer: true,
+    stencilBuffer: false,
+    colorSpace: THREE.LinearSRGBColorSpace,
+  });
+  gradeTarget.texture.minFilter = THREE.LinearFilter;
+  gradeTarget.texture.magFilter = THREE.LinearFilter;
+  sizeGradeTarget();
+  graphicsRenderer.configure(graphics.antialias, gradeTarget);
+  gradeMaterial = new THREE.ShaderMaterial({
+    ...POST_SHADER,
+    uniforms: THREE.UniformsUtils.clone(POST_SHADER.uniforms),
+    depthTest: false,
+    depthWrite: false,
+  });
+  gradeMaterial.uniforms.lut.value = lut;
+  if (lut?.image?.height) gradeMaterial.uniforms.lutRows.value = lut.image.height;
+  gradeMaterial.uniforms.amount.value = lut ? 1 : 0;
+  gradeScene = new THREE.Scene();
+  gradeCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  gradeScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), gradeMaterial));
+  // The pass now owns tone mapping, so take the exposure the renderer was
+  // configured with and stop THREE applying it a second time on the quad.
+  gradeMaterial.uniforms.exposure.value = renderer.toneMappingExposure;
+  if (visionTone) applyVisionTone(gradeMaterial, visionTone);
+  console.info(`post: tone map + ${lut ? 'vision-set LUT' : 'no LUT'}, exposure ${renderer.toneMappingExposure}`);
+});
+
+// Sky, probe, tone mapping and fog tint all come from the map's own assets.
+// See export/web/lighting.js and .tools/bake_env.mjs.
+//
+// Kicked off from start() rather than on load. The probe set and the sky faces
+// are about 2.2 MB, and running this at module scope put them outside the boot
+// gate at the end of the file -- a crawler that never interacted still paid for
+// the map's lighting. Memoized, because start() is what awaits it.
+let environmentReady = null;
+function loadEnvironment() {
+  if (environmentReady) return environmentReady;
+  beginProbeVolume();
+  environmentReady = applyEnvironmentLighting(renderer, scene, {
+    envPath: activeMap.env,
+    probePath: activeMap.probe,
+    visionUrl: activeMap.vision,
+  })
+    .then((applied) => {
+      lightingApplied = applied;
+      // Feed the vision set's split tone into the post pass once it is built.
+      if (applied.vision) {
+        visionTone = applied.vision;
+        if (gradeMaterial) applyVisionTone(gradeMaterial, visionTone);
+      }
+      if (applied.environmentTexture) {
+        for (const slot of weaponSlots.values()) slot.viewmodel.setEnvironment(applied.environmentTexture);
+      } else {
+        // No probe/sky: restore the standalone lighting levels.
+        hemi.intensity = 1.1;
+        sun.intensity = 1.6;
+        for (const slot of weaponSlots.values()) {
+          slot.viewmodel.hemi.intensity = 1.3;
+          slot.viewmodel.lamp.intensity = 1.7;
+        }
+      }
+      console.info('environment lighting:', applied);
+      return applied;
+    })
+    .catch((error) => {
+      console.warn('environment lighting unavailable:', error);
+      hemi.intensity = 1.1;
+      sun.intensity = 1.6;
+      return null;
+    });
+  return environmentReady;
+}
+
+const blocker = document.getElementById('blocker');
+// The room screen's own buttons are wired by multiplayer.js; these drive the shell.
+const menuButtons = [...blocker.querySelectorAll('.fe-btn[data-action]')];
+// Menu navigation and confirm cues from the game's own UI set, once the
+// world audio has loaded; the title screen is silent before that.
+function menuCue(alias) {
+  worldAudio?.play(alias, { ui: true, gain: 0.7, cents: 0 });
+}
+for (const element of blocker.querySelectorAll('.fe-btn, .fe-class-card')) {
+  element.addEventListener('mouseenter', () => menuCue('uin_main_nav'));
+  element.addEventListener('click', () => menuCue(element.dataset.action === 'class-back' ? 'uin_cmn_backout' : 'uin_main_enter'));
+}
+
+// Title-screen map picker. The map is fixed before the boot gate fires, so a
+// different choice reloads the page with `?map=` rather than swapping live.
+const mapRow = document.getElementById('fe-maps');
+for (const id of MAP_IDS) {
+  const map = MAPS[id];
+  const card = document.createElement('figure');
+  card.className = 'fe-card fe-map';
+  card.dataset.map = id;
+  card.dataset.name = map.name;
+  card.tabIndex = map.baked ? 0 : -1;
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', `Select ${map.name}`);
+  card.setAttribute('aria-pressed', String(id === activeMap.id));
+  card.setAttribute('aria-disabled', String(!map.baked));
+  if (id === activeMap.id) card.classList.add('active');
+  const art = document.createElement('img');
+  art.alt = map.name;
+  art.width = 256;
+  art.height = 128;
+  // A map whose bake has not landed stays visible but cannot be picked, and
+  // nothing is fetched for it: a probe would be a 404 on every title screen.
+  // A baked map whose title card is not exported yet shows its name instead.
+  if (map.baked && map.card) art.src = map.card;
+  else card.classList.add('no-art');
+  if (!map.baked) card.classList.add('unavailable');
+  const caption = document.createElement('figcaption');
+  if (!map.baked) caption.textContent = `${map.name} · coming soon`;
+  else if (id === activeMap.id) caption.textContent = `${map.name} · ready to deploy`;
+  else caption.textContent = `${map.name} · switch map`;
+  card.append(art, caption);
+  card.addEventListener('keydown', (event) => {
+    if (event.code !== 'Enter' && event.code !== 'Space') return;
+    event.preventDefault();
+    event.stopPropagation();
+    card.click();
+  });
+  card.addEventListener('mouseenter', () => menuCue('uin_main_nav'));
+  card.addEventListener('click', (event) => {
+    // The shell treats any click as "play". The loaded map's card keeps
+    // that meaning; another map's card reloads instead, so it must not.
+    if (id === activeMap.id) return;
+    menuCue('uin_main_enter');
+    event.stopPropagation();
+    if (!map.baked) return;
+    rememberMap(mapStorage, id);
+    const url = new URL(location.href);
+    url.searchParams.set('map', id);
+    location.assign(url);
+  });
+  mapRow.appendChild(card);
+}
+// Create-a-class is built from the registry: one tab per class, one card per
+// weapon or grenade. A weapon without exported card art shows its name.
+const classGrid = document.getElementById('fe-class-grid');
+const classTabRow = document.getElementById('fe-class-tabs');
+function buildClassCard(entry) {
+  const card = document.createElement('button');
+  card.type = 'button';
+  card.className = 'fe-class-card';
+  card.dataset.weaponId = entry.id;
+  card.dataset.weaponClass = entry.class;
+  const art = document.createElement('span');
+  art.className = 'fe-class-art';
+  const image = document.createElement('img');
+  if (entry.cardArt) {
+    image.src = entry.cardArt;
+    image.alt = entry.name;
+    art.appendChild(image);
+  } else if (entry.icon) {
+    image.src = entry.icon;
+    image.alt = entry.name;
+    image.style.height = '60%';
+    art.appendChild(image);
+  } else {
+    card.classList.add('no-art');
+    art.textContent = entry.name;
+  }
+  const info = document.createElement('span');
+  info.className = 'fe-class-info';
+  const name = document.createElement('strong');
+  name.className = 'fe-class-name';
+  name.textContent = entry.name;
+  const role = document.createElement('span');
+  role.className = 'fe-class-role';
+  role.textContent = entry.role ?? '';
+  const stats = document.createElement('span');
+  stats.className = 'fe-class-stats';
+  const stat = (label, value, icon = null) => {
+    const item = document.createElement('span');
+    item.className = 'fe-class-stat';
+    if (icon) {
+      const glyph = document.createElement('img');
+      glyph.className = 'fe-class-fire';
+      glyph.src = `ui/hud/${icon}.png`;
+      glyph.alt = icon.replace('hud_mp_firerate_', '');
+      item.appendChild(glyph);
+    }
+    const strong = document.createElement('b');
+    strong.textContent = value;
+    item.append(strong, document.createTextNode(` ${label}`));
+    stats.appendChild(item);
+  };
+  if (entry.roundsPerMinute) {
+    stat('RPM', entry.roundsPerMinute, entry.fireTypeIcon);
+    stat('MAG', entry.magazineSize);
+    stat('DMG', entry.damage);
+  } else if (entry.kind) {
+    if (entry.innerDamage) stat('DMG', entry.innerDamage);
+    if (entry.explosionRadius) stat('RADIUS', entry.explosionRadius);
+    if (entry.smokeDuration) stat('SEC', entry.smokeDuration);
+    stat('FUSE', entry.fuse);
+  }
+  const state = document.createElement('span');
+  state.className = 'fe-class-state';
+  state.dataset.cardState = '';
+  state.textContent = 'loading';
+  info.append(name, role, stats, state);
+  card.append(art, info);
+  return card;
+}
+const classCards = [];
+for (const classId of WEAPON_CLASS_IDS) {
+  for (const entry of [...weaponsOfClass(classId), ...equipmentOfClass(classId)]) {
+    const card = buildClassCard(entry);
+    classGrid.appendChild(card);
+    classCards.push(card);
+  }
+}
+const classTabs = WEAPON_CLASS_IDS.map((classId) => {
+  const cls = WEAPON_CLASSES[classId];
+  const tab = document.createElement('button');
+  tab.type = 'button';
+  tab.className = 'fe-class-tab';
+  tab.dataset.weaponClass = classId;
+  tab.textContent = cls.label;
+  const pick = document.createElement('small');
+  pick.dataset.tabPick = '';
+  tab.appendChild(pick);
+  classTabRow.appendChild(tab);
+  return tab;
+});
+for (const element of [...classCards, ...classTabs]) {
+  element.addEventListener('mouseenter', () => menuCue('uin_main_nav'));
+  element.addEventListener('click', () => menuCue('uin_main_enter'));
+}
+const frontend = new Frontend({
+  waitingForInput: blocker.dataset.screen === 'welcome',
+  elements: {
+    root: blocker,
+    bar: document.getElementById('fe-bar'),
+    percent: document.getElementById('fe-percent'),
+    caption: document.getElementById('fe-caption'),
+    message: document.getElementById('fe-message'),
+    controls: document.getElementById('fe-controls'),
+    buttons: menuButtons,
+    classCards,
+    classTabs,
+    classSelection: document.getElementById('fe-class-selection'),
+    classSub: document.getElementById('fe-class-sub'),
+    classConfirm: blocker.querySelector('[data-action="class-confirm"]'),
+    onAction: (name) => menuAction(name),
+  },
+  onPlay: () => requestPlay(),
+  onResume: () => requestPlay(),
+  onSelectLoadout: (picked) => applyLoadout(picked),
+  onOpenClass: () => loadAllWeaponSlots(),
+});
+frontend.setClasses(WEAPON_CLASS_IDS.map((id) => WEAPON_CLASSES[id]));
+frontend.setWeapons([
+  ...Object.values(WEAPON_DEFINITIONS).map((definition) => ({
+    id: definition.id,
+    name: definition.name,
+    class: definition.class,
+    ready: false,
+  })),
+  // Grenades have no viewmodel to fetch, so they are ready from the start.
+  ...Object.values(EQUIPMENT).map((item) => ({ id: item.id, name: item.name, class: item.class, ready: true })),
+], loadout);
+
+// The title-screen play counter. It fetches on its own and is never awaited by
+// the load, so a blocked request or an endpoint that is not there leaves the
+// line blank instead of holding up the game. Reading `localStorage` at all
+// throws in a sandboxed frame, hence the guard around the property itself.
+const playCounter = new PlayCounter({
+  storage: (() => { try { return window.localStorage; } catch { return null; } })(),
+  fetch: (...args) => window.fetch(...args),
+});
+const countLine = document.getElementById('fe-count');
+function renderPlayCount() {
+  if (!countLine) return;
+  countLine.textContent = playCounter.text;
+  countLine.hidden = !playCounter.text;
+}
+playCounter.load().then(renderPlayCount);
+// Weights are roughly the wall-clock share each stage takes, not its byte size.
+frontend.expect({
+  map: 14,
+  textures: 4,
+  collision: 2,
+  navigation: 1,
+  viewmodel: 1,
+  enemy: 2,
+  shaders: 2,
+});
+const hud = document.getElementById('hud');
+const damageOverlay = document.getElementById('damage');
+const crosshair = document.getElementById('crosshair');
+const hitmarker = document.getElementById('hitmarker');
+const matchStatus = document.getElementById('match-status');
+const killfeed = document.getElementById('killfeed');
+const medalLayer = document.getElementById('medals');
+const deathCard = document.getElementById('death-card');
+const deathKiller = document.getElementById('death-killer');
+const respawnCopy = document.getElementById('respawn-copy');
+const scoreboard = document.getElementById('scoreboard');
+const scoreboardRows = document.getElementById('scoreboard-rows');
+const matchResult = document.getElementById('match-result');
+const equipmentHud = document.getElementById('hud-equipment');
+function renderEquipmentHud() {
+  for (const count of document.querySelectorAll('[data-equipment-count]')) {
+    const remaining = equipmentAmmo[count.dataset.equipmentCount] ?? 0;
+    count.textContent = remaining;
+    count.closest('button').setAttribute('aria-disabled', String(remaining <= 0));
+  }
+  equipmentHud.replaceChildren(...['lethal', 'tactical'].map((cls) => {
+    const item = EQUIPMENT[loadout[cls]];
+    if (!item) return null;
+    const row = document.createElement('div');
+    row.className = 'hud-equip';
+    row.dataset.empty = String((equipmentAmmo[item.kind] ?? 0) <= 0);
+    const icon = document.createElement('img');
+    icon.src = item.icon;
+    icon.alt = item.name;
+    const count = document.createElement('span');
+    count.textContent = String(equipmentAmmo[item.kind] ?? 0);
+    const key = document.createElement('small');
+    key.textContent = WEAPON_CLASSES[cls].key.replace('Key', '');
+    row.append(icon, count, key);
+    return row;
+  }).filter(Boolean));
+}
+renderEquipmentHud();
+const hudArt = new Hud({
+  minimap: document.getElementById('hud-minimap'),
+  compass: document.getElementById('hud-compass'),
+  ammoRow: document.getElementById('hud-ammo-row'),
+  weaponName: document.getElementById('hud-weapon-name'),
+  damage: damageOverlay,
+  radar: activeMap.radar,
+});
+const lastEnemyShots = new Map();
+const keys = Object.create(null);
+const clock = new THREE.Clock();
+const bootStartedAt = performance.now();
+const frameWorkSamples = new Float32Array(180);
+const raycaster = new THREE.Raycaster();
+raycaster.firstHitOnly = true;
+const down = new THREE.Vector3(0, -1, 0);
+const lookCenter = new THREE.Vector2(0, 0);
+const yawPitch = new THREE.Euler(0, 0, 0, 'YXZ');
+
+let ready = false;
+let locked = false;
+let mouseFire = false;
+let mouseAim = false;
+let player = null;
+let navigation = null;
+let collisionRoot = null;
+let collisionWorld = null;
+let mapOptimization = null;
+let navigationVisible = false;
+let collisionVisible = false;
+let pathPoints = 0;
+let enemies = null;
+let playerHealth = null;
+let hitmarkerLife = 0;
+let hitmarkerMaxLife = 0.18;
+let automationPaused = false;
+let enemySimulationActive = true;
+let startupMilliseconds = null;
+let frameWorkSampleCount = 0;
+let frameWorkSampleIndex = 0;
+let frameWorkWarmupUntil = Number.POSITIVE_INFINITY;
+let hudElapsed = 1;
+let lastAdsState = false;
+let deathSource = null;
+let scoreboardHeld = false;
+let matchEndedHandled = false;
+let medals = null;
+const medalPopups = [];
+const MEDAL_HOLD_SECONDS = 2.1;
+const MEDAL_FADE_SECONDS = 0.45;
+
+const match = new FreeForAllMatch({ scoreLimit: 30, timeLimitSeconds: 300 });
+match.register('player', 'YOU', { human: true });
+const BOT_NAMES = ['ADMIRAL', 'CORSAIR', 'DEADEYE', 'MARINER', 'ROGUE', 'VIPER'];
+
+// Play with friends (multiplayer.js). The session exists once the game has
+// loaded. On the host, `remotes` are its guests and `hostProxy` its own body
+// as their target; on a guest, `avatars` are the other players it draws.
+let mp = null;
+const remotes = new Map();
+const avatars = new Map();
+let hostProxy = null;
+const poseHistory = new PoseHistory();
+const pendingShots = [];
+const pendingGrenades = [];
+let matchSentText = '';
+let matchSentAt = 0;
+// A guest's last host teleport (spawn or refused move) and whether its next
+// one starts a fresh life: full ammo, grenades and the primary.
+let selfTp = 0;
+let selfFullReset = true;
+// A guest's class reaches the host with its first snapshot, when the host is surely running the match.
+let loadoutSent = false;
+// Players who left, so snapshots still in a guest's buffer do not draw them again.
+const departed = new Set();
+let deathKillerId = null;
+let lastMovement = { forward: 0, strafe: 0 };
+let toastTimer = 0;
+// Debug staging: the session id of a player whose drawn body the camera follows, as a player tracking it would.
+let trackedPlayer = null;
+// What a guest has heard from its host, for the debug surface.
+const multiplayerEvents = { hits: 0, damage: 0, kills: 0 };
+// How far back the host checked its guests' rounds: the last one, and how many asked for more than MAX_REWIND.
+const rewindStats = { shots: 0, clamped: 0, lastSeconds: 0 };
+const online = () => Boolean(mp?.running);
+/** The local player's id in the standings: 'player' solo and on the host, the session id on a guest. */
+const selfId = () => (mp?.isClient ? mp.id : 'player');
+
+const touchControls = new TouchControls({
+  root: document.getElementById('touch-controls'),
+  onLook: (x, y, sensitivity) => {
+    if (!canControlPlayer()) return;
+    // CSS pixels make the same thumb gesture independent of device DPI.
+    applyLook(x, y, 0.005 * sensitivity);
+  },
+  onAction: (action, phase) => {
+    if (action === 'frag' && phase === 'cancel') { cancelHeldGrenade(); return; }
+    if (!canControlPlayer()) return;
+    if (action === 'reload') reloadWeapon();
+    if (action === 'switch') switchHeldWeapon();
+    if (action === 'melee') meleeAttack();
+    if (action === 'smoke') beginGrenade('tactical');
+    if (action === 'frag' && phase === 'start') beginGrenade('lethal');
+    if (action === 'frag' && phase === 'release') endGrenade('lethal');
+  },
+  onModeChange: () => {
+    graphics.mobile = true;
+    applyGraphicsSettings();
+    updateControlHints();
+  },
+});
+const graphicsSelect = document.getElementById('touch-graphics');
+function renderGraphicsSettings() {
+  graphicsSelect.value = graphics.preset;
+  document.getElementById('touch-graphics-hint').textContent = {
+    auto: 'Balances sharpness and smooth play.',
+    performance: 'Lighter graphics for smoother play.',
+    quality: 'Sharper detail and smoother edges. Uses more battery.',
+  }[graphics.preset];
+}
+renderGraphicsSettings();
+graphicsSelect.addEventListener('change', () => setGraphicsPreset(graphicsSelect.value));
+const touchSensitivity = document.getElementById('touch-sensitivity');
+const sensitivityValue = document.getElementById('touch-sensitivity-value');
+touchSensitivity.value = touchControls.sensitivity;
+sensitivityValue.textContent = `${touchControls.sensitivity.toFixed(1)}×`;
+document.getElementById('touch-settings').addEventListener('click', event => event.stopPropagation());
+touchSensitivity.addEventListener('input', () => {
+  touchControls.setSensitivity(touchSensitivity.value);
+  sensitivityValue.textContent = `${touchControls.sensitivity.toFixed(1)}×`;
+});
+const fullscreenButton = document.getElementById('touch-fullscreen');
+fullscreenButton.hidden = !document.fullscreenEnabled;
+fullscreenButton.addEventListener('click', async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+  } catch { /* Playing in the browser remains available when full screen is denied. */ }
+});
+document.addEventListener('fullscreenchange', () => {
+  fullscreenButton.textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen';
+});
+// Secondary touch contacts do not consistently synthesize clicks. Menu
+// shortcuts must still work while the other thumb is holding movement/fire.
+let suppressShortcutClick = false;
+document.addEventListener('pointerdown', () => { suppressShortcutClick = false; }, true);
+document.addEventListener('click', (event) => {
+  if (!suppressShortcutClick) return;
+  suppressShortcutClick = false;
+  if (event.detail === 0) return;
+  // Opening the menu under a finger can retarget its later compatibility
+  // click to the shell and immediately resume. Consume that same gesture;
+  // a fresh pointerdown always starts a new, independent menu interaction.
+  event.preventDefault();
+  event.stopImmediatePropagation();
+}, true);
+function bindTouchShortcut(id, action) {
+  const button = document.getElementById(id);
+  button.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'touch') return;
+    event.preventDefault();
+    suppressShortcutClick = true;
+    action();
+  });
+  button.addEventListener('click', (event) => {
+    if (event.pointerType === 'touch' || event.sourceCapabilities?.firesTouchEvents) return;
+    action();
+  });
+}
+bindTouchShortcut('touch-pause', () => suspendPlay());
+bindTouchShortcut('touch-scores', () => {
+  clearKeys();
+  scoreboardHeld = true;
+  renderMatchUi();
+});
+document.getElementById('touch-score-close').addEventListener('click', () => {
+  scoreboardHeld = false;
+  renderMatchUi();
+});
+document.getElementById('touch-restart').addEventListener('click', () => {
+  restartMatch();
+  requestPlay();
+});
+
+function canControlPlayer() {
+  return ready && locked && !frontend.visible && !automationPaused &&
+    !(touchControls.mode && scoreboardHeld) && match.phase === 'playing' && !playerHealth?.dead;
+}
+
+function applyLook(x, y, sensitivity = 0.0022) {
+  sensitivity *= zoomLookScale(camera.fov, SCOPE.hipFov);
+  yawPitch.setFromQuaternion(camera.quaternion);
+  yawPitch.y -= x * sensitivity;
+  yawPitch.x = THREE.MathUtils.clamp(yawPitch.x - y * sensitivity, -Math.PI / 2, Math.PI / 2);
+  camera.quaternion.setFromEuler(yawPitch);
+  viewmodel.addLook(x, y);
+}
+
+function requestPlay() {
+  if (!ready) return;
+  const audio = weaponEffects.audio.ensureContext();
+  if (audio?.state === 'suspended') void audio.resume().catch(() => {});
+  // Menu buttons must not retain keyboard focus over gameplay.
+  document.activeElement?.blur();
+  if (touchControls.mode) {
+    setAutomationActive(true);
+    playCounter.record().then(renderPlayCount);
+  } else {
+    renderer.domElement.requestPointerLock()?.catch(() => frontend.suspend());
+  }
+}
+
+function suspendPlay() {
+  clearKeys();
+  if (!locked) return;
+  setAutomationActive(false);
+  if (document.pointerLockElement) document.exitPointerLock();
+}
+
+function updateControlHints() {
+  if (!ready) return;
+  frontend.controls = touchControls.mode ? [
+    'Left thumb move · Right thumb swipe to look',
+    'Hold FIRE and drag to aim · JUMP · RELOAD',
+    'SWITCH guns · MELEE · Hold FRAG to cook, release to throw · Tap SMOKE',
+    'Pause for classes and sensitivity · Scores at top right',
+  ] : [
+    'WASD move · Shift sprint · Space jump · C/Ctrl crouch',
+    'Left mouse fire · Right mouse aim · R reload · B respawn',
+    '1/2 or wheel switch guns · E melee · G frag (hold to cook) · Q smoke',
+    'K cycle camo · N navmesh · V collision · P path · Esc pause',
+  ];
+  frontend.render();
+  const prompt = document.querySelector('.fe-prompt');
+  if (prompt && touchControls.mode) prompt.textContent = 'Tap to deploy';
+}
+
+const weaponEffects = new WeaponEffects(scene);
+// Reload audio is authored into the clip as notetracks, so the cues play from
+// the animation's own timing rather than a hand-written schedule.
+for (const slot of weaponSlots.values()) {
+  const { definition, viewmodel: slotViewmodel } = slot;
+  slotViewmodel.onNotetrack = (cue) => {
+    // Reload cues come from the foley map; the knife and grenade clips author
+    // world cues (the pin, the swing) that live in the world set instead.
+    if (cue.type === 'sound' && !weaponEffects.playFoley(cue.name)) worldAudio?.play(cue.name, { gain: 0.8 });
+  };
+  slotViewmodel.onMeleeStrike = () => { if (activeWeaponId === definition.id) meleeStrike(); };
+  slotViewmodel.onScopeChange = (scoped) => { if (activeWeaponId === definition.id) setScoped(scoped, definition); };
+  slotViewmodel.onThrowRelease = (kind) => { if (activeWeaponId === definition.id) releaseGrenade(kind); };
+  slot.controller = new WeaponController({
+    magazineSize: definition.magazineSize,
+    reserveAmmo: definition.reserveAmmo,
+    roundsPerMinute: definition.roundsPerMinute,
+    fireMode: definition.fireMode,
+    burstCount: definition.burstCount,
+    initialRoundsPerMinute: definition.initialRoundsPerMinute,
+    initialShotCount: definition.initialShotCount,
+    onFire: (shot) => {
+      if (activeWeaponId === definition.id) fireShot(shot);
+    },
+    onEmpty: () => {
+      if (activeWeaponId !== definition.id) return;
+      // Nothing left to load: the rifle's own dry fire.
+      if (!weapon.canReload) worldAudio?.play(weaponCue(definition.id, 'dryfire_plr'), { gain: 0.8 });
+      reloadWeapon();
+    },
+  });
+}
+weapon = activeWeaponSlot.controller;
+
+// Viewmodels load one rifle at a time. Loading all nine up front spent about
+// 6 MB on every boot to draw the one the player is holding, so the other eight
+// wait for the class screen to open -- a player who never browses classes never
+// fetches them. Memoized on the slot, so reopening the screen or confirming a
+// card mid-load does not start a second transfer.
+function loadWeaponSlot(slot) {
+  if (slot.loading) return slot.loading;
+  const { definition, viewmodel: slotViewmodel } = slot;
+  slot.loading = (async () => {
+    try {
+      await slotViewmodel.load(
+        VIEWMODEL_HANDS,
+        definition.viewmodelUrl,
+        definition.magazineUrl,
+        (label, event) => progress(label, event),
+        {
+          magazineOffset: definition.magazineOffset,
+          magazineRotation: definition.magazineRotation,
+          hiddenTags: definition.hiddenTags,
+        },
+      );
+      // Rifles melee with the knife clips and every gun throws with the M67's.
+      await slotViewmodel.loadClips({
+        ...definition.clips,
+        melee: definition.clips.melee ?? MELEE.clips.swipe,
+        pullPin: THROW_CLIPS.pullPin,
+        throw: THROW_CLIPS.throw,
+      });
+      await attachHeldProps(slotViewmodel);
+      filterTextures(slotViewmodel.scene, graphics.anisotropy, renderer.capabilities.getMaxAnisotropy());
+      frontend.setWeaponReady(definition.id, true);
+    } catch (error) {
+      frontend.setWeaponReady(definition.id, false);
+      console.warn(`${definition.name} viewmodel unavailable:`, error);
+      // Dropping the memo lets the next class-screen open retry the rifle.
+      slot.loading = null;
+    }
+  })();
+  return slot.loading;
+}
+
+/** Every rifle the class screen can offer, loaded and settled. */
+function loadAllWeaponSlots() {
+  return Promise.all([...weaponSlots.values()].map((slot) => loadWeaponSlot(slot)));
+}
+
+// The knife and the two grenade bodies ride the hands of every viewmodel.
+// Loaded once, cloned per slot.
+let heldPropsLoading = null;
+function loadHeldProps() {
+  if (heldPropsLoading) return heldPropsLoading;
+  heldPropsLoading = (async () => {
+    const manager = new THREE.LoadingManager();
+    manager.setURLModifier((url) => (url.endsWith('.dds') ? `${url.slice(0, -4)}.webp` : url));
+    const propLoader = new GLTFLoader(manager);
+    const load = async (url) => {
+      try {
+        const gltf = await loadGltfAsset(propLoader, url);
+        return gltf.scene;
+      } catch (error) {
+        console.warn(`held prop unavailable: ${url}`, error);
+        return null;
+      }
+    };
+    const [knife, ...bodies] = await Promise.all([
+      load(MELEE.knifeModelUrl),
+      ...Object.values(EQUIPMENT).map((item) => load(item.modelUrl)),
+    ]);
+    knifeScene = knife;
+    Object.values(EQUIPMENT).forEach((item, index) => {
+      if (bodies[index]) grenadeScenes.set(item.kind, bodies[index]);
+    });
+  })();
+  return heldPropsLoading;
+}
+async function attachHeldProps(slotViewmodel) {
+  await loadHeldProps();
+  if (knifeScene) slotViewmodel.attachKnife(knifeScene, MELEE.knifeTag);
+  for (const [kind, scene] of grenadeScenes) slotViewmodel.attachGrenadeModel(kind, scene);
+}
+
+const previousEquipment = { lethal: loadout.lethal, tactical: loadout.tactical };
+/** Equip a class: the two guns and the two grenades. Returns the loadout. */
+function applyLoadout(picked) {
+  for (const cls of WEAPON_CLASS_IDS) {
+    const id = picked?.[cls];
+    if (!id) continue;
+    if ((cls === 'primary' || cls === 'secondary') && findWeapon(id)?.class === cls) loadout[cls] = findWeapon(id).id;
+    if ((cls === 'lethal' || cls === 'tactical') && EQUIPMENT[id]?.class === cls) loadout[cls] = id;
+  }
+  // Online, re-equipping the same grenades does not refill them mid-life; the host would not either.
+  const grenadesChanged = picked?.lethal !== undefined && picked.lethal !== previousEquipment.lethal
+    || picked?.tactical !== undefined && picked.tactical !== previousEquipment.tactical;
+  if (!online() || grenadesChanged) resetEquipment();
+  previousEquipment.lethal = loadout.lethal;
+  previousEquipment.tactical = loadout.tactical;
+  renderEquipmentHud();
+  if (mp?.isClient) mp.action('loadout', { ...loadout });
+  // Bring the primary up if the gun in hand is no longer part of the class.
+  if (activeWeaponId !== loadout.primary && activeWeaponId !== loadout.secondary) selectWeapon(loadout.primary);
+  else if (activeWeaponSlot.definition.class === 'primary' && activeWeaponId !== loadout.primary) selectWeapon(loadout.primary);
+  else if (activeWeaponSlot.definition.class === 'secondary' && activeWeaponId !== loadout.secondary) selectWeapon(loadout.secondary);
+  return { ...loadout };
+}
+
+/** One camo for every slot, so switching guns keeps the skin. */
+function setCamoEverywhere(name) {
+  let applied = false;
+  for (const slot of weaponSlots.values()) {
+    if (slot.viewmodel.setCamo(name)) applied = true;
+  }
+  if (applied) { currentCamo = name; refreshTextureFiltering(); }
+  return applied;
+}
+
+/** The other gun of the class: primary to secondary and back. */
+function switchHeldWeapon(step = 1) {
+  const next = nextHeldWeapon(loadout, activeWeaponId, step);
+  if (!next || next === activeWeaponId) return false;
+  const slot = weaponSlots.get(next);
+  if (!slot?.viewmodel.ready) {
+    // A secondary picked from the menu is fetched on first use.
+    loadWeaponSlot(slot).then(() => { if (canControlPlayer()) selectWeapon(next); });
+    return false;
+  }
+  return selectWeapon(next);
+}
+
+function selectWeapon(id) {
+  const definition = findWeapon(id);
+  const next = definition ? weaponSlots.get(definition.id) : null;
+  if (!next?.controller || !next.viewmodel.ready) return false;
+  if (next === activeWeaponSlot) return activeWeaponId;
+  // A weapon picked by key becomes that class's slot, so the wheel keeps it.
+  if (definition.class === 'primary' || definition.class === 'secondary') loadout[definition.class] = definition.id;
+
+  weapon.setTrigger(false);
+  weapon.cancelReload();
+  viewmodel.resetActions({ preserveChamber: true });
+  throwState = null;
+  viewmodel.resetAiming();
+  setScoped(false, null);
+  viewmodel.scene.visible = false;
+
+  activeWeaponSlot = next;
+  activeWeaponId = next.definition.id;
+  weapon = next.controller;
+  viewmodel = next.viewmodel;
+  gunplay = next.gunplay;
+  if (viewmodel.pendingRechamber) viewmodel.rechamber();
+  gunplay.spread.reset();
+  gunplay.kick.reset();
+  gunplay.sprint.reset();
+  viewmodelProbe.removeFromParent();
+  viewmodel.scene.add(viewmodelProbe);
+  viewmodel.scene.visible = !playerHealth?.dead;
+  viewmodel.resetAiming();
+  scopeState.fov = camera.fov = SCOPE.hipFov;
+  camera.updateProjectionMatrix();
+  crosshair.classList.remove('ads');
+  lastAdsState = false;
+  // Holster the outgoing gun, then bring the new one up; pistols come up fast.
+  const pistol = next.definition.class === 'secondary';
+  worldAudio?.play(pistol ? worldAudio.resolve(['fly_pistol_down_plr', 'fly_generic_down_plr']) : 'fly_generic_down_plr', { gain: 0.6 });
+  setTimeout(() => worldAudio?.play(pistol ? worldAudio.resolve(['fly_pistol_raise_plr', 'fly_generic_raise_plr']) : 'fly_generic_raise_plr', { gain: 0.7 }), pistol ? 150 : 250);
+
+  if (globalThis.hijacked) {
+    globalThis.hijacked.weapon = weapon;
+    globalThis.hijacked.viewmodel = viewmodel;
+  }
+  return activeWeaponId;
+}
+
+const pathGeometry = new THREE.BufferGeometry();
+const pathLine = new THREE.Line(
+  pathGeometry,
+  new THREE.LineBasicMaterial({ color: 0x00ffff, depthTest: false, transparent: true, opacity: .95 }),
+);
+pathLine.renderOrder = 50;
+scene.add(pathLine);
+
+function progress(name, event) {
+  frontend.progress(name, event);
+}
+
+function combatantId(actor) {
+  if (!actor) return null;
+  if (actor === player || actor === hostProxy) return 'player';
+  if (actor.remoteId) return actor.remoteId;
+  return Number.isInteger(actor.index) ? `bot-${actor.index}` : null;
+}
+
+// A multiplayer guest spawns where its host says; everyone else picks a safe marker.
+function resetPlayerLife(spawnOverride = null) {
+  clearKeys();
+  const spawn = spawnOverride ?? (mp?.isClient ? null : enemies?.safeSpawnFor(player));
+  if (spawn) {
+    player.setSpawn(spawn.position, { eye: false });
+    camera.quaternion.setFromEuler(new THREE.Euler(0, spawn.yaw, 0, 'YXZ'));
+  }
+  player.respawn();
+  player.setEnabled(true);
+  worldAudio?.play('fly_generic_first_raise_plr', { gain: 0.7 });
+  for (const slot of weaponSlots.values()) {
+    slot.controller.resetLoadout();
+    slot.viewmodel.resetActions();
+    slot.viewmodel.scene.visible = false;
+  }
+  throwState = null;
+  setScoped(false, null);
+  scopeState.breath = scopeState.tired = 0;
+  resetEquipment();
+  renderEquipmentHud();
+  // A new life starts on the primary, as in the game.
+  if (activeWeaponId !== loadout.primary && weaponSlots.get(loadout.primary)?.viewmodel.ready) selectWeapon(loadout.primary);
+  viewmodel.scene.visible = true;
+  viewmodel.setAiming(false);
+  deathSource = null;
+  deathKillerId = null;
+  document.body.classList.remove('player-dead');
+  deathCard.style.display = 'none';
+}
+
+/** The scoreboard, medals and end-of-match state a new match starts from. */
+function resetMatchUi() {
+  medals?.reset();
+  for (const { popup } of medalPopups) popup.remove();
+  medalPopups.length = 0;
+  matchEndedHandled = false;
+  scoreboardHeld = false;
+  scoreboard.classList.remove('visible');
+  renderMatchUi();
+}
+
+// Only the host restarts a multiplayer match; its guests follow its snapshots.
+function restartMatch() {
+  if (mp?.isClient) return;
+  match.reset();
+  enemies?.enemies.forEach((enemy) => { if (!enemy.benched) enemy.spawnAt(enemies.respawnFor(enemy)); });
+  for (const remote of remotes.values()) remote.health.respawn();
+  playerHealth?.respawn();
+  mp?.event({ type: 'restart' });
+  resetMatchUi();
+}
+
+function renderMatchUi() {
+  const state = match.getState();
+  const self = selfId();
+  const playerEntry = state.standings.find((entry) => entry.id === self);
+  const minutes = Math.floor(state.remainingSeconds / 60);
+  const seconds = String(state.remainingSeconds % 60).padStart(2, '0');
+  matchStatus.innerHTML = `${playerEntry?.kills ?? 0} / ${state.scoreLimit} &nbsp; <small>${minutes}:${seconds} · #${playerEntry?.place ?? 1}</small>`;
+
+  killfeed.replaceChildren(...state.feed.map((event) => {
+    const row = document.createElement('div');
+    row.className = 'killfeed-entry';
+    const killer = document.createElement('span');
+    killer.className = 'killer';
+    killer.textContent = event.killer;
+    row.append(killer, document.createTextNode(`  ›  ${event.victim}`));
+    // A long shot shows its range, the way the game calls out the medal.
+    if (event.distance >= LONGSHOT_DISTANCE) {
+      const range = document.createElement('span');
+      range.className = 'range';
+      range.textContent = `${Math.round(metresFromUnits(event.distance))} m`;
+      row.appendChild(range);
+    }
+    return row;
+  }));
+
+  scoreboardRows.replaceChildren(...state.standings.map((entry) => {
+    const row = document.createElement('div');
+    row.className = `scoreboard-row${entry.id === self ? ' player' : entry.human ? ' friend' : ''}`;
+    for (const value of [entry.place, entry.name, entry.kills, entry.deaths]) {
+      const cell = document.createElement('span');
+      cell.textContent = value;
+      row.appendChild(cell);
+    }
+    return row;
+  }));
+  const winner = state.standings.find((entry) => entry.id === state.winnerId);
+  const restartHint = mp?.isClient ? ' · the host starts the next match' : touchControls.mode ? '' : ' · press Enter to play again';
+  matchResult.textContent = state.phase === 'ended'
+    ? `${winner?.id === self ? 'VICTORY' : `${winner?.name ?? 'Unknown'} wins`}${restartHint}`
+    : `First to ${state.scoreLimit} kills${touchControls.mode ? '' : ' · hold Tab for scores'}`;
+  document.getElementById('touch-restart').hidden = state.phase !== 'ended' || Boolean(mp?.isClient);
+  document.getElementById('touch-score-close').hidden = state.phase === 'ended';
+  scoreboard.classList.toggle('visible', scoreboardHeld || state.phase === 'ended');
+}
+
+// Build immediately, then enter on the next frame so the browser paints the
+// pre-transition state. Expiry stays on the game tick like the hitmarker.
+function showMedalPopup(def) {
+  if (!medalLayer || !def) return null;
+  const popup = document.createElement('div');
+  popup.className = 'medal-popup';
+  const burst = document.createElement('span');
+  burst.className = 'medal-burst';
+  const icon = document.createElement('span');
+  icon.className = 'medal-icon';
+  if (def.icon) icon.style.backgroundImage = `url('ui/medals/${def.icon}')`;
+  const text = document.createElement('span');
+  text.className = 'medal-text';
+  const name = document.createElement('b');
+  name.textContent = def.name ?? def.ref;
+  text.appendChild(name);
+  if (def.xp) {
+    const xp = document.createElement('small');
+    xp.textContent = `+${def.xp}`;
+    text.appendChild(xp);
+  }
+  popup.append(burst, icon, text);
+  medalLayer.prepend(popup);
+  requestAnimationFrame(() => popup.classList.add('show'));
+  medalPopups.unshift({ popup, bornAt: performance.now() });
+  return popup;
+}
+
+function updateMedalPopups() {
+  const now = performance.now();
+  for (let i = medalPopups.length - 1; i >= 0; i -= 1) {
+    const age = (now - medalPopups[i].bornAt) / 1000;
+    const { popup } = medalPopups[i];
+    if (age > MEDAL_HOLD_SECONDS && !popup.classList.contains('hide')) popup.classList.add('hide');
+    if (age > MEDAL_HOLD_SECONDS + MEDAL_FADE_SECONDS) {
+      popup.remove();
+      medalPopups.splice(i, 1);
+    }
+  }
+}
+
+// Pause-menu buttons drive the same state the keyboard shortcuts do, so the
+// overlays stay in sync however they were toggled.
+function menuAction(name) {
+  if (name === 'leave-match') mp?.leave();
+  if (name === 'respawn' && !online()) {
+    if (playerHealth) playerHealth.respawn();
+    else player?.respawn();
+  }
+  if (name === 'navmesh') navigationVisible = !navigationVisible;
+  if (name === 'collision') collisionVisible = !collisionVisible;
+  setDebugVisibility();
+}
+
+function syncMenuButtons() {
+  for (const button of menuButtons) {
+    const action = button.dataset.action;
+    if (action === 'navmesh') button.dataset.on = String(navigationVisible);
+    if (action === 'collision') button.dataset.on = String(collisionVisible);
+  }
+}
+
+const loadingManager = new THREE.LoadingManager();
+const loader = new GLTFLoader(loadingManager);
+const ktx2Loader = new KTX2Loader(loadingManager)
+  .setTranscoderPath('https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/libs/basis/')
+  .detectSupport(renderer);
+loader.setKTX2Loader(ktx2Loader);
+loader.setMeshoptDecoder(MeshoptDecoder);
+function loadGltf(url, label) {
+  return loadGltfAsset(loader, url, (event) => progress(label, event)).then((gltf) => {
+    // Chrome and bare metal need metalness to reflect the environment; without
+    // it they render as dark dielectrics and read as black. See lighting.js.
+    // Classify before spatial batching so InstancedMesh groups inherit the
+    // corrected PBR values.
+    if (gltf.scene) {
+      const reclassified = applyMaterialClasses(gltf.scene);
+      if (reclassified) console.info(`${label}: reclassified ${reclassified} materials`);
+    }
+    frontend.stage(label);
+    return gltf;
+  });
+}
+
+function chooseSpawn(hints, collision) {
+  const spawns = Array.isArray(hints?.spawns) ? hints.spawns : [];
+  const preferred = spawns.find((spawn) => spawn.classname === 'mp_dm_spawn') ?? spawns[0];
+  const marker = preferred?.position ?? activeMap.fallbackSpawn;
+  const spawn = new THREE.Vector3(marker[0], marker[1], marker[2]);
+
+  // Radiant spawn entities may sit above their floor. Find the first surface
+  // just below the marker so the capsule starts grounded and never inside it.
+  raycaster.set(new THREE.Vector3(spawn.x, spawn.y + 32, spawn.z), down);
+  raycaster.near = 0;
+  raycaster.far = 512;
+  const floor = raycaster.intersectObject(collision, true)[0];
+  if (floor) spawn.y = floor.point.y + 0.2;
+  return { position: spawn, yaw: Number(preferred?.yaw ?? Math.PI) };
+}
+
+function showPathToCrosshair() {
+  if (!navigation || !player || !collisionRoot) return;
+  raycaster.setFromCamera(lookCenter, camera);
+  raycaster.near = 0;
+  raycaster.far = 3000;
+  const hit = raycaster.intersectObject(collisionRoot, true)[0];
+  if (!hit) return;
+  const result = navigation.findPath(player.feetPosition, hit.point);
+  const points = result.success ? result.path : [];
+  pathPoints = points.length;
+  pathGeometry.setFromPoints(points.map((point) => new THREE.Vector3(point.x, point.y + 2, point.z)));
+  pathGeometry.computeBoundingSphere();
+}
+
+function clearKeys() {
+  for (const code of Object.keys(keys)) keys[code] = false;
+  mouseFire = mouseAim = false;
+  touchControls.reset();
+  cancelHeldGrenade();
+  weapon?.setTrigger(false);
+  viewmodel.resetAiming();
+  setScoped(false, null);
+  scopeState.holding = false;
+  scopeState.fov = camera.fov = SCOPE.hipFov;
+  camera.updateProjectionMatrix();
+}
+
+// A kill marker outlives a body marker so the confirmation still reads when
+// the killing round lands in the middle of a held burst.
+function showHitmarker(kind) {
+  hitmarker.dataset.kind = kind;
+  hitmarkerMaxLife = kind === 'kill' ? 0.34 : 0.18;
+  hitmarkerLife = hitmarkerMaxLife;
+}
+
+// Stance and movement for the spread model: full speed counts as 1.
+function spreadState() {
+  const speed = player ? Math.hypot(player.velocity.x, player.velocity.z) : 0;
+  return {
+    crouched: Boolean(player?.crouched),
+    moveFactor: Math.min(1, speed / 300),
+    aimBlend: viewmodel.aimBlend,
+  };
+}
+
+function fireShot({ triggerShotCount = 0 } = {}) {
+  const intro = activeWeaponSlot.definition.initialShotCount > 0 && triggerShotCount === 1;
+  if (!viewmodel.fire({ intro })) return;
+  if (playerHealth?.protectionTimer > 0) playerHealth.protectionTimer = 0;
+  // The round leaves inside the current hip or ADS cone and blooms the cone
+  // for the next one; damage falls off with the distance it travelled and the
+  // region it struck, both per the weapon file.
+  const spread = gunplay.spread.sample(spreadState());
+  gunplay.spread.onShot();
+  weaponEffects.fire(camera, collisionRoot, viewmodel.muzzlePosition(), {
+    targets: shotTargets(),
+    weapon: activeWeaponId,
+    spread,
+    penetration: gunplay.ballistics.penetrateType,
+  });
+  if (mp?.isClient) {
+    // The host decides what a guest's round did; the marker comes back as an event.
+    sendShot();
+    const kick = gunplay.kick.onShot({ aimBlend: viewmodel.aimBlend });
+    nudgeView(kick.pitch, kick.yaw);
+    return;
+  }
+  if (mp?.isHost && weaponEffects.lastShot) {
+    relayShot('player', camera.position, weaponEffects.lastShot.end, activeWeaponSlot.definition.sourceId ?? activeWeaponId, 0);
+  }
+  // A round can pass thin cover and bodies, so every body it reached takes
+  // its share; the marker reports the best outcome of the lot.
+  let best = null;
+  for (const entry of weaponEffects.lastShot?.hits ?? []) {
+    if (!entry.enemy) continue;
+    const damaged = enemies?.handlePlayerHit(entry.hit, (region, distance) => (
+      damageAtDistance(gunplay.ballistics, distance) * locationMultiplier(gunplay.ballistics, region) * entry.scale
+    ));
+    if (!damaged) continue;
+    const rank = damaged.killed ? 2 : damaged.region === 'head' ? 1 : 0;
+    if (!best || rank > best.rank) best = { ...damaged, rank };
+  }
+  if (best) {
+    showHitmarker(best.killed ? 'kill' : best.region === 'head' ? 'head' : 'torso');
+    weaponEffects.playHitmarker(best);
+  }
+  enemies?.alert(player.position, 1500, player.position);
+
+  // View kick from the weapon file, on top of the authored weapon animation.
+  // The kick recentres over the next frames in tick(), so a held burst climbs
+  // and then settles instead of walking the aim away for good.
+  const kick = gunplay.kick.onShot({ aimBlend: viewmodel.aimBlend });
+  nudgeView(kick.pitch, kick.yaw);
+}
+
+function nudgeView(pitch, yaw) {
+  if (!pitch && !yaw) return;
+  yawPitch.setFromQuaternion(camera.quaternion);
+  yawPitch.x = THREE.MathUtils.clamp(yawPitch.x + pitch, -Math.PI / 2, Math.PI / 2);
+  yawPitch.y += yaw;
+  camera.quaternion.setFromEuler(yawPitch);
+}
+
+// Which side of the view a shooter is on, for the flinch: -1 left, 1 right.
+function sideOf(position) {
+  const forward = camera.getWorldDirection(new THREE.Vector3());
+  const toSource = position.clone().sub(camera.position);
+  return Math.sign(forward.x * toSource.z - forward.z * toSource.x) || 0;
+}
+
+function shooterSide(source) {
+  const position = source?.root ? sourcePoint(source) : null;
+  return position ? sideOf(position) : 0;
+}
+
+// The overlay comes and goes with the viewmodel's `scoped` flag.
+function setScoped(scoped, definition) {
+  const overlay = scoped ? definition?.scope?.overlay ?? null : null;
+  if (overlay && scopeLens.getAttribute('src') !== overlay) scopeLens.src = overlay;
+  scopeElement.dataset.on = String(Boolean(scoped && overlay));
+  document.body.classList.toggle('scoped', Boolean(scoped));
+  document.getElementById('touch-breath').hidden = !scoped;
+  if (scoped) worldAudio?.play(SCOPE.zoomSound, { gain: 0.6 });
+}
+
+// Every weapon zooms the world with its raise. Scoped weapons also add
+// glass sway, returned in radians for this frame.
+function updateScope(dt, { holdBreath = false, active = true } = {}) {
+  const scope = activeWeaponSlot.definition.scope ?? null;
+  const target = adsFieldOfView(SCOPE.hipFov, scope?.zoomFov ?? gunplay.ballistics.adsZoomFov ?? viewmodel.adsFov, viewmodel.aimBlend);
+  if (target !== scopeState.fov) {
+    scopeState.fov = target;
+    camera.fov = target;
+    camera.updateProjectionMatrix();
+  }
+  if (!scope || !viewmodel.scoped || !active) {
+    scopeState.holding = false;
+    scopeState.breath = Math.max(0, scopeState.breath - dt);
+    scopeState.tired = Math.max(0, scopeState.tired - dt);
+    // The sway restarts from rest on the next raise rather than jumping.
+    scopeState.last = null;
+    scopeState.swayTime = 0;
+    return { pitch: 0, yaw: 0 };
+  }
+  // Breath: Shift holds it for breathHoldSeconds, then the sway returns until
+  // the lungs recover.
+  if (holdBreath && scopeState.tired <= 0) {
+    scopeState.breath = Math.min(SCOPE.breathHoldSeconds, scopeState.breath + dt);
+    scopeState.holding = scopeState.breath < SCOPE.breathHoldSeconds;
+    if (!scopeState.holding) scopeState.tired = SCOPE.breathRecoverSeconds;
+  } else {
+    scopeState.holding = false;
+    scopeState.breath = Math.max(0, scopeState.breath - dt * 2);
+    scopeState.tired = Math.max(0, scopeState.tired - dt);
+  }
+  const steady = scopeState.holding ? SCOPE.breathHoldSwayScale : 1;
+  // A slow figure of eight in the glass, its size from the weapon file.
+  const amplitude = (scope.idleAmount ?? 30) * SCOPE.swayDegreesPerIdle * (Math.PI / 180) * steady;
+  const t = scopeState.swayTime;
+  scopeState.swayTime += dt;
+  const yaw = Math.sin(t * 1.1) * amplitude;
+  const pitch = Math.sin(t * 2.3 + 0.7) * amplitude * 0.6;
+  const previous = scopeState.last ?? { pitch, yaw };
+  scopeState.last = { pitch, yaw };
+  return { pitch: pitch - previous.pitch, yaw: yaw - previous.yaw };
+}
+
+function reloadWeapon() {
+  const empty = weapon.magazine === 0;
+  if (!weapon.startReload()) return false;
+  if (!viewmodel.reload(empty)) {
+    weapon.cancelReload();
+    return false;
+  }
+  return true;
+}
+
+// Melee: E swings the knife (rifles) or whips with the pistol. The strike
+// lands meleeDelay into the swing; a target inside the knife's reach cone,
+// or a little past it dead ahead, takes knife_mp's 150 and drops.
+function meleeAttack() {
+  if (!canControlPlayer()) return false;
+  if (weapon.reloading) {
+    weapon.cancelReload();
+    viewmodel.cancelReload();
+  }
+  const knife = activeWeaponSlot.definition.class !== 'secondary';
+  if (!viewmodel.melee({ strikeDelay: MELEE.delay, duration: MELEE.time, knife })) return false;
+  weapon.setTrigger(false);
+  worldAudio?.play(MELEE.sounds.swing, { gain: 0.9 });
+  if (knife) worldAudio?.play(MELEE.sounds.draw, { gain: 0.5 });
+  if (Math.random() < 0.5) worldAudio?.play(MELEE.sounds.exert, { gain: 0.5 });
+  return true;
+}
+
+function meleeStrike() {
+  if (!enemies || !player) return;
+  const forward = camera.getWorldDirection(new THREE.Vector3());
+  if (mp?.isClient) {
+    mp.action('melee', { o: roundVector(camera.position), d: unitArray(forward) });
+    return;
+  }
+  const pick = selectMeleeTarget(camera.position, forward, enemies.actors, {
+    range: MELEE.range, lunge: MELEE.lunge, coneDegrees: MELEE.cone,
+  });
+  if (pick) {
+    const { enemy } = pick.target;
+    const applied = enemy.takeDamage(MELEE.damage, null, player);
+    if (applied > 0) {
+      showHitmarker(enemy.dead ? 'kill' : 'torso');
+      weaponEffects.playHitmarker({ region: 'torso', killed: enemy.dead });
+      worldAudio?.play(MELEE.sounds.hitBody, { position: pick.target.position.clone(), gain: 1 });
+      worldAudio?.fleshHit({ region: 'torso', position: pick.target.position.clone() });
+      lastMeleeKill = enemy.dead;
+    }
+    return;
+  }
+  // Nothing in reach: a wall inside the swing takes the blade instead.
+  raycaster.setFromCamera(lookCenter, camera);
+  raycaster.near = 0;
+  raycaster.far = MELEE.range;
+  const wall = collisionRoot ? raycaster.intersectObject(collisionRoot, true)[0] : null;
+  if (wall) worldAudio?.play(MELEE.sounds.hitOther, { position: wall.point.clone(), gain: 0.8 });
+}
+let lastMeleeKill = false;
+
+// Grenades. G pulls the frag's pin and starts its fuse; letting go throws it,
+// so a held frag cooks. Q pops the smoke straight away. Both travel on the
+// weapon file's projectileSpeed and bounce off the world until the fuse ends.
+function beginGrenade(classId) {
+  if (!canControlPlayer() || throwState) return false;
+  const item = EQUIPMENT[loadout[classId]];
+  if (!item || (equipmentAmmo[item.kind] ?? 0) <= 0) return false;
+  if (weapon.reloading) {
+    weapon.cancelReload();
+    viewmodel.cancelReload();
+  }
+  if (!viewmodel.beginThrow(item.kind)) return false;
+  weapon.setTrigger(false);
+  throwState = { item, classId, cookedSeconds: 0, released: false };
+  worldAudio?.play(item.sounds.pin, { gain: 0.8 });
+  return true;
+}
+
+function cancelHeldGrenade() {
+  throwState = null;
+  viewmodel?.finishThrow();
+}
+
+function endGrenade(classId) {
+  if (!throwState || throwState.released) return false;
+  const item = EQUIPMENT[loadout[classId]];
+  if (!item || item.kind !== throwState.item.kind) return false;
+  throwState.released = true;
+  return viewmodel.releaseThrow();
+}
+
+function releaseGrenade(kind) {
+  const state = throwState;
+  throwState = null;
+  if (!state || !grenades || !player) return;
+  const item = state.item;
+  if (item.kind !== kind) return;
+  const cooked = item.cookable ? state.cookedSeconds : 0;
+  const expired = item.cookable && cooked >= item.fuse;
+  const fuse = Math.max(0.05, item.fuse - cooked);
+  const forward = camera.getWorldDirection(new THREE.Vector3());
+  const origin = throwOrigin(camera);
+  const velocity = expired ? new THREE.Vector3() : throwVelocity(forward, item.throwSpeed, player.velocity);
+  equipmentAmmo[item.kind] = Math.max(0, (equipmentAmmo[item.kind] ?? 0) - 1);
+  renderEquipmentHud();
+  worldAudio?.play(item.sounds.throw, { gain: 0.8 });
+  grenades.throw(item, { position: origin, velocity, fuse, owner: player });
+  // Online the host's grenade is the real one; a guest's own is drawn while the host's copy does the damage.
+  if (mp?.isClient) mp.action('grenade', { k: item.kind, o: roundVector(origin), vel: roundVector(velocity), f: round3(fuse) });
+  if (mp?.isHost) pendingGrenades.push(['player', item.kind, ...roundVector(origin), ...roundVector(velocity), round3(fuse)]);
+}
+
+// A frag going off: the blast reaches every bot and the player through open
+// air, the view shakes with the blast, and the bots come looking.
+function onGrenadeExplode(grenade, hits) {
+  if (!player) return;
+  const at = grenade.position;
+  // The thrower: the player, one of the host's guests, or nobody for a drawn copy.
+  const owner = grenade.owner ?? null;
+  for (const { actor, damage } of hits) {
+    const applied = actor.enemy?.takeDamage(damage, null, owner) ?? 0;
+    if (applied > 0 && owner === player) {
+      showHitmarker(actor.enemy.dead ? 'kill' : 'torso');
+      weaponEffects.playHitmarker({ region: 'torso', killed: actor.enemy.dead });
+    } else if (applied > 0 && owner?.remoteId && actor.enemy !== owner) {
+      mp?.event({ type: 'hit', kind: actor.enemy.dead ? 'kill' : 'torso' }, owner.remoteId);
+    }
+  }
+  const spec = grenade.spec;
+  const distance = at.distanceTo(player.position);
+  // A guest's own blast damage comes from the host's copy of the grenade.
+  if (spec.explosionRadius > 0 && distance < spec.explosionRadius && playerHealth && !mp?.isClient) {
+    // Cover shields the player the way it shields a bot.
+    const ray = new THREE.Ray(at.clone(), player.position.clone().sub(at).normalize());
+    const wall = collisionWorld?.raycastFirst(ray, 0.5, distance);
+    if (!wall || wall.distance >= distance - 12) {
+      const t = distance / spec.explosionRadius;
+      const damage = spec.innerDamage + (spec.outerDamage - spec.innerDamage) * t;
+      playerHealth.protectionTimer = 0;
+      playerHealth.takeDamage(damage, owner?.remoteId ? owner : null);
+    }
+  }
+  if (spec.explosionRadius > 0 && distance < spec.explosionRadius * 2.5) {
+    const strength = 1 - distance / (spec.explosionRadius * 2.5);
+    nudgeView((Math.random() - 0.5) * 0.06 * strength, (Math.random() - 0.5) * 0.06 * strength);
+  }
+  if (spec.explosionRadius > 0 && !mp?.isClient) enemies?.alert(at, 1200, at, owner?.remoteId ? owner : player);
+}
+
+// ---------- play with friends (multiplayer.js) ----------
+// One host browser runs the match: the bots, everyone's health, the kills.
+// Each guest moves and aims itself, sends what it does, and draws the host's
+// 20 Hz snapshots a tenth of a second behind. A guest's round is checked on
+// the host against the world as that guest was drawing it (PoseHistory).
+
+const vectorFrom = (value) => (Array.isArray(value) && value.length === 3 && value.every(Number.isFinite)
+  ? new THREE.Vector3(value[0], value[1], value[2]) : null);
+const roundVector = (vector) => [round1(vector.x), round1(vector.y), round1(vector.z)];
+const unitArray = (vector) => [vector.x, vector.y, vector.z].map((value) => Math.round(value * 1e4) / 1e4);
+const hostNow = () => performance.now() / 1000;
+const matchIdOf = (sessionId) => (sessionId === 'host' ? 'player' : sessionId);
+const sessionIdOf = (matchId) => (matchId === 'player' ? 'host' : matchId);
+
+function cameraYaw() {
+  return yawPitch.setFromQuaternion(camera.quaternion).y;
+}
+
+function showToast(text, seconds = 3) {
+  const toast = document.getElementById('mp-toast');
+  toast.textContent = text;
+  toast.hidden = false;
+  toastTimer = seconds;
+}
+
+/** Medals for a kill the local player made, with the Long Shot past its range. */
+function awardKillMedals(distance) {
+  if (!medals) return;
+  const earned = medals.onKill();
+  const longshot = distance >= LONGSHOT_DISTANCE ? medals.def('longshot_kill') : null;
+  if (longshot) {
+    earned.push(longshot);
+    medals.noteEarned([longshot]);
+  }
+  for (const def of earned) showMedalPopup(def);
+}
+
+/** The local player going down: by the host's own health, or by a guest's snapshot. */
+function handleLocalDeath(source, killerId = combatantId(source)) {
+  clearKeys();
+  deathSource = source;
+  deathKillerId = killerId;
+  medals?.onDeath();
+  player.setEnabled(false);
+  weapon.setTrigger(false);
+  viewmodel.setAiming(false);
+  viewmodel.scene.visible = false;
+  document.body.classList.add('player-dead');
+}
+
+/** Where a shooter stands, for damage direction and kill range. */
+function sourcePoint(source, target = new THREE.Vector3()) {
+  if (source === player) return target.copy(player.position);
+  if (source?.remoteId) return source.eyePosition(target);
+  if (source?.root && enemies) return enemies.targetPosition(source, target);
+  return null;
+}
+
+/** What a round can hit on this page: bots and remote players (a guest's are drawings). */
+function shotTargets() {
+  const targets = enemies?.hitTargets ?? [];
+  if (!mp?.isClient) return targets;
+  return [...targets, ...[...avatars.values()].filter((avatar) => !avatar.dead).flatMap((avatar) => avatar.hitboxes)];
+}
+
+/** Bodies of the other people in the match, keyed by session id: the minimap, footsteps. */
+function remoteBodies() {
+  if (mp?.isHost) return [...remotes.values()].map((remote) => [remote.remoteId, remote.avatar]);
+  return [...avatars];
+}
+
+function drawShot(origin, end, sourceId, key) {
+  const direction = end.clone().sub(origin).normalize();
+  weaponEffects.addTracer(origin.clone(), end.clone());
+  weaponEffects.addMuzzleFlash(origin, direction);
+  weaponEffects.playEnemyShot(origin, key, sourceId);
+  weaponEffects.playWhizby(origin, end);
+}
+
+/** A round the host saw fired: drawn here, and sent to every guest in the next snapshot. */
+function relayShot(shooterId, origin, end, sourceId, key) {
+  pendingShots.push([shooterId, ...roundVector(origin), ...roundVector(end), sourceId]);
+  if (shooterId === 'player') return;
+  drawShot(origin, end, sourceId, key);
+  hudArt.markEnemyFire(sessionIdOf(shooterId));
+}
+
+function multiplayerApi() {
+  return {
+    get mapId() { return activeMap.id; },
+    ready: () => ready,
+    openLobby: () => frontend.openLobby(),
+    closeLobby: () => frontend.closeLobby(),
+    switchMap(mapId, code) {
+      if (!MAPS[mapId]?.baked) return false;
+      rememberMap(mapStorage, mapId);
+      const url = new URL(location.href);
+      url.search = '';
+      url.searchParams.set('map', mapId);
+      url.searchParams.set('room', code);
+      url.searchParams.set('autostart', '');
+      location.assign(url);
+      return true;
+    },
+    begin: (players, options) => beginMultiplayer(players, options),
+    started: () => {
+      frontend.closeLobby('title');
+      renderMatchUi();
+    },
+    end: (hadGame, message) => endMultiplayer(hadGame, message),
+    playerLeft(id, name) {
+      departed.add(id);
+      removeRemote(id);
+      avatars.get(id)?.dispose();
+      avatars.delete(id);
+      showToast(`${name} left the match`);
+    },
+    readInput: readMultiplayerInput,
+    capture: captureSnapshot,
+    applyInput: remoteInput,
+    action: remoteAction,
+    applyState: applyMultiplayerState,
+    event: multiplayerEvent,
+  };
+}
+
+async function beginMultiplayer(players, { host, bots }) {
+  clearKeys();
+  if (!enemies) {
+    mp.leave('Multiplayer needs the navigation mesh, which did not load.');
+    return;
+  }
+  // Remote players' crouch and strafe poses bake once, on the first match.
+  await enemies.ensureMultiplayerPoses();
+  // Leaving during the bake already ran endMultiplayer; nothing here has changed solo play yet.
+  if (!mp.connected) return;
+  grenades?.clear();
+  departed.clear();
+  loadoutSent = false;
+  for (const avatar of avatars.values()) avatar.dispose();
+  avatars.clear();
+  poseHistory.clear();
+  pendingShots.length = 0;
+  pendingGrenades.length = 0;
+  matchSentText = '';
+  if (host) {
+    match.register('player', mp.name('host'), { human: true });
+    for (const p of players) if (p.id !== 'host') addRemote(p);
+    hostProxy = new LocalHitProxy({ player, playerHealth, camera });
+    // Bots fill the lobby to the solo match's seven, or sit out.
+    const botCount = bots ? Math.max(0, 7 - players.length) : 0;
+    for (const enemy of enemies.enemies) {
+      const id = `bot-${enemy.index}`;
+      if (enemy.index < botCount) {
+        if (enemy.benched) enemy.unbench();
+        match.register(id, BOT_NAMES[enemy.index] ?? `BOT ${enemy.index + 1}`);
+      } else {
+        enemy.bench();
+        match.unregister(id);
+      }
+    }
+    restartMatch();
+  } else {
+    // A guest's bots only draw what the host sends; until then they are hidden.
+    enemies.puppet = true;
+    for (const enemy of enemies.enemies) {
+      enemy.bench();
+      enemy.puppetPose = null;
+      enemy.styleKey = null;
+    }
+    match.applySnapshot({
+      phase: 'playing', scoreLimit: match.scoreLimit, timeLimitSeconds: match.timeLimitSeconds, winnerId: null,
+      combatants: players.map((p) => [matchIdOf(p.id), p.name, 1, 0, 0, 0]), feed: [],
+    }, 0);
+    resetMatchUi();
+    selfTp = 0;
+    selfFullReset = true;
+    // Standing still until the host places us.
+    player.setEnabled(false);
+  }
+}
+
+function endMultiplayer(hadGame, message) {
+  for (const id of [...remotes.keys()]) removeRemote(id);
+  // A guest's grenades were drawings; a host's guests' grenades have no thrower left.
+  if (hadGame) grenades?.clear();
+  for (const avatar of avatars.values()) avatar.dispose();
+  avatars.clear();
+  hostProxy = null;
+  poseHistory.clear();
+  pendingShots.length = 0;
+  pendingGrenades.length = 0;
+  if (hadGame && enemies) {
+    // Back to the solo match: every bot, a fresh clock, and the player as YOU.
+    enemies.puppet = false;
+    for (const enemy of enemies.enemies) {
+      enemy.puppetPose = null;
+      enemy.benched = false;
+      match.register(`bot-${enemy.index}`, BOT_NAMES[enemy.index] ?? `BOT ${enemy.index + 1}`);
+    }
+    for (const entry of match.getState().standings) {
+      if (entry.id !== 'player' && !entry.id.startsWith('bot-')) match.unregister(entry.id);
+    }
+    match.register('player', 'YOU', { human: true });
+    player.setEnabled(true);
+    restartMatch();
+  }
+  if (message) {
+    // Explain why the room ended on the room screen itself.
+    if (frontend.screen !== 'lobby') {
+      suspendPlay();
+      frontend.openLobby();
+    }
+  } else {
+    frontend.closeLobby();
+  }
+}
+
+// ---- Host ----
+
+function addRemote({ id, name }) {
+  const slot = mp.slot(id);
+  const avatar = new SoldierAvatar(enemies, { name, slot });
+  const remote = new RemoteCombatant({
+    id, name, slot, avatar,
+    onDamage: (who, { amount, source }) => {
+      const from = source ? sourcePoint(source) : null;
+      mp.event({ type: 'damage', amount: Math.round(amount), from: from ? roundVector(from) : null }, who.remoteId);
+    },
+    onDeath: (who, { source }) => remoteDied(who, source),
+    onRespawn: (who) => remoteRespawned(who),
+  });
+  remotes.set(id, remote);
+  enemies.remotes.push(remote);
+  match.register(id, name, { human: true });
+  return remote;
+}
+
+function removeRemote(id) {
+  const remote = remotes.get(id);
+  if (!remote) return;
+  // Bots chasing a player who left lose it like any dead target.
+  remote.health.dead = true;
+  remote.avatar.dispose();
+  remotes.delete(id);
+  if (enemies) enemies.remotes = enemies.remotes.filter((entry) => entry !== remote);
+  match.unregister(id);
+}
+
+function remoteDied(remote, source) {
+  const killerId = combatantId(source);
+  remote.killer = killerId;
+  const fell = new THREE.Vector3(...remote.feet);
+  const from = source && source !== remote && (source === player || source.remoteId) ? sourcePoint(source) : null;
+  const distance = from ? from.distanceTo(fell) : null;
+  match.recordKill(killerId, remote.remoteId, distance === null ? null : { distance });
+  worldAudio?.death({ position: fell.clone() });
+  worldAudio?.bodyfall({ surface: surfaceProbe?.surfaceAt(fell), position: fell.clone() });
+  if (killerId === 'player') awardKillMedals(distance);
+  else if (source?.remoteId && source !== remote) mp.event({ type: 'kill', distance }, source.remoteId);
+}
+
+function remoteRespawned(remote) {
+  const spawn = enemies?.safeSpawnFor(remote);
+  if (spawn) {
+    remote.feet = [round1(spawn.position.x), round1(spawn.position.y), round1(spawn.position.z)];
+    remote.yaw = spawn.yaw;
+  }
+  // The guest takes this position at its next snapshot and starts reporting from it.
+  remote.tp += 1;
+  remote.legs.reset(hostNow());
+  remote.killer = null;
+  remote.crouch = false;
+  for (const cls of ['lethal', 'tactical']) {
+    const item = EQUIPMENT[remote.loadout[cls]];
+    if (item) remote.equipment[item.kind] = item.count;
+  }
+  remote.avatar.placed = false;
+  remote.avatar.update(0, { x: remote.feet[0], y: remote.feet[1], z: remote.feet[2], yaw: remote.yaw, crouch: false, dead: false });
+}
+
+function updateRemotes(dt, active) {
+  for (const remote of remotes.values()) {
+    if (active) remote.health.update(dt);
+    remote.avatar.update(dt, {
+      x: remote.feet[0], y: remote.feet[1], z: remote.feet[2], yaw: remote.yaw, crouch: remote.crouch, dead: remote.dead,
+    }, { smooth: 22 });
+  }
+}
+
+function remoteInput(id, input) {
+  const remote = remotes.get(id);
+  if (!remote) return;
+  remote.input = input;
+  remote.inputAt = performance.now();
+  remote.yaw = input.yaw;
+  remote.pitch = input.pitch;
+  remote.crouch = Boolean(input.crouch);
+  remote.ads = Boolean(input.ads);
+  remote.sprint = Boolean(input.sprint);
+  const held = findWeapon(input.w);
+  if (held && (held.id === remote.loadout.primary || held.id === remote.loadout.secondary)) remote.weapon = held.id;
+  if (!input.pos || remote.dead || input.tp !== remote.tp) return;
+  const now = hostNow();
+  // A move no player could make is refused: the guest goes back where the host has it.
+  if (!remote.legs.allow(remote.feet, input.pos, now)) {
+    remote.tp += 1;
+    remote.legs.reset(now);
+    return;
+  }
+  remote.feet = input.pos.slice(0, 3);
+}
+
+function remoteAction(id, name, value) {
+  const remote = remotes.get(id);
+  if (!remote) return;
+  if (name === 'loadout') { setRemoteLoadout(remote, value); return; }
+  if (remote.dead || match.phase !== 'playing') return;
+  if (name === 'fire') remoteFire(remote, value);
+  else if (name === 'melee') remoteMelee(remote, value);
+  else if (name === 'grenade') remoteGrenade(remote, value);
+}
+
+function setRemoteLoadout(remote, picked = {}) {
+  const next = { ...remote.loadout };
+  for (const cls of WEAPON_CLASS_IDS) {
+    const id = picked?.[cls];
+    if ((cls === 'primary' || cls === 'secondary') && findWeapon(id)?.class === cls) next[cls] = findWeapon(id).id;
+    if ((cls === 'lethal' || cls === 'tactical') && EQUIPMENT[id]?.class === cls) next[cls] = id;
+  }
+  // A class that changes the grenades restores them, as for the player; the same ones do not refill.
+  for (const cls of ['lethal', 'tactical']) {
+    const item = EQUIPMENT[next[cls]];
+    if (item && next[cls] !== remote.loadout[cls]) remote.equipment[item.kind] = item.count;
+  }
+  remote.loadout = next;
+  if (remote.weapon !== next.primary && remote.weapon !== next.secondary) remote.weapon = next.primary;
+}
+
+/**
+ * A guest's eye on the host, or the one it reported when that is close enough
+ * to believe and not on the far side of a wall from where the host has it.
+ */
+function remoteEye(remote, reported) {
+  const eye = remote.eyePosition(new THREE.Vector3());
+  const claimed = vectorFrom(reported);
+  if (!claimed) return eye;
+  const offset = claimed.clone().sub(eye);
+  const distance = offset.length();
+  if (distance >= 40) return eye;
+  if (distance > 1 && collisionWorld?.raycastFirst(new THREE.Ray(eye.clone(), offset.divideScalar(distance)), 0, distance)) return eye;
+  return claimed;
+}
+
+/** Puts everyone but `shooter` where they stood at host time `time`; the returned function puts them back. */
+function rewind(time, shooter) {
+  const moved = [];
+  const place = (key, root, hitGroup = null) => {
+    const pose = poseHistory.at(key, time);
+    if (!pose) return;
+    moved.push([root, root.position.clone(), root.rotation.y, hitGroup, hitGroup?.scale.y]);
+    root.position.set(pose.x, pose.y, pose.z);
+    root.rotation.y = pose.yaw;
+    if (hitGroup) hitGroup.scale.y = pose.crouch ? CROUCH_SCALE : 1;
+    root.updateMatrixWorld(true);
+  };
+  for (const enemy of enemies?.enemies ?? []) if (!enemy.dead) place(`bot-${enemy.index}`, enemy.root);
+  for (const remote of remotes.values()) {
+    if (remote !== shooter && !remote.dead) place(remote.remoteId, remote.avatar.root, remote.avatar.hitGroup);
+  }
+  hostProxy?.sync(poseHistory.at('player', time));
+  return () => {
+    for (const [root, position, yaw, hitGroup, scale] of moved) {
+      root.position.copy(position);
+      root.rotation.y = yaw;
+      if (hitGroup) hitGroup.scale.y = scale;
+      root.updateMatrixWorld(true);
+    }
+    hostProxy?.sync();
+  };
+}
+
+/** Where everyone stands this frame, as guests will be shown it: the record shots rewind through. */
+function recordPoses() {
+  const poses = new Map();
+  for (const enemy of enemies?.enemies ?? []) {
+    if (enemy.dead) continue;
+    const p = enemy.root.position;
+    poses.set(`bot-${enemy.index}`, { x: p.x, y: p.y, z: p.z, yaw: enemy.root.rotation.y });
+  }
+  for (const remote of remotes.values()) {
+    if (remote.dead) continue;
+    const [x, y, z] = remote.feet;
+    poses.set(remote.remoteId, { x, y, z, yaw: remote.yaw, crouch: remote.crouch });
+  }
+  if (!playerHealth.dead) {
+    const p = player.feetPosition;
+    poses.set('player', { x: p.x, y: p.y, z: p.z, yaw: cameraYaw(), crouch: player.crouched });
+  }
+  poseHistory.record(hostNow(), poses);
+}
+
+function remoteFire(remote, value) {
+  const definition = findWeapon(value.w);
+  if (!definition || (definition.id !== remote.loadout.primary && definition.id !== remote.loadout.secondary)) return;
+  const now = hostNow();
+  if (!remote.trigger.allow(now, 60 / (definition.roundsPerMinute || 600))) return;
+  const direction = vectorFrom(value.d);
+  if (!direction || direction.lengthSq() < 0.25) return;
+  direction.normalize();
+  const origin = remoteEye(remote, value.o);
+  remote.health.protectionTimer = 0;
+  remote.weapon = definition.id;
+  const ballistics = WEAPON_BALLISTICS[definition.id] ?? {};
+  const targets = [
+    ...(enemies?.hitTargets ?? []).filter((box) => box.userData.enemyHit?.enemy !== remote),
+    ...(hostProxy && !playerHealth.dead ? hostProxy.hitboxes : []),
+  ];
+  const seen = Number.isFinite(value.v) ? value.v : now;
+  rewindStats.shots += 1;
+  rewindStats.lastSeconds = round3(now - seen);
+  if (now - seen > MAX_REWIND) rewindStats.clamped += 1;
+  const restore = rewind(THREE.MathUtils.clamp(seen, now - MAX_REWIND, now), remote);
+  const shot = weaponEffects.trace(origin, direction, collisionRoot, { targets, penetration: ballistics.penetrateType });
+  restore();
+  let best = null;
+  for (const entry of shot.hits) {
+    const data = entry.enemy ? entry.hit.object.userData.enemyHit : null;
+    if (!data?.enemy || data.enemy.dead) continue;
+    const damage = damageAtDistance(ballistics, entry.hit.distance) * locationMultiplier(ballistics, data.region) * entry.scale;
+    if (!data.enemy.takeDamage(damage, entry.hit, remote)) continue;
+    const rank = data.enemy.dead ? 2 : data.region === 'head' ? 1 : 0;
+    if (!best || rank > best.rank) best = { rank, region: data.region, killed: data.enemy.dead };
+  }
+  if (best) mp.event({ type: 'hit', kind: best.killed ? 'kill' : best.region === 'head' ? 'head' : 'torso' }, remote.remoteId);
+  relayShot(remote.remoteId, remote.avatar.muzzlePosition(new THREE.Vector3()), shot.end, definition.sourceId ?? definition.id, 100 + remote.slot);
+  enemies?.alert(origin, 1500, origin, remote);
+}
+
+function remoteMelee(remote, value) {
+  const now = hostNow();
+  if (now - remote.meleeAt < MELEE.time * 0.8) return;
+  remote.meleeAt = now;
+  const forward = vectorFrom(value.d);
+  if (!forward || forward.lengthSq() < 0.25) return;
+  forward.normalize();
+  const origin = remoteEye(remote, value.o);
+  const candidates = (enemies?.actors ?? []).filter((actor) => actor.enemy !== remote);
+  if (hostProxy && !playerHealth.dead) {
+    candidates.push({ enemy: hostProxy, position: player.feetPosition.add(new THREE.Vector3(0, hostProxy.torsoHeight, 0)) });
+  }
+  worldAudio?.play(MELEE.sounds.swing, { position: origin.clone(), gain: 0.7 });
+  const pick = selectMeleeTarget(origin, forward, candidates, { range: MELEE.range, lunge: MELEE.lunge, coneDegrees: MELEE.cone });
+  if (!pick) return;
+  const target = pick.target.enemy;
+  if (target.takeDamage(MELEE.damage, null, remote) <= 0) return;
+  worldAudio?.play(MELEE.sounds.hitBody, { position: pick.target.position.clone(), gain: 1 });
+  mp.event({ type: 'hit', kind: target.dead ? 'kill' : 'torso', melee: true }, remote.remoteId);
+}
+
+function remoteGrenade(remote, value) {
+  const item = Object.values(EQUIPMENT).find((entry) => entry.kind === value.k);
+  if (!item || (item.id !== remote.loadout.lethal && item.id !== remote.loadout.tactical)) return;
+  if ((remote.equipment[item.kind] ?? 0) <= 0) return;
+  const velocity = vectorFrom(value.vel);
+  if (!velocity || velocity.length() > item.throwSpeed * 1.5 + 600) return;
+  const origin = remoteEye(remote, value.o);
+  const fuse = THREE.MathUtils.clamp(Number(value.f) || item.fuse, 0.05, item.fuse);
+  remote.equipment[item.kind] -= 1;
+  grenades?.throw(item, { position: origin, velocity, fuse, owner: remote });
+  pendingGrenades.push([remote.remoteId, item.kind, ...roundVector(origin), ...roundVector(velocity), round3(fuse)]);
+}
+
+/** One snapshot: the clock, the match when it changed, every soldier, and the rounds and grenades since the last. */
+function captureSnapshot() {
+  const state = { t: round3(hostNow()), e: round3(match.elapsedSeconds), b: [], p: [], s: pendingShots.splice(0), g: pendingGrenades.splice(0) };
+  const summary = match.snapshot();
+  // The bots' rifles, camos and skins, so guests draw the same deal.
+  summary.kit = enemies?.enemies.map((enemy) => [enemy.index, enemy.weaponId, enemy.camo, enemy.skin]) ?? [];
+  const text = JSON.stringify(summary);
+  if (text !== matchSentText || performance.now() - matchSentAt > 2000) {
+    state.m = summary;
+    matchSentText = text;
+    matchSentAt = performance.now();
+  }
+  for (const enemy of enemies?.enemies ?? []) {
+    if (enemy.benched) continue;
+    const p = enemy.root.position;
+    state.b.push(packBot({
+      index: enemy.index, x: p.x, y: p.y, z: p.z, yaw: enemy.root.rotation.y,
+      state: enemy.dead ? 'death' : enemy.visualState === 'run' ? 'run' : 'idle', speed: enemy.movementSpeed,
+    }));
+  }
+  const feet = player.feetPosition;
+  yawPitch.setFromQuaternion(camera.quaternion);
+  state.p.push(packPlayer({
+    id: 'host', feet: [feet.x, feet.y, feet.z], yaw: yawPitch.y, pitch: yawPitch.x, crouch: player.crouched,
+    dead: playerHealth.dead, protected: playerHealth.protectionTimer > 0, ads: viewmodel.aimBlend > 0.5,
+    sprint: sprintState.sprinting, weapon: activeWeaponId, health: playerHealth.health, tp: 0,
+    killer: playerHealth.dead ? deathKillerId : null, respawn: playerHealth.respawnTimer,
+  }));
+  for (const remote of remotes.values()) {
+    state.p.push(packPlayer({
+      id: remote.remoteId, feet: remote.feet, yaw: remote.yaw, pitch: remote.pitch, crouch: remote.crouch,
+      dead: remote.dead, protected: remote.health.protectionTimer > 0, ads: remote.ads, sprint: remote.sprint,
+      weapon: remote.weapon, health: remote.health.health, tp: remote.tp, killer: remote.killer, respawn: remote.health.respawnTimer,
+    }));
+  }
+  return state;
+}
+
+// ---- Guest ----
+
+function readMultiplayerInput() {
+  const feet = player.feetPosition;
+  yawPitch.setFromQuaternion(camera.quaternion);
+  return {
+    forward: round3(THREE.MathUtils.clamp(lastMovement.forward, -1, 1)),
+    strafe: round3(THREE.MathUtils.clamp(lastMovement.strafe, -1, 1)),
+    yaw: round3(yawPitch.y),
+    pitch: round3(THREE.MathUtils.clamp(yawPitch.x, -1.5, 1.5)),
+    pos: roundVector(feet),
+    crouch: Boolean(player.crouched),
+    sprint: Boolean(sprintState.sprinting),
+    ads: viewmodel.aimBlend > 0.5,
+    w: activeWeaponId,
+    tp: selfTp,
+  };
+}
+
+function sendShot() {
+  const shot = weaponEffects.lastShot;
+  if (!shot) return;
+  const seen = mp.buffer.renderTime(hostNow());
+  mp.action('fire', { o: roundVector(shot.origin), d: unitArray(shot.direction), w: activeWeaponId, v: seen === null ? undefined : round3(seen) });
+}
+
+function restyleBots(kit) {
+  for (const [index, weaponId, camo, skin] of kit ?? []) {
+    const enemy = enemies?.enemies[index];
+    const key = `${weaponId}:${camo}:${skin}`;
+    if (!enemy || enemy.styleKey === key) continue;
+    enemy.styleKey = key;
+    enemies.ensureStyle({ weaponId, camo, skin }).then(() => {
+      if (enemy.styleKey === key) enemy.restyle({ weaponId, camo, skin });
+    });
+  }
+}
+
+function applyMultiplayerState(state) {
+  if (!loadoutSent) {
+    loadoutSent = true;
+    mp.action('loadout', { ...loadout });
+  }
+  const wasEnded = match.phase === 'ended';
+  match.applySnapshot(state.m ?? null, state.e);
+  if (state.m) restyleBots(state.m.kit);
+  if (wasEnded && match.phase === 'playing') resetMatchUi();
+  const me = (state.p ?? []).map(unpackPlayer).find((row) => row.id === mp.id);
+  if (me) applySelf(me);
+  for (const [shooterId, ox, oy, oz, ex, ey, ez, sourceId] of state.s ?? []) {
+    if (shooterId === mp.id) continue;
+    const bot = String(shooterId).startsWith('bot-') ? enemies?.enemies[Number(shooterId.slice(4))] : null;
+    const avatar = bot ? null : avatars.get(sessionIdOf(shooterId));
+    const origin = bot && !bot.dead ? bot.muzzlePosition(new THREE.Vector3())
+      : avatar ? avatar.muzzlePosition(new THREE.Vector3()) : new THREE.Vector3(ox, oy, oz);
+    drawShot(origin, new THREE.Vector3(ex, ey, ez), sourceId, bot ? bot.index : 100 + (avatar?.slot ?? 0));
+    hudArt.markEnemyFire(bot ? bot.index : sessionIdOf(shooterId));
+  }
+  for (const [ownerId, kind, px, py, pz, vx, vy, vz, fuse] of state.g ?? []) {
+    if (ownerId === mp.id) continue;
+    const item = Object.values(EQUIPMENT).find((entry) => entry.kind === kind);
+    if (item) grenades?.throw(item, { position: new THREE.Vector3(px, py, pz), velocity: new THREE.Vector3(vx, vy, vz), fuse, owner: null });
+  }
+}
+
+/** The host's word on the local player: health, death, and where to stand. */
+function applySelf(me) {
+  const wasDead = Boolean(playerHealth.dead);
+  playerHealth.health = me.health;
+  playerHealth.dead = me.dead;
+  playerHealth.respawnTimer = me.respawn;
+  playerHealth.protectionTimer = me.protected ? 1 : 0;
+  if (me.dead && !wasDead) {
+    const killer = !me.killer ? null : me.killer.startsWith('bot-')
+      ? enemies?.enemies[Number(me.killer.slice(4))] : avatars.get(sessionIdOf(me.killer));
+    handleLocalDeath(killer ?? null, me.killer ?? null);
+  }
+  if (me.tp === selfTp || me.dead) return;
+  selfTp = me.tp;
+  const position = new THREE.Vector3(...me.feet);
+  if (wasDead || selfFullReset) {
+    // A spawn: a fresh life with full ammo, facing the way the marker does.
+    selfFullReset = false;
+    resetPlayerLife({ position, yaw: me.yaw });
+  } else {
+    // A refused move: back where the host has us.
+    player.reset(position, { eye: false, resolve: true });
+  }
+}
+
+/** Interpolated bots and players, a tenth of a second behind the newest snapshot. */
+function drawSnapshots(dt) {
+  const sample = mp.buffer.sample(mp.buffer.renderTime(hostNow()));
+  if (!sample) return;
+  const { a, b, alpha } = sample;
+  const bots = (frame) => new Map((frame.state.b ?? []).map((row) => [row[0], unpackBot(row)]));
+  const botsA = bots(a);
+  const botsB = a === b ? botsA : bots(b);
+  for (const enemy of enemies?.enemies ?? []) {
+    const pose = blendPose(botsA.get(enemy.index), botsB.get(enemy.index), alpha);
+    if (!pose) {
+      if (!enemy.benched) enemy.bench();
+      enemy.puppetPose = null;
+      continue;
+    }
+    enemy.benched = false;
+    enemy.puppetPose = pose;
+  }
+  const people = (frame) => new Map((frame.state.p ?? []).map((row) => {
+    const p = unpackPlayer(row);
+    return [p.id, { ...p, x: p.feet[0], y: p.feet[1], z: p.feet[2] }];
+  }));
+  const playersA = people(a);
+  const playersB = a === b ? playersA : people(b);
+  for (const [id, avatar] of avatars) {
+    if (playersA.has(id) || playersB.has(id)) continue;
+    avatar.dispose();
+    avatars.delete(id);
+  }
+  for (const id of new Set([...playersA.keys(), ...playersB.keys()])) {
+    if (id === mp.id || departed.has(id)) continue;
+    const pose = blendPose(playersA.get(id), playersB.get(id), alpha);
+    let avatar = avatars.get(id);
+    if (!avatar) {
+      avatar = new SoldierAvatar(enemies, { name: mp.name(id), slot: mp.slot(id) });
+      avatars.set(id, avatar);
+    }
+    if (pose.weapon && pose.weapon !== avatar.heldWeapon) {
+      avatar.heldWeapon = pose.weapon;
+      avatar.setStyle({ weaponId: pose.weapon });
+    }
+    avatar.update(dt, pose);
+  }
+}
+
+function multiplayerEvent(event) {
+  if (!event) return;
+  const counted = { hit: 'hits', damage: 'damage', kill: 'kills' }[event.type];
+  if (counted) multiplayerEvents[counted] += 1;
+  if (event.type === 'hit') {
+    showHitmarker(event.kind);
+    weaponEffects.playHitmarker({ region: event.kind === 'head' ? 'head' : 'torso', killed: event.kind === 'kill' });
+    if (event.melee) worldAudio?.play(MELEE.sounds.hitBody, { gain: 1 });
+  } else if (event.type === 'damage') {
+    playerHealth.hitFlash = 1;
+    const from = vectorFrom(event.from);
+    const flinch = gunplay.kick.flinch(Number(event.amount) || 0, { side: -(from ? sideOf(from) : 0) });
+    nudgeView(flinch.pitch, flinch.yaw);
+  } else if (event.type === 'kill') {
+    awardKillMedals(Number.isFinite(event.distance) ? event.distance : null);
+  } else if (event.type === 'restart') {
+    // The next snapshot's return to 'playing' resets the scoreboard; this marks the next spawn as a fresh life.
+    selfFullReset = true;
+  }
+}
+
+function setDebugVisibility() {
+  navigation?.setDebugVisible(navigationVisible);
+  collisionWorld?.setDebugVisible(collisionVisible);
+  syncMenuButtons();
+}
+
+const debugRound = (value) => Number.isFinite(value)
+  ? Math.round(value * 1000) / 1000
+  : null;
+const debugVector = (vector) => vector
+  ? [debugRound(vector.x), debugRound(vector.y), debugRound(vector.z)]
+  : null;
+
+function frameWorkStats() {
+  const count = Math.min(frameWorkSampleCount, frameWorkSamples.length);
+  if (!count) return { startupMilliseconds, samples: 0, averageMilliseconds: 0, p95Milliseconds: 0 };
+  const values = Array.from(frameWorkSamples.subarray(0, count)).sort((a, b) => a - b);
+  const total = values.reduce((sum, value) => sum + value, 0);
+  return {
+    startupMilliseconds,
+    samples: count,
+    averageMilliseconds: debugRound(total / count),
+    p95Milliseconds: debugRound(values[Math.min(count - 1, Math.floor(count * 0.95))]),
+  };
+}
+
+// First entry into the match: the spawn sting and the map's ambience.
+function cueMatchStart() {
+  if (matchStartCued) return;
+  matchStartCued = true;
+  music?.play('mus_spawn_short_fbi', { gain: 0.45 });
+  ambience?.start();
+}
+
+function setAutomationActive(active = true) {
+  locked = Boolean(active);
+  automationPaused = false;
+  document.body.classList.toggle('locked', locked);
+  if (locked) {
+    frontend.enter();
+    cueMatchStart();
+  }
+  else frontend.suspend();
+  if (!locked) {
+    clearKeys();
+    weapon.setTrigger(false);
+    viewmodel.setAiming(false);
+  }
+  return locked;
+}
+
+function getDebugState() {
+  const feet = player?.feetPosition ?? null;
+  const forward = camera.getWorldDirection(new THREE.Vector3());
+  const render = renderer.info.render;
+  const size = renderer.getDrawingBufferSize(new THREE.Vector2());
+  return {
+    ready,
+    map: activeMap.id,
+    active: locked,
+    paused: automationPaused,
+    enemiesActive: enemySimulationActive,
+    input: { touch: touchControls.getState() },
+    player: player ? {
+      feet: debugVector(feet),
+      eye: debugVector(player.position),
+      velocity: debugVector(player.velocity),
+      forward: debugVector(forward),
+      grounded: player.isGrounded,
+      crouched: player.crouched,
+      enabled: player.enabled,
+      health: debugRound(playerHealth?.health ?? 0),
+      maxHealth: debugRound(playerHealth?.maxHealth ?? 0),
+      dead: Boolean(playerHealth?.dead),
+      respawnSeconds: debugRound(playerHealth?.respawnTimer ?? 0),
+      protected: (playerHealth?.protectionTimer ?? 0) > 0,
+    } : null,
+    weapon: {
+      id: activeWeaponId,
+      name: activeWeaponSlot.definition.name,
+      ready: viewmodel.ready,
+      availableWeapons: [...weaponSlots.values()]
+        .filter((slot) => slot.viewmodel.ready)
+        .map((slot) => slot.definition.id),
+      magazine: weapon.magazine,
+      magazineSize: weapon.magazineSize,
+      reserveAmmo: weapon.reserveAmmo,
+      reloading: weapon.reloading,
+      triggerHeld: weapon.triggerHeld,
+      fireCount: weapon.fireCount,
+      aiming: viewmodel.aimBlend > 0.5,
+      spreadDegrees: debugRound(gunplay.spread.angleDegrees(spreadState())),
+      sprinting: sprintState.sprinting,
+      sprintOutBlocked: !sprintState.sprinting && !sprintState.canFire,
+      camo: viewmodel.camo,
+      availableCamos: viewmodel.availableCamos,
+      class: activeWeaponSlot.definition.class,
+      fireMode: weapon.fireMode,
+      meleeing: viewmodel.meleeing,
+      throwing: viewmodel.throwing,
+      scoped: viewmodel.scoped,
+      scopeMounted: Boolean(viewmodel.scopeRoot),
+      rechambering: viewmodel.rechambering,
+      pendingRechamber: viewmodel.pendingRechamber,
+      fov: debugRound(camera.fov),
+      aimBlend: debugRound(viewmodel.aimBlend),
+      adsZoomFov: gunplay.ballistics.adsZoomFov,
+      lookSensitivityScale: debugRound(zoomLookScale(camera.fov, SCOPE.hipFov)),
+      breathHeld: scopeState.holding,
+    },
+    loadout: { ...loadout },
+    equipment: { ...equipmentAmmo, live: grenades?.activeCount ?? 0, clouds: grenades?.clouds.length ?? 0,
+      held: throwState?.item.kind ?? null, cookedSeconds: Number((throwState?.cookedSeconds ?? 0).toFixed(3)) },
+    enemies: enemies?.enemies.map((enemy) => ({
+      index: enemy.index,
+      position: debugVector(enemy.root.position),
+      health: debugRound(enemy.health),
+      maxHealth: debugRound(enemy.maxHealth),
+      dead: enemy.dead,
+      state: enemy.state,
+      playerVisible: enemy.playerVisible,
+      lineOfFireClear: enemy.lineOfFireClear,
+      reactionSeconds: debugRound(enemy.reactionTimer),
+      aimConvergence: debugRound(enemy.aimConvergence),
+      burstShotsRemaining: enemy.burstShotsRemaining,
+      burstPauseSeconds: debugRound(enemy.burstPauseTimer),
+      reloadSeconds: debugRound(enemy.reloadTimer),
+      magazine: enemy.magazine,
+      shotsFired: enemy.shotsFired,
+      suppressedSeconds: debugRound(enemy.suppressionTimer),
+      lastSeenSeconds: debugRound(enemy.lastSeenTimer),
+      searchSeconds: debugRound(enemy.searchTimer),
+      combatTarget: debugVector(enemy.combatTarget),
+      targetId: enemies?.targetId(enemy.currentTarget) ?? null,
+      searchTarget: debugVector(enemy.searchTarget),
+      weapon: enemy.weaponId,
+      camo: enemy.camo,
+      skin: enemy.skin,
+      distanceToPlayer: player
+        ? debugRound(enemy.root.position.distanceTo(player.position))
+        : null,
+      visualState: enemy.visualState,
+      visualFrame: enemy.visualFrameIndex,
+    })) ?? [],
+    lighting: {
+      sky: Boolean(lightingApplied?.sky),
+      environment: Boolean(lightingApplied?.environment),
+      probeVolume: Boolean(probeVolume),
+      gradePass: Boolean(gradeMaterial && gradeTarget),
+      tone: Boolean(lightingApplied?.tone),
+      fog: Boolean(lightingApplied?.fog),
+      exposure: lightingApplied?.exposure ?? null,
+      enemyProbes: enemyProbes.size,
+    },
+    overlays: {
+      navigation: navigationVisible,
+      collision: collisionVisible,
+      pathPoints,
+    },
+    performance: {
+      drawCalls: render.calls,
+      triangles: render.triangles,
+      lines: render.lines,
+      points: render.points,
+      geometries: renderer.info.memory.geometries,
+      textures: renderer.info.memory.textures,
+      drawingBuffer: [size.x, size.y],
+      pixelRatio: debugRound(renderer.getPixelRatio()),
+      graphics: { ...graphics.getState(), ...graphicsRenderer.getState(),
+        sceneBuffer: gradeTarget ? [gradeTarget.width, gradeTarget.height] : null,
+        anisotropy: Math.max(1, Math.min(graphics.anisotropy, renderer.capabilities.getMaxAnisotropy())) },
+      frameWork: frameWorkStats(),
+      collision: collisionWorld?.stats ?? null,
+      scene: mapOptimization,
+    },
+    menu: frontend.getState(),
+    match: match.getState(),
+    multiplayer: mp ? {
+      ...mp.debug(),
+      self: online() ? selfId() : null,
+      tp: selfTp,
+      events: { ...multiplayerEvents },
+      rewind: { ...rewindStats },
+      remotes: [...remotes.values()].map((remote) => ({
+        id: remote.remoteId, name: remote.name, feet: remote.feet.map(debugRound), yaw: debugRound(remote.yaw),
+        health: debugRound(remote.health.health), dead: remote.dead, tp: remote.tp, weapon: remote.weapon,
+        crouch: remote.crouch, protected: remote.health.protectionTimer > 0,
+      })),
+      avatars: remoteBodies().map(([id, avatar]) => ({
+        id, position: debugVector(avatar.root.position), state: avatar.visualState, weapon: avatar.style.weaponId,
+        dead: avatar.dead, crouch: avatar.crouch,
+      })),
+      bots: enemies?.enemies.map((enemy) => ({
+        index: enemy.index, benched: Boolean(enemy.benched), dead: enemy.dead, position: debugVector(enemy.root.position),
+        weapon: enemy.weaponId, camo: enemy.camo, skin: enemy.skin,
+      })) ?? [],
+    } : null,
+    medals: medals?.getState() ?? null,
+    hud: hud.textContent,
+  };
+}
+
+function createDebugApi() {
+  return {
+    getState: getDebugState,
+    setGraphicsPreset,
+    // Exercise the post-match shell without waiting for the five-minute clock.
+    finishMatch() {
+      match.finish();
+      clearKeys();
+      renderMatchUi();
+      return match.getState();
+    },
+    // Rifles other than the equipped one load from the class screen, which
+    // automation never opens. Awaiting this is the scripted equivalent.
+    loadAllWeapons: () => loadAllWeaponSlots(),
+    setActive: setAutomationActive,
+    // Isolate input/animation probes from combat without pausing the player.
+    setEnemiesActive(active = true) {
+      enemySimulationActive = Boolean(active);
+      return enemySimulationActive;
+    },
+    pause() {
+      automationPaused = true;
+      clearKeys();
+      weapon.setTrigger(false);
+      return getDebugState();
+    },
+    resume() {
+      automationPaused = false;
+      return getDebugState();
+    },
+    teleportPlayer(position) {
+      if (!player || !Array.isArray(position) || position.length !== 3) return false;
+      const target = new THREE.Vector3(...position.map(Number));
+      if (![target.x, target.y, target.z].every(Number.isFinite)) return false;
+      player.reset(target, { eye: false, resolve: true });
+      return debugVector(player.feetPosition);
+    },
+    lookAt(position) {
+      if (!Array.isArray(position) || position.length !== 3) return false;
+      const target = new THREE.Vector3(...position.map(Number));
+      if (![target.x, target.y, target.z].every(Number.isFinite)) return false;
+      camera.lookAt(target);
+      return debugVector(camera.getWorldDirection(new THREE.Vector3()));
+    },
+    showMenu(visible = true) {
+      if (visible) { clearKeys(); frontend.suspend(); }
+      else frontend.enter();
+      return frontend.getState();
+    },
+    showNavigation(visible = true) {
+      navigationVisible = Boolean(visible);
+      setDebugVisibility();
+      return navigationVisible;
+    },
+    showCollision(visible = true) {
+      collisionVisible = Boolean(visible);
+      setDebugVisibility();
+      return collisionVisible;
+    },
+    damagePlayer(amount) {
+      if (!playerHealth) return 0;
+      playerHealth.protectionTimer = 0;
+      return playerHealth.takeDamage(amount, { type: 'debug' });
+    },
+    setWeaponAmmo(magazine, reserveAmmo) {
+      weapon.magazine = THREE.MathUtils.clamp(Math.trunc(Number(magazine) || 0), 0, weapon.magazineSize);
+      weapon.reserveAmmo = Math.max(0, Math.trunc(Number(reserveAmmo) || 0));
+      return { magazine: weapon.magazine, reserveAmmo: weapon.reserveAmmo };
+    },
+    selectWeapon(id) {
+      return selectWeapon(id);
+    },
+    setWeaponCamo(name) {
+      return setCamoEverywhere(String(name)) ? viewmodel.camo : false;
+    },
+    setLoadout(picked) {
+      return applyLoadout(picked ?? {});
+    },
+    switchWeapon(step = 1) {
+      return switchHeldWeapon(Number(step) || 1);
+    },
+    melee() {
+      return meleeAttack();
+    },
+    throwGrenade(classId = 'lethal') {
+      const began = beginGrenade(classId);
+      if (began && EQUIPMENT[loadout[classId]]?.cookable) endGrenade(classId);
+      return began;
+    },
+    // Pin pulled and held (a cooking frag); releaseGrenade() lets it go.
+    cookGrenade(classId = 'lethal') {
+      return beginGrenade(classId);
+    },
+    releaseGrenade(classId = 'lethal') {
+      return endGrenade(classId);
+    },
+    respawnPlayer() {
+      playerHealth?.respawn();
+      return getDebugState().player;
+    },
+    respawnEnemies() {
+      enemies?.enemies.forEach((enemy) => enemy.spawnAt(enemy.spawnPoint));
+      return enemies?.aliveCount ?? 0;
+    },
+    restartMatch() {
+      restartMatch();
+      return match.getState();
+    },
+    teleportEnemy(index, position) {
+      const enemy = enemies?.enemies[Math.trunc(Number(index))];
+      if (!enemy || !Array.isArray(position) || position.length !== 3) return false;
+      const target = new THREE.Vector3(...position.map(Number));
+      if (![target.x, target.y, target.z].every(Number.isFinite)) return false;
+      return enemy.teleport(target) ? debugVector(enemy.root.position) : false;
+    },
+    alertEnemies(radius = 2000) {
+      if (!enemies || !player) return 0;
+      enemies.alert(player.position, Math.max(0, Number(radius) || 0), player.position);
+      return enemies.enemies.filter((enemy) => enemy.engaged).length;
+    },
+    // Multiplayer staging on the host: put a guest somewhere (it takes the
+    // position at its next snapshot), or hurt anyone in the match by id.
+    multiplayerTeleport(id, position, yaw = 0) {
+      const remote = remotes.get(id);
+      const target = vectorFrom(Array.isArray(position) ? position.map(Number) : null);
+      if (!remote || !target) return false;
+      remote.feet = [target.x, target.y, target.z];
+      remote.yaw = Number(yaw) || 0;
+      remote.tp += 1;
+      remote.legs.reset(hostNow());
+      remote.avatar.placed = false;
+      return remote.tp;
+    },
+    // Keep the camera on another player's body as this page draws it (null stops).
+    trackPlayer(id = null) {
+      trackedPlayer = id ? String(id) : null;
+      return trackedPlayer;
+    },
+    multiplayerDamage(id, amount) {
+      const health = id === 'player' || id === 'host' ? playerHealth : remotes.get(id)?.health;
+      if (!health) return 0;
+      health.protectionTimer = 0;
+      return health.takeDamage(Number(amount) || 0, { type: 'debug' });
+    },
+    // Stage a popup without changing the streak or chain, for deterministic
+    // rendered verification through the automation API.
+    grantMedal(ref) {
+      const def = medals?.def(ref);
+      if (!def) return false;
+      showMedalPopup(def);
+      medals.noteEarned([def]);
+      return { ref: def.ref, name: def.name ?? null };
+    },
+  };
+}
+
+document.addEventListener('pointerlockchange', () => {
+  if (touchControls.mode && !document.pointerLockElement) return;
+  locked = document.pointerLockElement === renderer.domElement;
+  document.body.classList.toggle('locked', locked);
+  // Counting here rather than in `frontend.enter()` keeps the automation
+  // harness out of the totals: `setAutomationActive` and the debug `showMenu`
+  // enter the game without ever taking a pointer lock.
+  if (locked) {
+    frontend.enter();
+    playCounter.record().then(renderPlayCount);
+    cueMatchStart();
+  } else {
+    frontend.suspend();
+    if (match.phase === 'playing') menuCue('uin_main_pause');
+  }
+  if (!locked) {
+    clearKeys();
+    weapon.setTrigger(false);
+    viewmodel.setAiming(false);
+  }
+});
+
+document.addEventListener('mousemove', (event) => {
+  if (!canControlPlayer() || event.sourceCapabilities?.firesTouchEvents) return;
+  applyLook(event.movementX, event.movementY);
+});
+
+document.addEventListener('mousedown', (event) => {
+  if (!canControlPlayer() || event.sourceCapabilities?.firesTouchEvents || event.target.closest('#touch-controls')) return;
+  if (event.button === 0) { mouseFire = true; weapon.setTrigger(true); }
+  if (event.button === 2) { mouseAim = true; viewmodel.setAiming(true); }
+});
+document.addEventListener('mouseup', (event) => {
+  if (event.sourceCapabilities?.firesTouchEvents) return;
+  if (event.button === 0) { mouseFire = false; weapon.setTrigger(false); }
+  if (event.button === 2) { mouseAim = false; viewmodel.setAiming(false); }
+});
+document.addEventListener('contextmenu', (event) => {
+  if (locked) event.preventDefault();
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.target.matches('input, select, textarea, button')) return;
+  keys[event.code] = true;
+  if (['Space', 'Tab', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.code)) {
+    event.preventDefault();
+  }
+  if (event.repeat || !ready) return;
+  if (event.code === 'Escape' && locked && touchControls.mode) {
+    suspendPlay();
+    return;
+  }
+  if (event.code === 'Enter' && match.phase === 'ended') {
+    restartMatch();
+    return;
+  }
+  if (event.code === 'Escape' && frontend.screen === 'lobby') {
+    mp?.back();
+    return;
+  }
+  // Any key but Esc starts or resumes from the shell — Esc is what released
+  // the pointer lock to get here, and the browser owns it for a moment after.
+  if (frontend.visible) {
+    if (frontend.screen === 'class') {
+      if (event.code === 'Escape' || event.code === 'Backspace') frontend.closeClass();
+      if (event.code === 'Enter') frontend.confirmClass();
+    } else if (event.code !== 'Escape') frontend.play();
+    return;
+  }
+  if (event.code === 'KeyR' && locked) reloadWeapon();
+  // 1 and 2 are the class's two guns; the wheel walks between them too.
+  if (event.code === 'Digit1' && locked && activeWeaponId !== loadout.primary) switchHeldWeapon(1);
+  if (event.code === 'Digit2' && locked && activeWeaponId !== loadout.secondary) switchHeldWeapon(1);
+  if (event.code === 'KeyE' && locked) meleeAttack();
+  if (event.code === 'KeyG' && locked) beginGrenade('lethal');
+  if (event.code === 'KeyQ' && locked) beginGrenade('tactical');
+  if (event.code === 'KeyB' && locked && !online()) {
+    if (playerHealth) playerHealth.respawn();
+    else player?.respawn();
+  }
+  if (event.code === 'KeyN') {
+    navigationVisible = !navigationVisible;
+    setDebugVisibility();
+  }
+  if (event.code === 'KeyV') {
+    collisionVisible = !collisionVisible;
+    setDebugVisibility();
+  }
+  if (event.code === 'KeyP') showPathToCrosshair();
+  if (event.code === 'KeyK' && locked) {
+    viewmodel.cycleCamo();
+    setCamoEverywhere(viewmodel.camo);
+  }
+  if (event.code === 'Tab') {
+    scoreboardHeld = true;
+    renderMatchUi();
+  }
+});
+document.addEventListener('keyup', (event) => {
+  keys[event.code] = false;
+  if (event.code === 'Tab') {
+    scoreboardHeld = false;
+    renderMatchUi();
+  }
+  // Letting go of G throws the cooked frag.
+  if (event.code === 'KeyG') endGrenade('lethal');
+});
+addEventListener('blur', () => suspendPlay());
+addEventListener('pagehide', () => suspendPlay());
+document.addEventListener('visibilitychange', () => { if (document.hidden) suspendPlay(); });
+// The mouse wheel cycles the class's guns, as in the game.
+let wheelCooldown = 0;
+document.addEventListener('wheel', (event) => {
+  if (!canControlPlayer()) return;
+  event.preventDefault();
+  const now = performance.now();
+  if (now < wheelCooldown || Math.abs(event.deltaY) < 1) return;
+  wheelCooldown = now + 220;
+  switchHeldWeapon(event.deltaY > 0 ? 1 : -1);
+}, { passive: false });
+
+async function start() {
+  try {
+    // A map picked by link may not be baked yet. Fail with its name rather
+    // than with whichever asset the loader happened to reach first.
+    if (!activeMap.baked) {
+      throw new Error(`${activeMap.name} (${activeMap.id}) is not exported yet; see README, "Adding a map"`);
+    }
+    // Started here so the sky and probes still transfer alongside the map.
+    loadEnvironment();
+    const navPromise = loadNavigation({
+      source: activeMapFiles.navmesh,
+      maxAgents: 32,
+      debug: false,
+      debugDrawer: {},
+    }).catch((error) => {
+      console.error('Navigation unavailable:', error);
+      return null;
+    }).finally(() => frontend.stage('navigation'));
+    // Only the class's two guns are on the boot path; the rest load from the
+    // class screen. See loadWeaponSlot().
+    const viewmodelPromise = Promise.all([
+      loadWeaponSlot(activeWeaponSlot),
+      loadWeaponSlot(weaponSlots.get(loadout.secondary)),
+    ]).finally(() => frontend.stage('viewmodel'));
+    const [renderGltf, loadedCollisionWorld, hints, ladders, medalDefs] = await Promise.all([
+      loadGltf(activeMapFiles.render, 'map').then((gltf) => {
+        // KTX2 texture decoding is complete when GLTFLoader resolves.
+        frontend.stage('textures');
+        return gltf;
+      }),
+      loadCollisionWorld({
+        metadataUrl: activeMapFiles.collisionBvhMeta,
+        onProgress: (event) => progress('collision', event),
+      })
+        .finally(() => frontend.stage('collision')),
+      fetch(activeMapFiles.navHints).then((response) => {
+        if (!response.ok) throw new Error(`nav hints HTTP ${response.status}`);
+        return response.json();
+      }),
+      // Baked by `npm run bake:ladders`; the map export carries no ladder
+      // surface flags, so climbing needs these volumes.
+      fetch(activeMapFiles.ladders).then((response) => {
+        if (!response.ok) throw new Error(`ladders HTTP ${response.status}`);
+        return response.json();
+      }).catch((error) => {
+        console.warn('Ladders unavailable:', error);
+        return null;
+      }),
+      // Missing medal data must never block startup; an empty table leaves the
+      // tracker inert while retaining the rest of the deferred loading path.
+      fetch('ui/medals/medals.json').then((response) => {
+        if (!response.ok) throw new Error(`medals HTTP ${response.status}`);
+        return response.json();
+      }).catch((error) => {
+        console.warn('Medals unavailable:', error);
+        return [];
+      }),
+    ]);
+    medals = new MedalTracker({ defs: medalDefs });
+    // Tagged before batching so the parts stay their own meshes.
+    destructibles = new Destructibles(renderGltf.scene, { scene });
+    weaponEffects.destructibles = destructibles;
+    // Props the map's registry says to hide (a mis-posed fxanim model), and
+    // the water surfaces' moving shading, both before the static batcher runs.
+    const hiddenNodes = hideMapNodes(renderGltf.scene, activeMap);
+    if (hiddenNodes) console.info(`${activeMap.id}: hid ${hiddenNodes} node(s)`);
+    waterClock = animateWater(renderGltf.scene);
+    mapOptimization = optimizeStaticScene(renderGltf.scene);
+    scene.add(renderGltf.scene);
+    surfaceProbe = new SurfaceProbe(renderGltf.scene);
+    worldAudio = new WorldAudio(weaponEffects.audio);
+    weaponEffects.world = worldAudio;
+    destructibles.world = worldAudio;
+    weaponEffects.surfaceProbe = surfaceProbe;
+    worldAudio.load().then(() => {
+      music = new MusicPlayer(worldAudio);
+      ambience = new AmbienceManager(worldAudio, hints?.ambience ?? [], { bank: `mpl_${activeMap.prefix}.all` });
+      if (locked && matchStartCued) ambience.start();
+    }).catch((error) => console.warn('World audio unavailable:', error));
+    collisionWorld = loadedCollisionWorld;
+    collisionRoot = collisionWorld.mesh;
+    scene.add(collisionRoot);
+    grenades = new GrenadeManager({
+      scene, collision: collisionWorld, surfaceProbe, onExplode: onGrenadeExplode,
+    });
+    worldAudio.load().then(() => { grenades.world = worldAudio; });
+    loadHeldProps().then(() => {
+      for (const [kind, propScene] of grenadeScenes) grenades.setModel(kind, propScene);
+    });
+
+    // The radar is calibrated from the map's own minimap_corner entities.
+    if (Array.isArray(hints?.minimap?.corners) && hints.minimap.corners.length >= 2) {
+      hudArt.setCalibration(calibrationFromCorners(hints.minimap.corners, activeMap.minimapSpan));
+    }
+
+    const spawn = chooseSpawn(hints, collisionRoot);
+    camera.quaternion.setFromEuler(new THREE.Euler(0, spawn.yaw, 0, 'YXZ'));
+    player = new PlayerController(camera, collisionWorld, {
+      spawn: spawn.position,
+      radius: 16,
+      height: 72,
+      eyeHeight: 60,
+      crouchHeight: 48,
+      crouchEyeHeight: 40,
+      moveSpeed: 300,
+      sprintSpeed: 450,
+      jumpHeight: 48,
+      maxSlopeAngle: 45,
+      fallResetY: -700,
+      ladders,
+    });
+    playerHealth = new PlayerHealth({
+      maxHealth: 100,
+      respawnDelay: 1.5,
+      spawnProtection: 3,
+      regenDelay: 4,
+      regenPerSecond: 25,
+      // Being hit jolts the view up and away from the shooter.
+      onDamage: ({ amount, source }) => {
+        const flinch = gunplay.kick.flinch(amount, { side: -shooterSide(source) });
+        nudgeView(flinch.pitch, flinch.yaw);
+      },
+      onDeath: ({ source }) => {
+        const killerId = combatantId(source);
+        const distance = source?.remoteId ? source.eyePosition(new THREE.Vector3()).distanceTo(player.position) : null;
+        match.recordKill(killerId, 'player', distance === null ? null : { distance });
+        if (source?.remoteId) mp?.event({ type: 'kill', distance }, source.remoteId);
+        handleLocalDeath(source, killerId);
+      },
+      onRespawn: () => {
+        resetPlayerLife();
+      },
+    });
+
+    navigation = await navPromise;
+    if (navigation?.debugDrawer) scene.add(navigation.debugDrawer);
+    if (navigation?.crowdHelper) scene.add(navigation.crowdHelper);
+    setDebugVisibility();
+
+    const enemyPromise = (navigation
+      ? (enemies = new EnemyManager({
+          scene,
+          navigation,
+          collisionWorld,
+          player,
+          playerHealth,
+          weaponEffects,
+          hints,
+          count: 6,
+          // Smoke stands between a bot and its target: it loses sight.
+          sightBlocked: (from, to) => grenades?.smokeBlocks(from, to) ?? false,
+          onDeath: (victim, source) => {
+            const fell = victim.root.position;
+            const killerId = combatantId(source);
+            const byPlayer = killerId === 'player';
+            // Kills by people carry their range, for the feed and the Long Shot medal.
+            const distance = byPlayer || source?.remoteId ? sourcePoint(source).distanceTo(fell) : null;
+            match.recordKill(killerId, `bot-${victim.index}`, distance === null ? null : { distance });
+            worldAudio?.death({ position: fell.clone() });
+            worldAudio?.bodyfall({ surface: surfaceProbe?.surfaceAt(fell), position: fell.clone() });
+            // Bot-on-bot kills stay out of every human's medal chain.
+            if (byPlayer) awardKillMedals(distance);
+            else if (source?.remoteId) mp?.event({ type: 'kill', distance }, source.remoteId);
+          },
+          onShot: (enemy, origin, end) => {
+            if (mp?.isHost) pendingShots.push([`bot-${enemy.index}`, ...roundVector(origin), ...roundVector(end), enemy.weaponDefinition?.sourceId ?? 'hk416']);
+          },
+        })).load({ onProgress: (label, event) => progress(label, event) })
+      : Promise.resolve()
+    ).finally(() => frontend.stage('enemy'));
+
+    await Promise.all([viewmodelPromise, weaponEffects.loadAudio(), enemyPromise, loadEnvironment()]);
+    refreshTextureFiltering();
+
+    for (const enemy of enemies?.enemies ?? []) {
+      match.register(`bot-${enemy.index}`, BOT_NAMES[enemy.index] ?? `BOT ${enemy.index + 1}`);
+    }
+    renderMatchUi();
+
+    // Give each enemy its own probe term before the warm-up below, so the
+    // patched materials are compiled behind the loading blocker rather than
+    // the first time an enemy comes into view.
+    for (const enemy of enemies?.enemies ?? []) {
+      enemyProbes.set(enemy, attachObjectProbe(enemy.root));
+    }
+
+    // Compile map and enemy shader variants while the loading blocker is
+    // still visible. Otherwise the first close enemy can trigger synchronous
+    // material compilation in the middle of player movement.
+    await renderer.compileAsync(scene, camera);
+    if (enemies?.enemies[0]) {
+      // Shader compilation does not upload vertex buffers or textures. Render
+      // every shared baked pose once into a 1 px target so no run frame needs
+      // its first GPU upload while the player is already moving.
+      const warmEnemy = enemies.enemies[0];
+      const parent = warmEnemy.root.parent;
+      const warmScene = new THREE.Scene();
+      warmScene.fog = scene.fog;
+      warmScene.add(new THREE.HemisphereLight(0xbfd8ff, 0x3a4a55, 1.1));
+      const warmSun = new THREE.DirectionalLight(0xfff2d8, 1.6);
+      warmSun.position.set(-80, 120, 60);
+      warmScene.add(warmSun, warmEnemy.root);
+      const warmCamera = new THREE.PerspectiveCamera(60, 1, 1, 256);
+      warmCamera.position.copy(warmEnemy.root.position).add(new THREE.Vector3(0, 42, 100));
+      warmCamera.lookAt(warmEnemy.root.position.x, warmEnemy.root.position.y + 36, warmEnemy.root.position.z);
+      const warmTarget = new THREE.WebGLRenderTarget(1, 1, { depthBuffer: true });
+      const previousTarget = renderer.getRenderTarget();
+      renderer.setRenderTarget(warmTarget);
+      const originalState = warmEnemy.visualState;
+      const originalFrame = warmEnemy.visualFrameIndex;
+      for (const [state, frames] of Object.entries(warmEnemy.visualFrames)) {
+        for (let i = 0; i < frames.length; i += 1) {
+          warmEnemy.showVisualFrame(state, i);
+          renderer.clear();
+          renderer.render(warmScene, warmCamera);
+        }
+      }
+      renderer.getContext().finish();
+      warmEnemy.showVisualFrame(originalState, originalFrame);
+      // A couple of synchronized repeats consume delayed driver allocation.
+      for (let i = 0; i < 2; i += 1) {
+        renderer.clear();
+        renderer.render(warmScene, warmCamera);
+        renderer.getContext().finish();
+      }
+      renderer.setRenderTarget(previousTarget);
+      warmTarget.dispose();
+      parent.add(warmEnemy.root);
+    }
+    frontend.stage('shaders');
+    // Prime the post-processing buffers once before deployment. The opaque
+    // frontend covers the canvas, so it does not need a full scene every frame.
+    renderFrame();
+
+    // Small read/debug surface for automated smoke tests and map tooling.
+    globalThis.hijacked = {
+      scene, camera, renderer, player, navigation, collisionRoot, collisionWorld, hints, viewmodel,
+      weapon, weaponEffects, worldAudio, surfaceProbe, destructibles, playerHealth, enemies, reloadWeapon, selectWeapon, frontend,
+      get grenades() { return grenades; },
+      get multiplayer() { return mp; },
+      get loadout() { return { ...loadout }; },
+      get ambience() { return ambience; },
+      get music() { return music; },
+      lighting: {
+        lightProbe, viewmodelProbe, enemyProbes, sceneSH,
+        get probeVolume() { return probeVolume; },
+        get gradeMaterial() { return gradeMaterial; },
+        get gradeTarget() { return gradeTarget; },
+      },
+      debug: createDebugApi(),
+    };
+
+    startupMilliseconds = debugRound(performance.now() - bootStartedAt);
+    frameWorkWarmupUntil = performance.now() + 1000;
+    ready = true;
+    frontend.setReady([
+      'WASD move · Shift sprint · Space jump · C/Ctrl crouch',
+      'Left mouse fire · Right mouse aim · R reload · B respawn',
+      'Wheel or 1/2 switch gun · E melee · G frag (hold to cook) · Q smoke',
+      'Snipers: right mouse scopes · Shift in the scope holds breath',
+      'K cycle camo · N navmesh · V collision · P path · Esc pause',
+      navigation ? '' : 'Navigation failed to load; collision and walking are still available.',
+    ]);
+    updateControlHints();
+    mp = new MultiplayerSession(multiplayerApi());
+    mp.ready();
+  } catch (error) {
+    console.error(error);
+    frontend.fail(`Unable to start\n${error instanceof Error ? error.message : error}`);
+    hud.textContent = 'load failed — see developer console';
+  }
+}
+
+function tick() {
+  requestAnimationFrame(tick);
+  step(Math.min(clock.getDelta(), 0.1));
+}
+
+// A multiplayer host keeps its match running while its tab is hidden, where
+// animation frames stop; its guests would otherwise see the room stall.
+setInterval(() => {
+  if (!document.hidden || !mp?.isHost) return;
+  // A background tab's timers may fire only once a second; catch that second up.
+  const elapsed = Math.min(clock.getDelta(), 1.1);
+  for (let left = elapsed; left > 0; left -= 0.05) step(Math.min(0.05, left), { render: false });
+}, 50);
+
+function step(dt, { render = true } = {}) {
+  const frameWorkStartedAt = performance.now();
+  if (render && graphics.observeFrame(frameWorkStartedAt, ready && canControlPlayer() && !document.hidden)) resizeGraphicsBuffer();
+  const simulationActive = locked && !frontend.visible && !automationPaused &&
+    !(touchControls.mode && scoreboardHeld) && match.phase === 'playing';
+  // Online the menu pauses nothing: the match goes on around whoever opened it.
+  const networked = online();
+  const worldActive = networked ? match.phase === 'playing' : simulationActive;
+  const controlsActive = canControlPlayer();
+  touchControls.setEnabled(controlsActive, ready && locked && !frontend.visible && !scoreboardHeld && match.phase === 'playing');
+  const touch = touchControls.input.read();
+  const movement = {
+    forward: Number(Boolean(keys.KeyW)) - Number(Boolean(keys.KeyS)) + touch.forward,
+    strafe: Number(Boolean(keys.KeyD)) - Number(Boolean(keys.KeyA)) + touch.strafe,
+    sprint: Boolean(keys.ShiftLeft || keys.ShiftRight || touch.sprint),
+    crouch: Boolean(keys.ControlLeft || keys.ControlRight || keys.KeyC || touch.crouch),
+    jump: Boolean(keys.Space || touch.jump),
+  };
+  weapon.setTrigger(controlsActive && (mouseFire || touch.fire));
+  viewmodel.setAiming(controlsActive && (mouseAim || touch.aim));
+  const moving = controlsActive && Math.hypot(movement.forward, movement.strafe) > 0;
+  sprintState = gunplay.sprint.update(simulationActive ? dt : 0, {
+    wantsSprint: movement.sprint && moving,
+    triggerHeld: weapon.triggerHeld,
+    aiming: viewmodel.aiming || viewmodel.meleeing || viewmodel.throwing,
+  });
+  lastMovement = controlsActive ? movement : { forward: 0, strafe: 0 };
+  if (player && worldActive) {
+    player.update(dt, controlsActive ? { ...movement, sprint: sprintState.sprinting } : {});
+  }
+  if (mp?.isClient) drawSnapshots(dt);
+  else if (worldActive && enemySimulationActive) navigation?.update(1 / 60, dt, 5);
+  enemies?.update(dt, { active: worldActive && enemySimulationActive });
+  if (mp?.isClient) playerHealth.hitFlash = Math.max(0, playerHealth.hitFlash - dt * 3.5);
+  else playerHealth?.update(worldActive ? dt : 0);
+  if (worldActive && !mp?.isClient) match.update(dt);
+  if (mp?.isHost) updateRemotes(dt, worldActive);
+  const tracked = trackedPlayer ? remoteBodies().find(([id]) => id === trackedPlayer)?.[1] : null;
+  if (tracked && !tracked.dead) {
+    const at = tracked.root.position;
+    camera.lookAt(at.x, at.y + tracked.torsoHeight + 8, at.z);
+  }
+  weaponEffects.update(dt);
+  destructibles?.update(dt);
+  if (worldActive) grenades?.update(dt, { actors: mp?.isClient ? [] : enemies?.actors ?? [] });
+  if (worldActive && throwState) {
+    throwState.cookedSeconds += dt;
+    if (!throwState.item.cookable && throwState.cookedSeconds >= 0.35) endGrenade(throwState.classId);
+    if (throwState?.item.cookable && throwState.cookedSeconds >= throwState.item.fuse) {
+      // A cooked frag expires in the hand too; holding it is not a free pause.
+      releaseGrenade(throwState.item.kind);
+      viewmodel.finishThrow();
+    }
+  }
+  if (waterClock) waterClock.value = clock.elapsedTime;
+  // Panned enemy fire is only meaningful while the listener tracks the camera.
+  if (worldActive) weaponEffects.updateListener(camera);
+
+  if (player) {
+    const p = player.position;
+    const speed = Math.hypot(player.velocity.x, player.velocity.z);
+    const sprinting = sprintState.sprinting;
+    gunplay.spread.update(dt);
+    if (worldActive && worldAudio && !playerHealth?.dead) {
+      const feet = player.feetPosition;
+      const stride = playerStride.update(feet, { grounded: player.isGrounded, sprinting, dt });
+      if (stride.step && speed > 40) {
+        worldAudio.footstep({
+          surface: surfaceProbe?.surfaceAt(feet),
+          sprinting,
+          walking: speed < 200,
+          crouched: player.crouched,
+        });
+        if (sprinting) {
+          worldAudio.play('fly_cloth_sprint_plr', { gain: 0.35 });
+          worldAudio.play('fly_gear_sprint_plr', { gain: 0.3 });
+        }
+      }
+      if (stride.land) {
+        worldAudio.land({ surface: surfaceProbe?.surfaceAt(feet), drop: stride.drop });
+        if (stride.drop > 140) worldAudio.play('fly_dtp_land_exert_plr', { gain: 0.8 });
+      }
+      ambience?.update(dt, camera.position);
+      // Hurt breathing while health is low, spaced like the game's loop.
+      breathTimer -= dt;
+      if ((playerHealth?.health ?? 100) < 35 && breathTimer <= 0) {
+        worldAudio.play('chr_breathing_hurt', { gain: 0.6 });
+        breathTimer = 2.8;
+      }
+      // Timer music at one minute, a beep for each of the last ten seconds.
+      const remaining = match.remainingSeconds;
+      if (remaining <= 60 && !timerMusicCued) {
+        timerMusicCued = true;
+        music?.play('mus_time_running_out', { gain: 0.4 });
+      }
+      const second = Math.ceil(remaining);
+      if (remaining <= 10 && remaining > 0 && second !== lastTimerBeep) {
+        lastTimerBeep = second;
+        worldAudio.play('mpl_ui_timer_countdown', { ui: true, gain: 0.6, cents: 0 });
+      }
+      // Bots and other players: footsteps from where each one is drawn.
+      const walkers = [
+        ...(enemies?.enemies ?? []).map((enemy) => [enemy.index, enemy]),
+        ...remoteBodies().map(([id, avatar]) => [`player:${id}`, avatar]),
+      ];
+      for (const [key, walker] of walkers) {
+        let tracker = enemyStrides.get(key);
+        if (!tracker) {
+          tracker = new StrideTracker({ walkStride: 66 });
+          enemyStrides.set(key, tracker);
+        }
+        if (walker.dead || walker.benched) {
+          tracker.reset();
+          continue;
+        }
+        const stride = tracker.update(walker.root.position, { grounded: true, sprinting: false, dt });
+        if (stride.step && walker.movementSpeed > 40) {
+          worldAudio.footstep({
+            surface: surfaceProbe?.surfaceAt(walker.root.position),
+            npc: true,
+            position: walker.root.position.clone(),
+          });
+        }
+      }
+    }
+    if (simulationActive) {
+      const recentre = gunplay.kick.update(dt);
+      nudgeView(recentre.pitch, recentre.yaw);
+    }
+    viewmodel.update(simulationActive ? dt : 0, {
+      speed,
+      grounded: player.isGrounded,
+      sprinting,
+      moving,
+    });
+    // Update the world lens after the weapon blend, so both render the same frame.
+    const sway = updateScope(dt, { holdBreath: Boolean(keys.ShiftLeft || keys.ShiftRight || touch.breath), active: controlsActive });
+    nudgeView(sway.pitch, sway.yaw);
+
+    viewBob.update(dt, {
+      speed,
+      grounded: player.isGrounded,
+      sprinting,
+      moving,
+    });
+    if (weapon.reloading && !viewmodel.reloading) weapon.finishReload();
+    weapon.update(dt, { canFire: controlsActive && sprintState.canFire && !viewmodel.meleeing && !viewmodel.throwing && !viewmodel.rechambering && !viewmodel.pendingRechamber });
+
+    if (playerHealth?.dead) {
+      const sourcePosition = deathSource?.root && !deathSource.dead
+        ? enemies?.targetPosition(deathSource)
+        : null;
+      if (sourcePosition) camera.lookAt(sourcePosition);
+      const sourceEntry = match.getState().standings.find((entry) => entry.id === deathKillerId);
+      deathKiller.textContent = sourceEntry ? `Killed by ${sourceEntry.name}` : 'Killed in action';
+      respawnCopy.textContent = `Respawning in ${Math.max(0, playerHealth.respawnTimer).toFixed(1)} seconds`;
+      deathCard.style.display = 'block';
+    }
+
+    // A minimap ping lights when an enemy's shot counter ticks; carrying the
+    // last seen count keeps respawn resets from flashing a stale ping.
+    for (const enemy of enemies?.enemies ?? []) {
+      const seen = lastEnemyShots.get(enemy.index) ?? 0;
+      if (enemy.shotsFired > seen) hudArt.markEnemyFire(enemy.index);
+      lastEnemyShots.set(enemy.index, enemy.shotsFired);
+    }
+
+    yawPitch.setFromQuaternion(camera.quaternion);
+    hudArt.update({
+      x: p.x,
+      z: p.z,
+      yaw: yawPitch.y,
+      enemies: [
+        ...(enemies?.enemies.map((enemy) => ({
+          index: enemy.index,
+          x: enemy.root.position.x,
+          z: enemy.root.position.z,
+          dead: enemy.dead,
+        })) ?? []),
+        ...remoteBodies().map(([id, avatar]) => ({ index: id, x: avatar.root.position.x, z: avatar.root.position.z, dead: avatar.dead })),
+      ],
+      weapon: {
+        name: activeWeaponSlot.definition.name,
+        magazine: weapon.magazine,
+        reserveAmmo: weapon.reserveAmmo,
+        ready: viewmodel.ready,
+      },
+      health: playerHealth?.health ?? 100,
+      hitFlash: playerHealth?.hitFlash ?? 0,
+      dead: Boolean(playerHealth?.dead),
+    });
+
+    hudElapsed += dt;
+    if (hudElapsed >= 0.1) {
+      hudElapsed = 0;
+      const nextHud =
+        `xyz ${p.x.toFixed(1)} ${p.y.toFixed(1)} ${p.z.toFixed(1)}\n` +
+        `speed ${speed.toFixed(0)}  ${player.isGrounded ? 'grounded' : 'air'}${player.crouched ? '  crouched' : ''}\n` +
+        `health ${Math.ceil(playerHealth?.health ?? 100)}${playerHealth?.dead ? '  respawning' :
+          playerHealth?.protectionTimer > 0 ? '  protected' : ''}  ` +
+        `enemies ${enemies?.aliveCount ?? 0}/${enemies?.enemies.length ?? 0}\n` +
+        `weapon ${viewmodel.ready ? activeWeaponId : 'none'}${viewmodel.reloading ? ' reloading' : ''}  ` +
+        `ammo ${weapon.magazine}/${weapon.reserveAmmo}  ` +
+        `frag ${equipmentAmmo.frag ?? 0} smoke ${equipmentAmmo.smoke ?? 0}\n` +
+        `nav ${navigation ? (navigationVisible ? 'shown' : 'ready') : 'unavailable'}  ` +
+        `collision ${collisionVisible ? 'shown' : 'ready'}  path ${pathPoints}`;
+      if (hud.textContent !== nextHud) hud.textContent = nextHud;
+      renderMatchUi();
+    }
+  }
+  if (match.phase === 'ended' && !matchEndedHandled) {
+    clearKeys();
+    matchEndedHandled = true;
+    // Result music by the player's placing; a shared top score is a draw.
+    const standings = match.getState().standings;
+    const leader = standings[0];
+    const self = selfId();
+    const playerEntry = standings.find((entry) => entry.id === self);
+    const tied = standings.filter((entry) => entry.kills === leader?.kills).length > 1;
+    const result = playerEntry && leader?.id === self ? (tied ? 'mus_draw' : 'mus_victory') : 'mus_loss';
+    music?.play(result, { gain: 0.5 });
+    player?.setEnabled(false);
+    weapon.setTrigger(false);
+    viewmodel.setAiming(false);
+    renderMatchUi();
+  }
+  const adsState = viewmodel.aimBlend > 0.5;
+  if (adsState !== lastAdsState) {
+    crosshair.classList.toggle('ads', adsState);
+    lastAdsState = adsState;
+    if (simulationActive) worldAudio?.play(adsState ? 'fly_generic_ads_plr' : 'fly_generic_ads_lower_plr', { gain: 0.6 });
+  }
+
+  if (hitmarkerLife > 0) {
+    hitmarkerLife = Math.max(0, hitmarkerLife - dt);
+    const remaining = hitmarkerLife / hitmarkerMaxLife;
+    // Holds at full opacity for the first third, then falls away while the
+    // ticks spread outward from the crosshair.
+    hitmarker.style.opacity = String(Math.min(1, remaining * 3));
+    hitmarker.style.transform = `scale(${1.5 - remaining * 0.5})`;
+  } else if (hitmarker.style.opacity !== '0') {
+    hitmarker.style.opacity = '0';
+  }
+
+  updateMedalPopups();
+  if (toastTimer > 0) {
+    toastTimer -= dt;
+    if (toastTimer <= 0) document.getElementById('mp-toast').hidden = true;
+  }
+  if (mp?.isHost) {
+    hostProxy?.sync();
+    recordPoses();
+    mp.afterHost(dt);
+  } else if (mp?.isClient) {
+    mp.updateClient(dt);
+  }
+
+  updateLightProbes(camera.position);
+  // The stride bob lives on the camera only for the draw; gameplay reads the
+  // steady camera before and after.
+  if (render && !frontend.visible) {
+    viewBob.apply(camera);
+    renderFrame();
+    viewBob.restore(camera);
+  }
+  if (render && ready && performance.now() >= frameWorkWarmupUntil) {
+    frameWorkSamples[frameWorkSampleIndex] = performance.now() - frameWorkStartedAt;
+    frameWorkSampleIndex = (frameWorkSampleIndex + 1) % frameWorkSamples.length;
+    frameWorkSampleCount += 1;
+  }
+}
+
+// The world and weapon share the HDR scene target. Grade once, then use FXAA
+// only when the device cannot multisample that target.
+function renderFrame() {
+  if (gradeMaterial && gradeTarget) {
+    // Kept in sync here because the vision set's exposure is applied
+    // asynchronously and may land after this pass was built.
+    gradeMaterial.uniforms.exposure.value = renderer.toneMappingExposure;
+    renderer.setRenderTarget(gradeTarget);
+    renderer.clear();
+    renderer.render(scene, camera);
+    viewmodel.render(renderer);
+    gradeMaterial.uniforms.tDiffuse.value = gradeTarget.texture;
+    graphicsRenderer.render(gradeScene, gradeCamera);
+    return;
+  }
+  renderer.clear();
+  renderer.render(scene, camera);
+  viewmodel.render(renderer);
+}
+
+// Booting is deferred until something suggests a real visitor is present.
+// `start()` used to run on page load, so every open -- crawler, scraper, link
+// preview, or somebody who bounced off the title screen -- pulled the whole
+// payload before touching anything. The play counter made the waste plain: 867
+// plays all time against 125 GB of bandwidth in the first two days of
+// September. A visit that never starts a match now costs ~2.6 MB, not ~47 MB.
+//
+// The welcome screen asks for input, and the early script above remembers it
+// even while modules are still downloading. Resolve once across all input types.
+globalThis.hijackedStartup.then(() => {
+  frontend.startLoading();
+  start();
+});
+tick();
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  for (const slot of weaponSlots.values()) slot.viewmodel.setSize(innerWidth, innerHeight);
+  graphics.setViewport(innerWidth, innerHeight, devicePixelRatio, maxRenderSize);
+  renderer.setSize(innerWidth, innerHeight);
+  resizeGraphicsBuffer();
+});
+</script>
+</body>
+</html>
