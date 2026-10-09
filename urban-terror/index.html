@@ -1,0 +1,636 @@
+<!doctype html><html lang=en><head>
+<base href="https://cdn.jsdelivr.net/gh/playsurd/surd-x-2@main/urban-terror/">
+<script data-surd="1">(function () {
+  var W = window;
+  var unityTarget = null;
+  function tellUnity(methods, arg) {
+    var inst = W.__surdUnity || W.unityInstance || W.gameInstance;
+    if (!inst || !inst.SendMessage || !unityTarget) return;
+    for (var i = 0; i < methods.length; i++) {
+      try { arg === undefined ? inst.SendMessage(unityTarget, methods[i]) : inst.SendMessage(unityTarget, methods[i], arg); }
+      catch (e) {  }
+    }
+  }
+  if (typeof W.initPokiBridge !== 'function') {
+    W.initPokiBridge = function (name) { unityTarget = name || unityTarget; };
+  }
+  if (typeof W.commercialBreak !== 'function') {
+    W.commercialBreak = function () { setTimeout(function () { tellUnity(['CommercialBreakComplete', 'commercialBreakComplete']); }, 0); };
+  }
+  if (typeof W.rewardedBreak !== 'function') {
+    W.rewardedBreak = function () { setTimeout(function () { tellUnity(['RewardedBreakComplete', 'rewardedBreakComplete'], 'false'); }, 0); };
+  }
+  var resolved = function () { return Promise.resolve(); };
+  if (!W.PokiSDK) {
+    W.PokiSDK = {
+      init: resolved, initPokiBridge: function () {}, setDebug: function () {},
+      gameLoadingStart: function () {}, gameLoadingFinished: function () {},
+      gameLoadingProgress: function () {},
+      gameplayStart: function () {}, gameplayStop: function () {},
+      commercialBreak: resolved, rewardedBreak: function () { return Promise.resolve(false); },
+      happyTime: function () {}, customEvent: function () {}, captureError: function () {},
+      isAdBlocked: function () { return false; }, shareableURL: function () { return Promise.resolve(location.href); },
+      getURLParam: function (k) { try { return new URL(location.href).searchParams.get(k) || ''; } catch (e) { return ''; } },
+    };
+  }
+  if (!W.YaGames) {
+    var yPlayer = {
+      getName: function () { return 'player'; }, getUniqueID: function () { return 'local'; },
+      getData: function () { return Promise.resolve({}); }, setData: resolved,
+      getStats: function () { return Promise.resolve({}); }, setStats: resolved, incrementStats: resolved,
+      getMode: function () { return 'lite'; }, getPhoto: function () { return ''; },
+    };
+    var yLeaderboards = {
+      setLeaderboardScore: resolved,
+      getLeaderboardEntries: function () { return Promise.resolve({ entries: [] }); },
+      getLeaderboardPlayerEntry: function () { return Promise.reject(new Error('no entry')); },
+      getLeaderboardDescription: function () { return Promise.resolve({}); },
+    };
+    var ySdk = {
+      adv: {
+        showFullscreenAdv: function (o) { var c = o && o.callbacks; if (c && c.onClose) setTimeout(function () { c.onClose(false); }, 0); },
+        showRewardedVideo: function (o) { var c = o && o.callbacks; if (c && c.onClose) setTimeout(function () { c.onClose(); }, 0); },
+        getBannerAdvStatus: function () { return Promise.resolve({ stickyAdvIsShowing: false }); },
+      },
+      getPlayer: function () { return Promise.resolve(yPlayer); },
+      getPayments: function () { return Promise.resolve({
+        getCatalog: function () { return Promise.resolve([]); },
+        getPurchases: function () { return Promise.resolve([]); },
+        purchase: function () { return Promise.reject(new Error('payments unavailable')); },
+        consumePurchase: resolved,
+      }); },
+      getFlags: function () { return Promise.resolve({}); },
+      getStorage: function () { return Promise.resolve(window.localStorage); },
+      clipboard: { writeText: resolved },
+      shortcut: { canShowPrompt: function () { return Promise.resolve({ canShow: false }); }, showPrompt: function () { return Promise.resolve({ outcome: 'rejected' }); } },
+      feedback: { canReview: function () { return Promise.resolve({ value: false }); }, requestReview: function () { return Promise.resolve({ feedbackSent: false }); } },
+      getLeaderboards: function () { return Promise.resolve(yLeaderboards); },
+      features: { LoadingAPI: { ready: function () {} } },
+      screen: { fullscreen: { request: resolved, exit: resolved } },
+      isAvailableMethod: function () { return Promise.resolve(false); },
+      environment: { i18n: { lang: 'en' }, app: { id: 'local' } },
+      deviceInfo: { isDesktop: function () { return true; }, isMobile: function () { return false; },
+                    isTablet: function () { return false; }, isTV: function () { return false; },
+                    type: 'desktop' },
+    };
+    W.YaGames = { init: function () { return Promise.resolve(ySdk); } };
+    W.ysdk = ySdk;
+  }
+  if (!W.ytgame) {
+    var ytNoop = function () {};
+    W.ytgame = {
+      IN_PLAYABLES_ENV: false,
+      game: { firstFrameReady: ytNoop, gameReady: ytNoop, loadData: function () { return Promise.resolve(''); },
+              saveData: function () { return Promise.resolve(); }, isPaused: function () { return false; } },
+      system: { getLanguage: function () { return 'en'; }, isAudioEnabled: function () { return true; },
+                onAudioEnabledChange: ytNoop, onPause: ytNoop, onResume: ytNoop },
+      health: { logError: ytNoop, logWarning: ytNoop },
+      engagement: { sendScore: function () { return Promise.resolve(); } },
+      ads: { requestInterstitialAd: function () { return Promise.resolve(); } },
+    };
+  }
+  if (typeof document !== 'undefined' && document.xURL === undefined) {
+    try { document.xURL = 'https://poki.com/'; } catch (e) {  }
+  }
+  if (!W.YYGGames) {
+    var yyAds = function (o) {
+      o = o || {};
+      var step = function (fn) { if (typeof fn === 'function') setTimeout(fn, 0); };
+      step(o.beforeShowAd);
+      setTimeout(function () { step(o.afterShowAd); step(o.rewardDismissed); }, 1);
+    };
+    W.YYGGames = {
+      startup: function (o) { if (o && typeof o.complete === 'function') setTimeout(o.complete, 0); },
+      startupByYad: function () {}, showSplash: function () {},
+      showInterstitial: yyAds, showReward: yyAds,
+      canShowReward: function () { return false; },
+      getAdPlatformType: function () { return 'none'; },
+      getForgames: function () { return Promise.resolve([]); },
+      navigate: function () {},
+      onVisibilitychange: function () {},
+    };
+  }
+  if (!W.GamePix) {
+    W.GamePix = { init: function () {}, ping: function () {}, gameLoadingStart: function () {}, gameLoadingFinished: function () {},
+                  interstitialAd: resolved, rewardAd: function () { return Promise.resolve(false); }, happyMoment: function () {} };
+  }
+  if (!W.CrazyGames) {
+    var noop = function () {};
+    W.CrazyGames = { SDK: {
+      init: resolved, game: { gameplayStart: noop, gameplayStop: noop, loadingStart: noop, loadingStop: noop, happytime: noop },
+      ad: { requestAd: function (t, cb) { if (cb && cb.adFinished) cb.adFinished(); }, hasAdblock: function () { return Promise.resolve(false); } },
+      user: { getUser: function () { return Promise.resolve(null); } },
+      banner: { requestBanner: resolved, clearAllBanners: noop },
+    } };
+  }
+})();
+if (typeof window !== 'undefined') {
+  if (typeof window.environmentData === 'undefined') window.environmentData = 'NO_DATA';
+  if (typeof window.nowFullAdOpen === 'undefined') window.nowFullAdOpen = false;
+}
+try {
+  var parentWin = window.parent;
+  if (parentWin && parentWin !== window) {
+    if (typeof parentWin.maeExportApis_ !== 'function') parentWin.maeExportApis_ = function () {};
+  }
+} catch (e) {  }
+if(typeof window.UnityProgress!=="function")window.UnityProgress=function(){this.SetMessage=function(){};this.SetProgress=function(){};this.Clear=function(){};};
+window.alert=function(){};window.confirm=function(){return false;};window.prompt=function(){return null;};
+(function(){
+    /* DEAD HOSTS, blocked for a different reason than the ad networks below.
+     *
+     * Sixteen files across the catalogue live on hosts that no longer answer. Vendoring could not
+     * save them (nothing to download, and none are in the Wayback Machine), but every one turned
+     * out to be inessential once looked at: an ad SWF (bbplayer), a portal logo (kizi), portal
+     * SDKs (gamemix, gmsdk), a sitelock check (pegasgames' "wheely7sec.swf" — wheely-7 ships its
+     * real game in _vendor), cosmetic images, and duplicates of files the game already has
+     * locally (both spongebob ports ship their own flambe.js). Left alone, each one is a request
+     * that hangs until it times out; blocked, it fails instantly and the game gets on with it. */
+    var DEAD = /(bbplayer\.net|cdn0\.kizi\.com|gmapi\.gamemix\.com|r3tq6l1\/gmsdk|candystand\.com|eags\.us|iep-esy\.ir|pegasgames\.com|ngames365\.github\.io|yurivish\.com|chicken\.royalredeemerlutheranschool\.org|marketjs-us\/en\/patch|cdn\.jsdelivr\.net\/discount\.json)/i;
+    var BAD = /(doubleclick\.net|googlesyndication\.com|googleadservices\.com|googleads\.g\.doubleclick\.net|adtrafficquality\.google|2mdn\.net|imasdk\.googleapis\.com|adsbygoogle|google-analytics\.com|googletagmanager\.com|gstatic\.com\/firebasejs|gamemonetize\.com|fliplineads\.com|cpmstar\.com|ngads\.com|adinplay\.com|mochibot\.com|mochiads\.com|gamedistribution\.com|msgrt\.gamedistribution\.com|azerioncircle\.com|gamemonkey\.org|gameanalytics\.com|gamedock\.io|enjoy4fun\.com|gamebridge\.games|gamearter\.com|poki\.io|famobi\.com|softgames\.de|analytics\.shapez\.io|scorecardresearch\.com|moatads\.com|amazon-adsystem\.com|criteo|pubmatic|rubiconproject|adnxs\.com|casalemedia|smartadserver|taboola|outbrain|hotjar\.com|mixpanel|clarity\.ms|rudderlabs\.com|analytics\.tiktok\.com|connect\.facebook\.net|yandex\.ru\/metrika|mc\.yandex|cloud\.unity3d\.com|pushalert\.co|quizvana\.com|serviceclic\.com|atpnd\.com|r9x\.in|adsgram\.ai)/i;
+    function bad(u){ try { var t = String(u); return BAD.test(t) || DEAD.test(t); } catch(e){ return false; } }
+    /* HOST-ABSOLUTE PATHS: "/version.json", "/audio/x.flac".
+     *
+     * A leading slash ignores <base> completely and resolves against the ORIGIN, which for us
+     * is the site (or an opaque blob origin) and never holds game assets — so every such
+     * request is a guaranteed 404. 2048-merge-run asked for /version.json, /fileconfig.json
+     * and every one of its scene files this way and showed a black screen with nothing but
+     * "Script error." to go on; a-dark-room does the same with /audio/*.flac.
+     *
+     * Since no host-absolute path can ever be correct here, point them all at the game's own
+     * base. This is a rewrite rather than a refusal: the files exist, just one level up.
+     * Protocol-relative "//host/x" is a different thing (a real remote host) and is left to
+     * the denylist above. */
+    /* Read the base LAZILY. This guard is deliberately installed before the manifest script
+     * (that order is load-bearing — moving SURD_GAME ahead of the prelude once stopped this
+     * very game from rendering at all), so at install time there is no base to capture. */
+    function gbase(){ try { return (window.SURD_GAME && window.SURD_GAME.base) || ''; } catch(e){ return ''; } }
+    /* A file we downloaded from a third-party host and now ship ourselves. Checked before
+     * anything else: this is what stops a game depending on someone else's server staying up,
+     * and it works even when the game builds the URL at runtime. */
+    function vendored(u){
+      try {
+        var M = window.SURD_GAME, map = M && M.ext;
+        if (!map || typeof u !== 'string') return null;
+        var q = u.split('#')[0];
+        if (map[q]) return String(M.base).replace(/\/?$/, '/') + map[q];
+        var noq = q.split('?')[0];
+        if (map[noq]) return String(M.base).replace(/\/?$/, '/') + map[noq];
+        return null;
+      } catch(e){ return null; }
+    }
+    function rebase(u){
+      try {
+        if (typeof u !== 'string' || !u) return u;
+        var v = vendored(u); if (v) return v;
+        var B = gbase(); if (!B) return u;
+        B = B.replace(/\/?$/, '/');
+        if (u.indexOf(B) === 0) return u;                        // already where it belongs
+        /* Never touch OUR OWN plumbing. The runtime and its adapters live at a different path
+         * (and in production a different origin), and rebasing them points the loader at the
+         * game's asset directory, where no adapter exists. */
+        var RT = '';
+        try { RT = (window.SURD_GAME && window.SURD_GAME.runtime) || ''; } catch(e){}
+        if (RT && u.indexOf(RT) === 0) return u;
+        if (u.indexOf('/_rt/') >= 0 || u.indexOf('surd-runtime') >= 0) return u;
+        /* A bare "/" (or "/?x") has NO path to rebase, and rewriting it produced a request for
+         * the base DIRECTORY, which 404s and shows up in the log as
+         * "failed to load .../suika-game/". Leave those alone. */
+        if (u.charAt(0) === '/' && u.charAt(1) !== '/') {
+          var rest = u.slice(1);
+          return rest && rest.charAt(0) !== '?' && rest.charAt(0) !== '#' ? B + rest : u;
+        }
+        /* An engine that builds its own absolute URLs from location, rather than letting the
+         * browser resolve a relative path, lands on the SITE origin — which holds no game
+         * assets either. 2048-merge-run (LayaAir) asks for "<origin>/version.json" outright,
+         * so matching only a leading slash was not enough. Our origin is never a legitimate
+         * place for a game to fetch from, so the same redirect applies. */
+        var o = location.origin;
+        if (o && o !== 'null' && u.indexOf(o + '/') === 0) return B + u.slice(o.length + 1);
+        return u;
+      } catch(e){ return u; }
+    }
+    var of = window.fetch;
+    if (of) window.fetch = function(i, o){
+      var u = (i && i.url) ? i.url : i;
+      /* 204 forbids a body, and passing one throws in Firefox ("Response body is given with a
+       * null body status") — INSIDE the game's own fetch call, which is exactly what this branch
+       * exists to protect (papa-burgeria). Status 200 with an empty body is accepted everywhere
+       * and reads to the caller as "nothing here", which is what we want to say. */
+      if (bad(u)) return Promise.resolve(new Response('', {status:200}));
+      if (typeof i === 'string') { var r = rebase(i); if (r !== i) return of.call(this, r, o); }
+      return of.apply(this, arguments);
+    };
+    var oo = window.XMLHttpRequest && window.XMLHttpRequest.prototype.open;
+    if (oo) window.XMLHttpRequest.prototype.open = function(m, u){
+      if (bad(u)) { arguments[1] = 'data:text/plain,'; }
+      else if (typeof u === 'string') { arguments[1] = rebase(u); }
+      return oo.apply(this, arguments);
+    };
+    if (navigator.sendBeacon) { var ob = navigator.sendBeacon.bind(navigator);
+      navigator.sendBeacon = function(u, d){ return bad(u) ? true : ob(u, d); }; }
+    var OW = window.WebSocket;
+    if (OW) window.WebSocket = function(u, p){
+      if (bad(u)) u = 'ws://127.0.0.1:1';
+      return p === undefined ? new OW(u) : new OW(u, p);
+    };
+    /* setAttribute('src', …) bypasses the property setter patched below, and several ad
+     * tags use exactly that form (moto-x3m still reached googlesyndication until this). */
+    try {
+      var osa = Element.prototype.setAttribute;
+      Element.prototype.setAttribute = function(n, v){
+        if (n && /^(src|href|data)$/i.test(n)) {
+          if (bad(v)) return;
+          /* Same host-absolute problem, reached through an attribute: an <img> or <audio>
+           * given "/audio/x.flac" resolves against the origin and 404s. */
+          if (typeof v === 'string') arguments[1] = rebase(v);
+        }
+        return osa.apply(this, arguments);
+      };
+    } catch(e){}
+    /* Element src= is how most ad tags actually load. */
+    try {
+      ['HTMLImageElement','HTMLScriptElement','HTMLIFrameElement','HTMLAudioElement','HTMLVideoElement','HTMLSourceElement'].forEach(function(k){
+        var P = window[k] && window[k].prototype; if (!P) return;
+        var d = Object.getOwnPropertyDescriptor(P, 'src'); if (!d || !d.set) return;
+        Object.defineProperty(P, 'src', {
+          configurable: true, enumerable: d.enumerable, get: d.get,
+          set: function(v){
+            if (bad(v)) return;
+            var t = typeof v === 'string' ? rebase(v) : v;
+            /* CORS ON OUR OWN ASSETS — not politeness, a hard requirement.
+             *
+             * WebGL refuses to upload a texture from an image fetched cross-origin without
+             * CORS: the canvas would be tainted, so it throws "SecurityError: The operation is
+             * insecure" inside uploadTexture and the game shows a grey screen with everything
+             * apparently loaded (stair-race-3d, PlayCanvas). Our assets live on another origin
+             * by definition — the page is a blob, the files are on the CDN — so every engine
+             * that loads textures through <img> hits this.
+             *
+             * Scoped to OUR hosts and to relative URLs (which resolve against our base through
+             * <base>): jsDelivr and raw both send Access-Control-Allow-Origin: *, so requesting
+             * CORS always succeeds there. Setting it on a third-party host that does NOT send
+             * the header would turn a working image into a failed one, so those are left alone.
+             *
+             * Scripts get the same treatment for a different reason: without crossorigin an
+             * error inside an engine-injected script arrives as the bare, useless
+             * "Script error." with no file or line (2048-merge-run's laya.core.min.js). */
+            try {
+              var ours = typeof t === 'string' && (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(t)
+                || t.indexOf(gbase()) === 0
+                || /^https:\/\/(cdn\.jsdelivr\.net|raw\.githubusercontent\.com)\//.test(t));
+              if (ours && !this.crossOrigin) this.crossOrigin = 'anonymous';
+            } catch(e){}
+            return d.set.call(this, t);
+          }
+        });
+      });
+    } catch(e){}
+  })();</script>
+<script data-surd="1">window.SURD_GAME={"id":"urban-terror","engine":"generic","base":"https://cdn.jsdelivr.net/gh/playsurd/surd-x-2@main/urban-terror/","runtime":"https://cdn.jsdelivr.net/gh/playsurd/surd-runtime@main/v53aeb7210d/","files":{},"config":{},"split":[{"p":"ut-data/zUrT43_001.pk3","u":["ut-data/zUrT43_001.pk3.sp0","ut-data/zUrT43_001.pk3.sp1","ut-data/zUrT43_001.pk3.sp2","ut-data/zUrT43_001.pk3.sp3"],"b":77799633,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_002.pk3","u":["ut-data/zUrT43_002.pk3.sp0","ut-data/zUrT43_002.pk3.sp1","ut-data/zUrT43_002.pk3.sp2","ut-data/zUrT43_002.pk3.sp3"],"b":73378053,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_003.pk3","u":["ut-data/zUrT43_003.pk3.sp0","ut-data/zUrT43_003.pk3.sp1","ut-data/zUrT43_003.pk3.sp2","ut-data/zUrT43_003.pk3.sp3"],"b":67657413,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_004.pk3","u":["ut-data/zUrT43_004.pk3.sp0","ut-data/zUrT43_004.pk3.sp1","ut-data/zUrT43_004.pk3.sp2","ut-data/zUrT43_004.pk3.sp3"],"b":79753661,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_005.pk3","u":["ut-data/zUrT43_005.pk3.sp0","ut-data/zUrT43_005.pk3.sp1","ut-data/zUrT43_005.pk3.sp2","ut-data/zUrT43_005.pk3.sp3"],"b":81670979,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_006.pk3","u":["ut-data/zUrT43_006.pk3.sp0","ut-data/zUrT43_006.pk3.sp1","ut-data/zUrT43_006.pk3.sp2","ut-data/zUrT43_006.pk3.sp3"],"b":66957810,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_007.pk3","u":["ut-data/zUrT43_007.pk3.sp0","ut-data/zUrT43_007.pk3.sp1","ut-data/zUrT43_007.pk3.sp2","ut-data/zUrT43_007.pk3.sp3"],"b":79245011,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_008.pk3","u":["ut-data/zUrT43_008.pk3.sp0","ut-data/zUrT43_008.pk3.sp1","ut-data/zUrT43_008.pk3.sp2","ut-data/zUrT43_008.pk3.sp3"],"b":70888281,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_009.pk3","u":["ut-data/zUrT43_009.pk3.sp0","ut-data/zUrT43_009.pk3.sp1","ut-data/zUrT43_009.pk3.sp2","ut-data/zUrT43_009.pk3.sp3"],"b":79055075,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_010.pk3","u":["ut-data/zUrT43_010.pk3.sp0","ut-data/zUrT43_010.pk3.sp1","ut-data/zUrT43_010.pk3.sp2","ut-data/zUrT43_010.pk3.sp3"],"b":78055708,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_011.pk3","u":["ut-data/zUrT43_011.pk3.sp0","ut-data/zUrT43_011.pk3.sp1","ut-data/zUrT43_011.pk3.sp2","ut-data/zUrT43_011.pk3.sp3"],"b":83375098,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_012.pk3","u":["ut-data/zUrT43_012.pk3.sp0","ut-data/zUrT43_012.pk3.sp1","ut-data/zUrT43_012.pk3.sp2","ut-data/zUrT43_012.pk3.sp3"],"b":81522127,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_013.pk3","u":["ut-data/zUrT43_013.pk3.sp0","ut-data/zUrT43_013.pk3.sp1","ut-data/zUrT43_013.pk3.sp2","ut-data/zUrT43_013.pk3.sp3"],"b":77745672,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_014.pk3","u":["ut-data/zUrT43_014.pk3.sp0","ut-data/zUrT43_014.pk3.sp1","ut-data/zUrT43_014.pk3.sp2","ut-data/zUrT43_014.pk3.sp3","ut-data/zUrT43_014.pk3.sp4"],"b":87697729,"m":"application/octet-stream","v":1,"pf":1},{"p":"ut-data/zUrT43_015.pk3","u":["ut-data/zUrT43_015.pk3.sp0","ut-data/zUrT43_015.pk3.sp1","ut-data/zUrT43_015.pk3.sp2","ut-data/zUrT43_015.pk3.sp3"],"b":79575542,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_016.pk3","u":["ut-data/zUrT43_016.pk3.sp0","ut-data/zUrT43_016.pk3.sp1","ut-data/zUrT43_016.pk3.sp2","ut-data/zUrT43_016.pk3.sp3","ut-data/zUrT43_016.pk3.sp4"],"b":95695538,"m":"application/octet-stream","v":1,"pf":1},{"p":"ut-data/zUrT43_017.pk3","u":["ut-data/zUrT43_017.pk3.sp0","ut-data/zUrT43_017.pk3.sp1","ut-data/zUrT43_017.pk3.sp2","ut-data/zUrT43_017.pk3.sp3"],"b":81088755,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_018.pk3","u":["ut-data/zUrT43_018.pk3.sp0","ut-data/zUrT43_018.pk3.sp1","ut-data/zUrT43_018.pk3.sp2","ut-data/zUrT43_018.pk3.sp3"],"b":76060663,"m":"application/octet-stream","v":1},{"p":"ut-data/zUrT43_019.pk3","u":["ut-data/zUrT43_019.pk3.sp0","ut-data/zUrT43_019.pk3.sp1","ut-data/zUrT43_019.pk3.sp2"],"b":46012128,"m":"application/octet-stream","v":1,"pf":1},{"p":"ut-data/zUrT43_qvm.pk3","u":["ut-data/zUrT43_qvm.pk3"],"b":565005,"m":"application/octet-stream","pf":1}]};</script>
+<script data-surd="1">(function () {
+  var M = window.SURD_GAME;
+  var table = M && M.split;
+  if (!table || !table.length) return;
+  var base = String(M.base || '').replace(/\/?$/, '/');
+  var byPath = {};
+  var i;
+  for (i = 0; i < table.length; i++) byPath[table[i].p] = table[i];
+  var blobs = {};
+  var urlOf = {};
+  var pending = {};
+  function partUrls(e) {
+    var out = [];
+    for (var k = 0; k < e.u.length; k++) out.push(base + e.u[k]);
+    return out;
+  }
+  function match(url) {
+    if (typeof url !== 'string') {
+      if (!url || typeof url.url !== 'string') return null;
+      url = url.url;
+    }
+    var q = url.split('#')[0].split('?')[0];
+    try { q = decodeURIComponent(q); } catch (e) {}
+    q = q.replace(/^\.\//, '');
+    try {
+      var ext = M && M.ext;
+      if (ext && ext[q]) q = ext[q];
+    } catch (e) {}
+    var hit = exact(q);
+    return hit || virtualPart(q);
+  }
+  function exact(q) {
+    for (var p in byPath) {
+      if (q === p || q === base + p) return byPath[p];
+      if (q.length > p.length && q.slice(-(p.length + 1)) === '/' + p) return byPath[p];
+    }
+    return null;
+  }
+  var firstIdx = {};
+  var EMPTY = { p: ' empty', u: [], b: 0, m: 'application/octet-stream' };
+  function virtualPart(q) {
+    var m = q.match(/^(.*)\.part(\d+)$/i);
+    if (!m) return null;
+    var e = exact(m[1]);
+    if (!e || !e.v) return null;
+    var n = +m[2];
+    if (!(e.p in firstIdx)) firstIdx[e.p] = n;
+    return n === firstIdx[e.p] ? e : EMPTY;
+  }
+  function finish(e, parts) {
+    var blob = new Blob(parts, { type: e.m || 'application/octet-stream' });
+    if (e.b && blob.size !== e.b) throw new Error('surd: ' + e.p + ' reassembled to ' + blob.size + ', expected ' + e.b);
+    var u = URL.createObjectURL(blob);
+    blobs[u] = blob; urlOf[e.p] = u;
+    return u;
+  }
+  function mirrorUrl(url) {
+    var m = /^https:\/\/cdn\.jsdelivr\.net\/gh\/([^/]+)\/([^@/]+)@([^/]+)\/(.*)$/.exec(url || '');
+    return m ? 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + m[3] + '/' + m[4] : null;
+  }
+  var TRANSIENT = { 403: 1, 408: 1, 425: 1, 429: 1, 500: 1, 502: 1, 503: 1, 504: 1, 522: 1 };
+  function fetchPart(url, attempt) {
+    attempt = attempt || 1;
+    var alt = mirrorUrl(url);
+    var target = (alt && attempt % 2 === 0) ? alt : url;
+    return nativeFetch(target).then(function (r) {
+      if (r.ok) return r.blob();
+      var e = new Error('surd: ' + r.status + ' on ' + target);
+      e.status = r.status;
+      throw e;
+    })['catch'](function (err) {
+      var retryable = !err.status || TRANSIENT[err.status];
+      if (attempt >= 4 || (!retryable && attempt > 1)) throw err;
+      return new Promise(function (r) { setTimeout(r, Math.min(8000, 400 * attempt * attempt)); })
+        .then(function () { return fetchPart(url, attempt + 1); });
+    });
+  }
+  function assemble(e) {
+    if (urlOf[e.p]) return Promise.resolve(urlOf[e.p]);
+    if (pending[e.p]) return pending[e.p];
+    var urls = partUrls(e);
+    var got = new Array(urls.length);
+    var next = 0;
+    function lane() {
+      if (next >= urls.length) return Promise.resolve();
+      var n = next++;
+      return fetchPart(urls[n]).then(function (b) { got[n] = b; return lane(); });
+    }
+    var lanes = [];
+    for (var k = 0; k < Math.min(6, urls.length); k++) lanes.push(lane());
+    var p = Promise.all(lanes).then(function () { return finish(e, got); });
+    pending[e.p] = p;
+    return p;
+  }
+  function syncBytes(url) {
+    var x = new NativeXHR();
+    nativeOpen.call(x, 'GET', url, false);
+    if (x.overrideMimeType) x.overrideMimeType('text/plain; charset=x-user-defined');
+    nativeSend.call(x, null);
+    if (x.status && x.status !== 200 && x.status !== 0) throw new Error('surd: ' + x.status + ' on ' + url);
+    var s = x.responseText, n = s.length, a = new Uint8Array(n);
+    for (var k = 0; k < n; k++) a[k] = s.charCodeAt(k) & 0xff;
+    return a;
+  }
+  function assembleSync(e) {
+    if (urlOf[e.p]) return urlOf[e.p];
+    var urls = partUrls(e), got = [];
+    for (var k = 0; k < urls.length; k++) got.push(syncBytes(urls[k]));
+    var u = finish(e, got);
+    pending[e.p] = Promise.resolve(u);
+    return u;
+  }
+  var nativeFetch = window.fetch && window.fetch.bind(window);
+  if (nativeFetch) {
+    window.fetch = function (input, init) {
+      var e = match(typeof input === 'string' ? input : input);
+      if (!e) return nativeFetch(input, init);
+      if (init && init.method && String(init.method).toUpperCase() === 'HEAD') {
+        return Promise.resolve(new Response(null, { status: 200, headers: { 'Content-Length': String(e.b || 0) } }));
+      }
+      return assemble(e).then(function (u) { return nativeFetch(u); });
+    };
+  }
+  var NativeXHR = window.XMLHttpRequest;
+  var XP = NativeXHR.prototype;
+  var nativeOpen = XP.open, nativeSend = XP.send;
+  XP.open = function (method, url, async) {
+    var e = match(url);
+    this.__surdSplit = e || null;
+    if (e) {
+      this.__surdArgs = Array.prototype.slice.call(arguments);
+      this.__surdSync = async === false;
+      if (this.__surdSync) {
+        try { return nativeOpen.apply(this, [method, assembleSync(e), false].concat(Array.prototype.slice.call(arguments, 3))); }
+        catch (err) { this.__surdSplit = null; }
+      }
+    }
+    return nativeOpen.apply(this, arguments);
+  };
+  XP.send = function (body) {
+    var e = this.__surdSplit;
+    if (!e || this.__surdSync) return nativeSend.apply(this, arguments);
+    var self = this, args = this.__surdArgs;
+    assemble(e).then(function (u) {
+      args[1] = u;
+      nativeOpen.apply(self, args);
+      nativeSend.call(self, body);
+    })['catch'](function (err) {
+      try { if (self.onerror) self.onerror({ target: self, message: String(err && err.message || err) }); } catch (x) {}
+    });
+  };
+  function script(path) {
+    var e = byPath[path] || match(path);
+    if (!e) { throw new Error('surd: no split entry for script ' + path); }
+    var urls = partUrls(e), chunks = [], total = 0, k;
+    for (k = 0; k < urls.length; k++) { chunks.push(syncBytes(urls[k])); total += chunks[k].length; }
+    var all = new Uint8Array(total), at = 0;
+    for (k = 0; k < chunks.length; k++) { all.set(chunks[k], at); at += chunks[k].length; }
+    if (e.b && total !== e.b) throw new Error('surd: ' + e.p + ' reassembled to ' + total + ', expected ' + e.b);
+    var code = new TextDecoder('utf-8').decode(all);
+    (0, eval)(code + '\n//# sourceURL=' + base + e.p);
+  }
+  window.SURD_SPLIT = { blobs: blobs, match: match, assemble: assemble, script: script };
+  var pf = [];
+  for (i = 0; i < table.length; i++) if (table[i].pf) pf.push(table[i]);
+  if (pf.length) {
+    var st = { total: pf.length, done: 0, bytes: 0, doneBytes: 0, failed: 0 };
+    for (i = 0; i < pf.length; i++) st.bytes += pf[i].b || 0;
+    window.SURD_PREFETCH = st;
+    var next = 0, LANES = 2;
+    var pump = function () {
+      if (next >= pf.length) return;
+      var e = pf[next++];
+      assemble(e)['catch'](function () { st.failed++; })
+        .then(function () { st.done++; st.doneBytes += e.b || 0; pump(); });
+    };
+    for (i = 0; i < LANES && i < pf.length; i++) pump();
+  }
+})();</script>
+<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/gh/playsurd/surd-runtime@main/v53aeb7210d/runtime.js"></script>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="color-scheme" content="dark">
+<title>Urban Terror</title>
+<script>
+/* Mute when the tab is hidden: the game loop pauses in background tabs but WebAudio keeps replaying its
+   last buffer (the stuttering repeat). Track every AudioContext the engine creates and suspend/resume them. */
+(function(){try{var x=[];var O=window.AudioContext||window.webkitAudioContext;if(!O)return;
+var W=function(){var c=new O(arguments[0]);x.push(c);return c;};W.prototype=O.prototype;window.AudioContext=W;if(window.webkitAudioContext)window.webkitAudioContext=W;
+document.addEventListener('visibilitychange',function(){for(var i=0;i<x.length;i++){try{if(document.hidden)x[i].suspend();else x[i].resume();}catch(e){}}});}catch(e){}})();
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#000;color:#cdd3b6;font-family:"Courier New",monospace;overflow:hidden}
+#ldcard{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:10;padding:1rem;background:rgba(10,11,8,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid #333;border-radius:4px;color:#fff;font-family:Arial,Helvetica,sans-serif}
+#ldstage{font-size:.875rem;font-weight:600;margin-bottom:.25rem}
+#ldcur,#ldmb,#ldeta{font-size:.75rem;color:#a1a1aa;font-family:"Courier New",monospace}
+#ldcur{margin-bottom:.5rem}
+#ldbar{height:.5rem;background:#27272a;border-radius:999px;overflow:hidden}
+#ldfill{height:100%;width:0;background:#c7d86b;transition:width .2s}
+#ldmb{margin-top:.5rem}#ldeta{margin-top:.25rem}
+#ldtip{font-size:.75rem;color:#a1a1aa;margin-top:.5rem}
+canvas{display:block;width:100vw;height:100vh;object-fit:contain;background:#000;outline:none}
+</style></head><body>
+<div id=ldcard><div id=ldstage>Initializing</div><div id=ldcur>Preparing downloads</div><div id=ldbar><div id=ldfill></div></div><div id=ldmb></div><div id=ldeta></div><div id=ldtip>Tip: Game data is cached after first load.</div></div>
+<canvas id=canvas oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+<style>#canvas:not(.ptrlock){cursor:default!important}</style>
+<script>
+/* Pointer-lock policy: while the pointer is NOT locked the game must not see the mouse at all
+   (SDL otherwise turns the view from a free cursor) and the real OS cursor is shown. A click on
+   the canvas locks the pointer (the click is swallowed so it doesn't fire a shot); Esc releases
+   it (browser-native). The engine's own pointer-lock requests are suppressed so a keypress can't
+   lock it - only our click does. Registered before the engine loads so these capture-phase
+   listeners run first. */
+(function(){
+  var c=document.getElementById('canvas'), allow=false, armed=false;
+  var proto=Element.prototype, orig=proto.requestPointerLock;
+  if(orig) proto.requestPointerLock=function(){ if(!allow) return (typeof Promise!=='undefined')?Promise.resolve():undefined; return orig.apply(this,arguments); };
+  function locked(){ return document.pointerLockElement===c; }
+  function sync(){ c.classList.toggle('ptrlock',locked()); }
+  document.addEventListener('pointerlockchange',sync); document.addEventListener('pointerlockerror',sync); sync();
+  function stop(e){ e.stopImmediatePropagation(); e.stopPropagation(); }
+  // Keep window resizes / fullscreen changes away from the engine: SDL would report a new
+  // canvas size and the engine would do a full vid_restart (several seconds of loading
+  // screen). The render size stays fixed; CSS object-fit letterboxes it (black bars).
+  ['resize','fullscreenchange','webkitfullscreenchange','orientationchange'].forEach(function(t){ addEventListener(t,function(e){ e.stopImmediatePropagation(); },true); });
+  function swallow(e){ if(!locked()) stop(e); }
+  addEventListener('mousedown',function(e){
+    if(locked()) return;
+    stop(e); e.preventDefault();
+    if(e.target!==c) return;
+    allow=true; try{ var r=orig?orig.call(c):undefined; if(r&&r.catch) r.catch(function(){}); }catch(_){} allow=false;
+    armed=true; try{ c.focus(); }catch(_){}
+  },true);
+  addEventListener('mouseup',function(e){ if(armed){ armed=false; stop(e); return; } swallow(e); },true);
+  ['mousemove','click','dblclick','wheel','contextmenu','auxclick'].forEach(function(t){ addEventListener(t,swallow,true); });
+})();
+</script>
+<script type="module">
+// The engine sets document.title to "ioquake3" via SDL_SetWindowTitle; keep the page's own title.
+{ const t=document.title; Object.defineProperty(document,'title',{configurable:true,get:()=>t,set:()=>{}}); }
+// Loading card (same layout as q3.pieter.com): stage, current item, bar, MB, ETA, tip.
+const $=id=>document.getElementById(id); let stage='initializing', t0=0, g0=0;
+const STAGES={initializing:'Initializing',downloading:'Downloading game data',launching:'Launching'};
+function prog(st,cur,got,total){
+  stage=st; $('ldstage').textContent=STAGES[st]; $('ldcur').textContent=st==='downloading'?'Downloading: '+cur:cur;
+  if(total){ $('ldfill').style.width=(got/total*100).toFixed(1)+'%'; $('ldmb').textContent=(got/1048576).toFixed(1)+' MB / '+(total/1048576).toFixed(1)+' MB'; }
+  let eta=''; if(st==='downloading'&&total){ const n=Date.now(); if(!t0){t0=n;g0=got;} const r=(got-g0)/((n-t0)/1000); if(n-t0>2000&&r>0) eta='ETA: '+Math.round((total-got)/r)+'s'; }
+  $('ldeta').textContent=eta;
+  $('ldtip').textContent=st==='downloading'?'Tip: Game data is cached after first load.':'Tip: Click the screen to capture the mouse. Esc releases it. Alt+Enter for fullscreen.';
+}
+function m(t){ $('ldcur').textContent=t; }
+// The server rotated to a map whose pk3 this page didn't have when it loaded (new maps are added to
+// PAKS + R2 first; already-open pages don't know). The engine then prints "Couldn't load maps/X.bsp"
+// and drops to the menu. Reload once per map name: the loader fetches the missing pak and reconnects.
+// sessionStorage guards against a reload loop if the pak really is missing from the list.
+function autoReloadOnMissingMap(t){
+  const mm=/Couldn't load maps\/([a-z0-9_\-]+)\.bsp|Can't find map ([a-z0-9_\-]+)/i.exec(t); if(!mm) return;
+  const map=mm[1]||mm[2], key='ut_autoreload_'+map;
+  try{ if(sessionStorage.getItem(key)) return; sessionStorage.setItem(key,'1'); }catch(e){}
+  $('ldcard').style.display=''; prog('initializing','New map "'+map+'" on the server - fetching its data and reconnecting...');
+  setTimeout(()=>location.reload(), 1500);
+}
+// Automated browsers (webdriver) must not load the engine and join the server.
+
+const qs=new URLSearchParams(location.search);
+let name=(qs.get('name')||(function(){try{return localStorage.getItem('surd_player_name')}catch(e){return ''}})()||'Player').replace(/[^A-Za-z0-9 _.\[\]-]/g,'').trim().slice(0,20)||'Player';
+// A personal armband colour (FFA skins are all the same 'free' colour; armbands are per player with g_armbands 1).
+// Random bright colour, remembered per browser.
+let armband = null; try { armband = localStorage.getItem('ut_armband'); } catch(e) {}
+if (!armband) { const h = Math.random(); const f = (n) => { const k = (n + h * 6) % 6; return Math.round(255 * (1 - Math.max(0, Math.min(k, 4 - k, 1)))); };
+  armband = `${f(5)} ${f(3)} ${f(1)}`; try { localStorage.setItem('ut_armband', armband); } catch(e) {} }
+const sid=(self.crypto&&crypto.randomUUID?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2)));
+const wsUrl='wss://ut.pieter.com/connect?sid='+sid;
+const PAKS=[["zUrT43_001.pk3", 77799633], ["zUrT43_002.pk3", 73378053], ["zUrT43_003.pk3", 67657413], ["zUrT43_004.pk3", 79753661], ["zUrT43_005.pk3", 81670979], ["zUrT43_006.pk3", 66957810], ["zUrT43_007.pk3", 79245011], ["zUrT43_008.pk3", 70888281], ["zUrT43_009.pk3", 79055075], ["zUrT43_010.pk3", 78055708], ["zUrT43_011.pk3", 83375098], ["zUrT43_012.pk3", 81522127], ["zUrT43_013.pk3", 77745672], ["zUrT43_014.pk3", 87697729], ["zUrT43_015.pk3", 79575542], ["zUrT43_016.pk3", 95695538], ["zUrT43_017.pk3", 81088755], ["zUrT43_018.pk3", 76060663], ["zUrT43_019.pk3", 46012128], ["zUrT43_020.pk3", 4587832], ["zUrT43_021.pk3", 7506845], ["zUrT43_qvm.pk3", 565005], ["ut4_ericeira.pk3", 7846551], ["ut4_lisbon.pk3", 10367454]];
+const TOTAL=PAKS.reduce((a,p)=>a+p[1],0);
+// ?debug=1: count WebGL draw calls per frame + engine output, beacon to /dbg (nginx access log)
+const DBG=qs.get('debug')==='1'; const dbgLines=[];
+if(DBG){
+  let draws=0; const frames=[];
+  for(const C of [self.WebGLRenderingContext,self.WebGL2RenderingContext]) if(C) for(const f of ['drawElements','drawArrays']){
+    const o=C.prototype[f]; C.prototype[f]=function(){draws++;return o.apply(this,arguments);}; }
+  const raf=self.requestAnimationFrame.bind(self);
+  self.requestAnimationFrame=cb=>raf(t=>{ cb(t); frames.push(draws); draws=0; });
+  setInterval(()=>{
+    const f=frames.splice(0); if(!f.length&&!dbgLines.length) return;
+    const nz=f.filter(x=>x>0).sort((a,b)=>a-b), med=nz.length?nz[nz.length>>1]:0;
+    const st='fr='+f.length+' zero='+(f.length-nz.length)+' med='+med+' low='+nz.filter(x=>x<med/3).length+' seq='+f.join(',');
+    const body=(st+' | '+dbgLines.splice(0,40).join(" ~ ")).slice(0,2500);
+    fetch('/dbg?sid='+sid.slice(0,8)+'&d='+encodeURIComponent(body),{cache:'no-store'}).catch(()=>{});
+  },1000);
+}
+const factory=(await import('./eng5/ioquake3_opengl2.wasm32.js')).default;
+// Start at the canvas's real CSS size: SDL reports that size on window creation and ioq3
+// does a vid_restart (reloading the level/loading screen) whenever it differs from r_custom*.
+const cv=document.getElementById('canvas'),cr=cv.getBoundingClientRect();
+const vw=Math.max(320,Math.floor(cr.width)||innerWidth),vh=Math.max(240,Math.floor(cr.height)||innerHeight);
+await factory({
+  canvas: document.getElementById('canvas'),
+  websocket: { url: wsUrl, subprotocol: 'binary' },
+  arguments: ['+set','com_basegame','q3ut4','+set','fs_game','q3ut4','+set','com_protocol','68',
+    '+set','sv_pure','0','+set','cl_allowDownload','0','+set','cg_drawclock','0','+set','cg_drawCrosshairNames','1','+set','cg_rgb',armband,'+set','cg_crosshairNamesSize','0.3','+set','r_mode','-1','+set','r_customwidth',String(vw),'+set','r_customheight',String(vh),'+set','r_fullscreen','0',
+    '+set','name',name,'+seta','name',name,'+set','rate','90000','+set','snaps','20','+set','cl_maxpackets','60','+set','cl_timeNudge','30','+set','com_maxfps','125',
+    ...(DBG?['+set','developer','1']:[]),'+connect','127.0.0.1:27965'],
+  print:(t)=>{console.log(t); autoReloadOnMissingMap(t); if(DBG) dbgLines.push(t);}, printErr:(t)=>{console.log(t); autoReloadOnMissingMap(t); if(DBG) dbgLines.push(t);},
+  setStatus:(t)=>{ if(t) m(t); },
+  preRun:[async (module)=>{
+    module.addRunDependency('utpaks');
+    const FS=module.FS;
+    try{ FS.mkdir('/q3ut4'); }catch(e){}
+    FS.mount(FS.filesystems.IDBFS,{},'/q3ut4');
+    // Player settings: the engine keeps q3config.cfg (gear/loadout, binds, sensitivity, ...) in its home path.
+    // Persist that folder in IndexedDB too, so options survive reloads (saved every 20 s + when leaving the tab).
+    const HOME='/home/web_user/.q3a';
+    for(const d of ['/home','/home/web_user',HOME]){ try{ FS.mkdir(d); }catch(e){} }
+    try{ FS.mount(FS.filesystems.IDBFS,{},HOME); }catch(e){ console.warn('settings storage unavailable',e); }
+    prog('initializing','Loading game data from browser storage');
+    await new Promise(r=>FS.syncfs(true,()=>r()));
+    try{ const keep=new Set(PAKS.map(p=>p[0])); let dirty=false; for(const f of FS.readdir('/q3ut4')) if(/\.pk3$/i.test(f)&&!keep.has(f)){ try{ FS.unlink('/q3ut4/'+f); dirty=true; }catch(e){} } if(dirty) await new Promise(r=>FS.syncfs(false,()=>r())); }catch(e){}  // remove paks dropped from the list
+    let got=0; const have=p=>{try{return FS.stat('/q3ut4/'+p[0]).size===p[1];}catch(e){return false;}};
+    for(const p of PAKS) if(have(p)) got+=p[1];
+    prog('initializing','Checking game data',got,TOTAL);
+    for(const p of PAKS){
+      if(have(p)) continue;
+      prog('downloading',p[0],got,TOTAL);
+      const res=await fetch('ut-data/'+p[0]); const rd=res.body.getReader(); const chunks=[]; let n=0;
+      for(;;){ const r=await rd.read(); if(r.done) break; chunks.push(r.value); n+=r.value.length; got+=r.value.length;
+        prog('downloading',p[0],got,TOTAL); }
+      const all=new Uint8Array(n); let o=0; for(const c of chunks){ all.set(c,o); o+=c.length; }
+      FS.writeFile('/q3ut4/'+p[0], all);
+      await new Promise(r=>FS.syncfs(false,()=>r()));  // persist each pak immediately -> mid-download reloads resume
+    }
+    prog('launching','Saving to browser storage',got,TOTAL); await new Promise(r=>FS.syncfs(false,()=>r()));
+    prog('launching','Starting Urban Terror',TOTAL,TOTAL);
+    module.removeRunDependency('utpaks');
+    $('ldcard').style.display='none'; document.getElementById('canvas').focus();
+    let saving=false; const saveSettings=()=>{ if(saving) return; saving=true; try{ FS.syncfs(false,()=>{saving=false;}); }catch(e){ saving=false; } };
+    setInterval(saveSettings,20000);
+    document.addEventListener('visibilitychange',()=>{ if(document.hidden) saveSettings(); });
+    addEventListener('pagehide',saveSettings);
+  }]
+});
+</script>
+<!-- Alt+Enter fullscreen: opt-in via keypress, never auto-fullscreens. Handled at the DOM level inside the real user gesture. -->
+<style>#canvas:fullscreen,#canvas:-webkit-full-screen{width:100vw!important;height:100vh!important;object-fit:contain}</style>
+<script>(function(){function cur(){return document.fullscreenElement||document.webkitFullscreenElement}function exit(){var x=document.exitFullscreen||document.webkitExitFullscreen;if(x)try{x.call(document)}catch(e){}}function enter(el){if(!el)return;var r=el.requestFullscreen||el.webkitRequestFullscreen;if(!r)return;try{var p=r.call(el);if(p&&p.catch)p.catch(function(e){console.warn('fullscreen blocked',e)})}catch(e){console.warn('fullscreen blocked',e)}}addEventListener('keydown',function(e){if(e.altKey&&(e.code==='Enter'||e.key==='Enter'||e.keyCode===13)){e.preventDefault();e.stopImmediatePropagation();if(cur())exit();else enter(document.getElementById('canvas'))}},true)})();</script>
+<script crossorigin="anonymous" src="assets/touch-controls.js"></script><script>PieterTouch.autoStart({layout:"wasd"})</script></body></html>
